@@ -1,3 +1,12 @@
+Joerg: bioparen (m vorigin) reinspielen
+mig_gen_c_hv bei fehlern ersetzen
+neu hochladen
+staatenlose neu kodieren
+
+Melanie: origin short
+
+
+
 Joerg:
 - Fragen im Do-File anschauen
 - soep-info bilden
