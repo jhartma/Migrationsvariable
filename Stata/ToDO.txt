@@ -1,9 +1,9 @@
-Joerg: bioparen (m vorigin) reinspielen
-mig_gen_c_hv bei fehlern ersetzen
-neu hochladen
-staatenlose neu kodieren
+Joerg: - bioparen (m vorigin) reinspielen
+       - mig_gen_c_hv bei fehlern ersetzen
+       - neu hochladen
+       - staatenlose neu kodieren
 
-Melanie: origin short
+Melanie: - origin short
 
 
 
