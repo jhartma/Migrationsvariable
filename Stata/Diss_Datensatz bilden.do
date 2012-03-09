@@ -20,13 +20,18 @@
 	************ Globals *********
 	******************************
 	
-	global dir= "F:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/" // Arbeitsverzeichnis der relginaldatensaetze 
-	global AVZ= "F:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Diss/" // Arbeitsverzeichnis der neu generierten Datensaetze und anderer Ordner
-	global temp="F:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Diss/" //Temporaerer Arbeitsspeicher
-	global LoFi="F:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Diss/" // Ordner fuer Log-Files
-	global DoFi="F:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Diss/" // Ordner fuer Do-Files 
+	* global dir= "F:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/" // Arbeitsverzeichnis der relginaldatensaetze 
+	* global AVZ= "F:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Diss/" // Arbeitsverzeichnis der neu generierten Datensaetze und anderer Ordner
+	* global temp="F:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Diss/" //Temporaerer Arbeitsspeicher
+	* global LoFi="F:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Diss/" // Ordner fuer Log-Files
+	* global DoFi="F:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Diss/" // Ordner fuer Do-Files 
 	
-
+	global dir= "/home/Knut/Documents/UniGoettingen/SOEP2010/" // Arbeitsverzeichnis der relginaldatensaetze 
+	global AVZ= "/home/Knut/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/" // Arbeitsverzeichnis der neu generierten Datensaetze und anderer Ordner
+	global temp="/home/Knut/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/" //Temporaerer Arbeitsspeicher
+	global LoFi="/home/Knut/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/" // Ordner fuer Log-Files
+	global DoFi="/home/Knut/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/" // Ordner fuer Do-Files 
+	
 	
 	******************************
 	********** Gliederung ********
