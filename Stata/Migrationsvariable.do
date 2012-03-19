@@ -1559,8 +1559,8 @@ use ${AVZ}miggen_mig_gen_c.dta, clear
 	2 "Staatsbuergerschaft" ///
 	3 "Geburtsland und SBS" ///
 	4 "Nur Proxy Migback" ///
-	*5 "Nur Proxy Living" // Wenn irrelevant, wuerde ich das loeschen
-	val lab soep_info soep_info
+	// 5 "Nur Proxy Living" // Wenn irrelevant, wuerde ich das loeschen
+	lab val soep_info soep_info
 
 *******************************************************************************************************************
 *** 3.2. Origin-Variablen *****************************************************************************************
@@ -1691,12 +1691,10 @@ gen grosseltern_geb_hv=.
 	lab var grosseltern_geb_hv "Hilfsvariable Grosseltern aus demselben Land" 
 	lab def grosseltern_geb_hv 1 "Grosseltern aus demselben Land" ///
 	0 "Grosseltern aus unterschiedlichen Laendern" ///
-	-1 "nur 1 Grosselternteil migriert" ///
+	-1 "nur 1 Grosselternteil migriert"
 	lab val grosseltern_geb_hv grosseltern_geb_hv
 
 	tab grosseltern_geb_hv
-
-
 
 ***************************************************************************************************
 *** 3.2.2 Herkunftsland-Variable origin ***********************************************************
@@ -2017,7 +2015,7 @@ gen grosseltern_geb_hv1=.
 	lab var grosseltern_geb_hv1 "Hilfsvariable Grosseltern aus demselben Land_kat" 
 	lab def grosseltern_geb_hv1 1 "Grosseltern aus demselben Land" ///
 	0 "Grosseltern aus unterschiedlichen Laendern" ///
-	-1 "nur 1 Grosselternteil migriert" ///
+	-1 "nur 1 Grosselternteil migriert"
 	lab val grosseltern_geb_hv1 grosseltern_geb_hv1
 
 	tab grosseltern_geb_hv1

@@ -31,7 +31,7 @@
 	global temp="/home/Knut/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/" //Temporaerer Arbeitsspeicher
 	global LoFi="/home/Knut/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/" // Ordner fuer Log-Files
 	global DoFi="/home/Knut/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/" // Ordner fuer Do-Files 
-	
+	global Mig ="/home/Knut/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/" // Ordner der Migrationsvariable
 	
 	******************************
 	********** Gliederung ********
@@ -61,7 +61,7 @@
 	keep wj6001 wj6002 wj61 wj6201 wj63 wj64 wj65 wj67 wj6601 wj6602 wj6801 wj69 persnr hhnr
 	sort persnr
 
-* Datensatzzusammenfuehrung und Beibehaltung ausgewaehlter Variablen*** --> FRAGE: MüßTE DAS NICHT APPEND SEIN?
+* Datensatzzusammenfuehrung und Beibehaltung ausgewaehlter Variablen*** --> FRAGE: MüßTE DAS NICHT APPEND SEIN?   JH: nein, merge ist richtig
 	cd ${dir}
 	foreach file in xpage17.dta ypage17.dta zpage17.dta bapage17.dta{
 	merge 1:1 persnr using "`file'", keepusing (hhnr *j6001 *j6002 *j61 *j62 *j63 *j64 *j65 *j67 *j6601 *j6602 *j68 *j69)
@@ -450,7 +450,7 @@
 
 * Ranspielen Infos für Kind aus dem Datensatz von Elisabeth
 	sort persnr
-	merge m:1 persnr using ${AVZ}wjugend.dta
+	merge m:1 persnr using ${AVZ}Elisabeth/wjugend.dta
 	tab _merge
 	drop _merge
 
@@ -476,3 +476,7 @@
 
 drop hhnr
 rename kindhhnr hhnr
+
+sort persnr
+
+save ${AVZ}melanie_jugendliche.dta, replace
