@@ -730,8 +730,13 @@ sort persnr
 merge persnr using elternzeiger2.dta
 drop _merge
 
+* Melanies Do-File stattdessen!
+* sort persnr
+* merge persnr using page17_mig.dta
+* drop _merge
+
 sort persnr
-merge persnr using page17_mig.dta
+merge persnr using melanie_jugendliche.dta  // hier eventuell nicht alle Variablen mitnehmen, sondern aussortieren
 drop _merge
 
 sort persnr 
@@ -1404,10 +1409,9 @@ use ${AVZ}miggen_mig_gen_c.dta, clear
 	replace mig_gen_cn=3 if (germborn==1 | (mig_gen_c_hv==-1 & r_nation_zp <=0) | (mig_gen_c_hv==-1 & r_nation_zp==1 & Deu_seit_zp==1)) ///
 	& ((germborn_f<=0 & r_nation_f>=2) & (germborn_m<=0 & r_nation_m>=2))
 
-*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ERROR !!!!!!!!!!!!!!!!!!!!!!
 * Mutter und Vater Missing beim Gebland, aber ein Elternteil hat auslaendische SBS und dessen Grosseltern aus Deutschland oder Missing --> 5: 2,5. Generation
-	replace mig_gen_cn=5 if (germborn==1 | (mig_gen_c_hv==-1 & r_nation_zp <=0) | (mig_gen_hv==-1 & r_nation_zp==1 & Deu_seit_zp==1)) ///
-	& (((germborn_f<=0 & germborn_m<=0) & (r_nation_f>=2 & r_nation_m<=1) & ((germborn_m_f==1 | germborn_m_f<=0) & (germborn_m_m==1 | germborn_m_m<=0)))///
+	replace mig_gen_cn=5 if (germborn==1 | (mig_gen_c_hv==-1 & r_nation_zp <=0) | (mig_gen_c_hv==-1 & r_nation_zp==1 & Deu_seit_zp==1)) ///
+	& (((germborn_f<=0 & germborn_m<=0) & (r_nation_f>=2 & r_nation_m<=1) & ((germborn_m_f==1 | germborn_m_f<=0) & (germborn_m_m==1 | germborn_m_m<=0))) ///
 	| ((germborn_f<=0 & germborn_m<=0) & (r_nation_m>=2 & r_nation_f<=1) & ((germborn_f_f==1 | germborn_f_f<=0) & (germborn_f_m==1 | germborn_f_m<=0))))
 
 * Mutter und Vater Missing beim Gebland, aber ein Elternteil hat auslaendische SBS und mindestens ein Grosselternteil vom deutschen Elternteil im Ausland geboren --> 4: 2,5. Generation
@@ -1528,7 +1532,7 @@ use ${AVZ}miggen_mig_gen_c.dta, clear
 ***************************************************************************************************
 * TODO
 
-*** HINWEIS MO: JETZIGE BILDUNG SOEPINFO BEZIEHT SICH NUR AUF ZP! WIR HABEN ABER AUCH DIE ELTERN- UND GROÃŸELTERNINFO!
+*** HINWEIS MO: JETZIGE BILDUNG SOEPINFO BEZIEHT SICH NUR AUF ZP! WIR HABEN ABER AUCH DIE ELTERN- UND GROßELTERNINFO!
 
 * Vorbereitung
 	gen soep_info=.
