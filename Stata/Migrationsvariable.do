@@ -78,7 +78,7 @@ log using "${LoFi}miggen.log", replace
 		1.9 	Elternzeiger (von Sabine Keller) - Output: elternzeiger.dta 
 				1.9.1 Eltern
 				1.9.2 Grosseltern
-				1.9.3 Zusammenfüehrung von Eltern und Grosseltern 
+				1.9.3 Zusammenfï¿½ehrung von Eltern und Grosseltern 
 		1.10 	Mergen aller Datensaetze - Output: miggen.dta	
 		2. 	Bildung von Hilfsvariablen
 		2.1 Eltern und Grosseltern (gebjahr, germborn, corigin, nation immiyear, BIIGRP, Deu_seit, biimgrp, staatsang)			
@@ -1527,6 +1527,9 @@ use ${AVZ}miggen_mig_gen_c.dta, clear
 *** 3.1.3 soep_info - Muss noch gemacht werden ... ************************************************
 ***************************************************************************************************
 * TODO
+
+*** HINWEIS MO: JETZIGE BILDUNG SOEPINFO BEZIEHT SICH NUR AUF ZP! WIR HABEN ABER AUCH DIE ELTERN- UND GROÃŸELTERNINFO!
+
 * Vorbereitung
 	gen soep_info=.
 
@@ -1711,7 +1714,7 @@ gen grosseltern_geb_hv=.
 * Fuer die 2,5. Generation: Wenn Vater oder Mutter im Ausland geboren, dann Geburtsland des jeweiligen Elternteils nehmen
 * Fuer die 3.; 3,25., 3,5. und 3,75. Generation: Das Geburtsland des jeweils im Ausland geborenen Grosselternteils wird fuer origin_zp genutzt. Vorgehen analog wie bei der 2. Generation
 * Grundsaetzlich: Wenn Geburtsland-Info nicht fuer alle bekannt, dann werden die Informationen genutzt, die vorhanden sind (und Vermerk in der Hilfsvariable)
-* Grundsaetzlich 2: Wenn verschiedene Geburtslaender, dann zu „sonstigen“
+* Grundsaetzlich 2: Wenn verschiedene Geburtslaender, dann zu ï¿½sonstigenï¿½
 
 
 
@@ -1829,7 +1832,7 @@ gen grosseltern_geb_hv=.
 
 	lab var origin_long "Herkunftsland long"
 
-*** XXX Auspraegungen noch Labeln, wenn die endgueltigen bekannt (Deutschland (DDR) + EU West fehlt bei den rekodierten Variablen m.W. noch --> EU West habe ich jetzt mal 555 gegeben; siehe auch Sheet Laendercodierung)XXX
+*** XXX Auspraegungen noch Labeln, wenn die endgueltigen bekannt XXX
 
 	tab origin_long mig_gen_cn
 	tab origin_long mig_gen_c
@@ -1839,7 +1842,7 @@ gen grosseltern_geb_hv=.
 
 
 ***************************************************************************************************
-*** 3.2.2.2 origin_short***************************************************************************
+*** 3.2.2.2 origin_short **************************************************************************
 ***************************************************************************************************
 
 
@@ -1848,24 +1851,311 @@ gen grosseltern_geb_hv=.
 * HINWEIS: Sonstiges umfasst bei der Long-Version nur Faelle, bei denen Personen aus unterschiedlichen Laendern migriert sind; 
 * Hier kommen ausserdem diejenigen Faelle hinzu, bei denen aus Laendern migriert wurde, die nicht extra klassifiziert sind:
 
+***************************************************************************************************
+*** 1. SCHRITT: Erneutes Rekodieren der Geb- und SBS-Info analog Klassen
+***************************************************************************************************
+
+gen nr_corigin_zp2   = nr_corigin_zp
+gen nr_corigin_f2    = nr_corigin_f
+gen nr_corigin_m2    = nr_corigin_m
+gen nr_corigin_m_m2  = nr_corigin_m_m
+gen nr_corigin_m_f2  = nr_corigin_m_f
+gen nr_corigin_f_m2  = nr_corigin_f_m
+gen nr_corigin_f_f2  = nr_corigin_f_f 
+
+* HINWEIS: Deutschland; Ex-Jugoslawien und Ex-Sojetunion sind schon rekodiert
+
+foreach var of varlist nr_corigin_zp2 nr_corigin_f2 nr_corigin_m2 nr_corigin_m_m2 nr_corigin_m_f2 nr_corigin_f_m2 nr_corigin_f_f2 {
+	// West-EU (Belgien, Daenemark, Finnland, Frankreich, GB, Irland, Luxemburg, Holland, ï¿½sterreich, Portugal, Schweden)" 
+	replace `var' = 555 if `var' ==  10 // Rekodiere Ã–sterreich 
+	replace `var' = 555 if `var' ==  11 // Rekodiere Frankreich
+	replace `var' = 555 if `var' ==  12 // Rekodiere Benelux
+	replace `var' = 555 if `var' ==  13 // Rekodiere DÃ¤nemark
+	replace `var' = 555 if `var' ==  14 // Rekodiere GB
+	replace `var' = 555 if `var' ==  15 // Rekodiere Schweden
+	replace `var' = 555 if `var' ==  17 // Rekodiere Finnland
+	replace `var' = 555 if `var' ==  28 // Rekodiere Portugal
+	replace `var' = 555 if `var' ==  71 // Rekodiere Irland
+	replace `var' = 555 if `var' == 116 // Rekodiere Luxemburg
+	replace `var' = 555 if `var' == 117 // Rekodiere Belgien
+	replace `var' = 555 if `var' == 118 // Rekodiere Holland
+
+	// Sonstige LÃ¤nder
+	replace `var' =   2222 if `var' == 16
+	replace `var' =   2222 if `var' >= 18 & `var'<=21 
+	replace `var' =   2222 if `var' >= 23 & `var'<=82 
+	replace `var' =   2222 if `var' >= 84 & `var'<=333 
+
+}
+
+
+***************************************************************************************************
+*** 2. SCHRITT: Bildung neuer Eltern- und GroÃŸeltern-HVs
+***************************************************************************************************
+
+* Eltern aus demselben Land?: "eltern_geb_hv"
+* HINWEIS: Nur fuer Personen der 2. Generation!
+
+	
+	gen eltern_geb_hv1=.
+
+* 1: Beide Elternteile aus demselben Land (nicht Missing und nicht Deutschland)
+*******************************************************************************
+	replace eltern_geb_hv1 = 1 if mig_gen_cn == 3 & (nr_corigin_f2>=2 & nr_corigin_m2>=2) & (nr_corigin_f2 == nr_corigin_m2)
+
+* 0: Elternteile aus unterschiedlichen Laendern (nicht Missing und nicht Deutschland)
+************************************************************************************
+	replace eltern_geb_hv1 = 0 if mig_gen_cn == 3 & (nr_corigin_f2>=2 & nr_corigin_m2>=2) & (nr_corigin_f2 != nr_corigin_m2)
+
+* -1: Nur ein Elternteil migriert und dessen Geburtsland bekannt; anderes Elternteil deutsch oder Missing
+*********************************************************************************************************
+	replace eltern_geb_hv1=-1 if (mig_gen_cn==4 | mig_gen_cn==5) & (((nr_corigin_f2<=0 | nr_corigin_f2==1) & nr_corigin_m2>=2) | (nr_corigin_f2>=2 & (nr_corigin_m2<=0 | nr_corigin_m2==1)))
+
+* -2: Nur ein Elternteil migriert und dessen Geburtsland NICHT bekannt; anderes Elternteil deutsch oder Missing
+***************************************************************************************************************
+	replace eltern_geb_hv1=-2 if (mig_gen_cn==4 | mig_gen_cn==5) & (((nr_corigin_f2<=0 | nr_corigin_f2==1) & nr_corigin_m2<=0) | (nr_corigin_f2<=0 & (nr_corigin_m2<=0 | nr_corigin_m2==1)))
+
+* -3: Beide Elternteile migriert, EIN Geburtsland NICHT bekannt (Faelle, bei denen beide Laender nicht bekannt sind, werden im naechsten Schritt wieder rausgezogen)
+*****************************************************************************************************************************************************************
+	replace eltern_geb_hv1=-3 if mig_gen_cn==3 & (nr_corigin_f2<=0 | nr_corigin_m2<=0) 
+
+* -4: Beide Elternteile migriert, BEIDE Geburtslaender NICHT bekannt
+*******************************************************************
+	replace eltern_geb_hv1=-4 if mig_gen_cn==3 & (nr_corigin_f2<=0 & nr_corigin_m2<=0) 
+
+
+	lab var eltern_geb_hv1 "Hilfsvariable Eltern aus demselben Land_kat" 
+	lab def eltern_geb_hv1 1 "Eltern aus demselben Land" ///
+	0 "Eltern aus unterschiedlichen Laendern" ///
+	-1 "nur 1 Elternteil migriert_Gebinfo bekannt" ///
+	-2 "nur 1 Elternteil migriert_Gebinfo nicht bekannt" ///
+	-3 "beide zugewandert, fuer einen fehlt Gebinfo" ///
+	-4 "beide zugewandert, fuer beide fehlt Gebinfo"
+	lab val eltern_geb_hv1 eltern_geb_hv1
+
+	tab eltern_geb_hv1
+
+
+
+*XXX FEHLEND: Plausibilaetschecks XXX
+
+
+***************************************************************************************************
+* Grosseltern aus demselben Land?: "grosseltern_geb_hv"  *******************************************
+* HINWEIS: Nur fuer Personen der 3. und aufwaerts Generation! ***************************************
+
+
+gen grosseltern_geb_hv1=.
+
+* 1: Wenn VIER Grosselternteile zugewandert und alle aus demselben Land (nicht D und kein Missing)--> mindestens 3 von 6 moeglichen Kombinationen, muessen erfuellt sein
+********************************************************************************************************************************************************************
+	replace grosseltern_geb_hv1 = 1 if mig_gen_cn==6 & ///
+	(((nr_corigin_f_f2 == nr_corigin_f_m2) & (nr_corigin_m_f2 == nr_corigin_m_m2) & (nr_corigin_f_f2 == nr_corigin_m_f2)) ///
+	& nr_corigin_f_f2>=2) 
+
+
+* 1: Wenn DREI Grosselternteile zugewandert und alle aus demselben Land (nicht D und kein Missing)--> 6 Konstellationen moeglich 
+******************************************************************************************************************************
+	replace grosseltern_geb_hv1 = 1 if mig_gen_cn==7 ///
+	& (((nr_corigin_f_f2 == nr_corigin_f_m2) & (nr_corigin_f_f2==nr_corigin_m_f2) & (nr_corigin_f_f2 >= 2)) ///
+	| ((nr_corigin_f_f2 == nr_corigin_f_m2) & (nr_corigin_f_f2==nr_corigin_m_m2) & (nr_corigin_f_f2 >= 2)) ///
+	| ((nr_corigin_f_f2 == nr_corigin_m_f2) & (nr_corigin_m_f2==nr_corigin_m_m2) & (nr_corigin_f_f2 >= 2)) ///
+	| ((nr_corigin_f_m2 == nr_corigin_m_f2) & (nr_corigin_m_f2==nr_corigin_m_m2) & (nr_corigin_f_m2 >= 2)))
+
+
+* 1: Wenn ZWEI Grosselternteile zugewandert und alle aus demselben Land (nicht D und kein Missing) --> 6 Konstellationen moeglich 
+******************************************************************************************************************************
+	replace grosseltern_geb_hv1 = 1 if mig_gen_cn==8 ///
+	& (((nr_corigin_f_f2 == nr_corigin_f_m2) & (nr_corigin_f_f2 >= 2)) ///
+	| ((nr_corigin_f_f2 == nr_corigin_m_f2) & (nr_corigin_f_f2 >= 2)) ///
+	| ((nr_corigin_f_f2 == nr_corigin_m_m2) & (nr_corigin_f_f2 >= 2)) ///
+	| ((nr_corigin_f_m2 == nr_corigin_m_f2) & (nr_corigin_f_m2 >= 2)) ///
+	| ((nr_corigin_f_m2 == nr_corigin_m_m2) & (nr_corigin_f_m2 >= 2)) ///
+	| ((nr_corigin_m_f2 == nr_corigin_m_m2) & (nr_corigin_m_f2 >= 2)))
+
+
+* 0: Wenn VIER Grosselternteile zugewandert und mindestens eine von 6 Kombinationen aus unterschiedlichen Laendern (nicht D und kein Missing)
+*******************************************************************************************************************************************
+	replace grosseltern_geb_hv1 = 0 if mig_gen_cn==6 & ///
+	( ((nr_corigin_f_f2 != nr_corigin_f_m2) & (nr_corigin_f_f2>=2 & nr_corigin_f_m2>=2)) ///
+	| ((nr_corigin_f_f2 != nr_corigin_m_f2) & (nr_corigin_f_f2>=2 & nr_corigin_m_f2>=2)) ///
+	| ((nr_corigin_f_f2 != nr_corigin_m_m2) & (nr_corigin_f_f2>=2 & nr_corigin_m_m2>=2)) ///
+	| ((nr_corigin_f_m2 != nr_corigin_m_f2) & (nr_corigin_f_m2>=2 & nr_corigin_m_f2>=2)) ///
+	| ((nr_corigin_f_m2 != nr_corigin_m_m2) & (nr_corigin_f_m2>=2 & nr_corigin_m_m2>=2)) ///
+	| ((nr_corigin_m_f2 != nr_corigin_m_m2) & (nr_corigin_m_f2>=2 & nr_corigin_m_m2>=2)))
+
+
+* 0: Wenn DREI Grosselternteile zugewandert und mindestens 2 dieser aus unterschiedlichen Herkunftslaendern --> 6 Kombinationen (nicht D und kein Missing) 
+********************************************************************************************************************************************************
+	replace grosseltern_geb_hv1 = 0 if mig_gen_cn==7 & ///
+	( ((nr_corigin_f_f2 != nr_corigin_f_m2) & (nr_corigin_f_f2>=2 & nr_corigin_f_m2>=2)) ///
+	| ((nr_corigin_f_f2 != nr_corigin_m_f2) & (nr_corigin_f_f2>=2 & nr_corigin_m_f2>=2)) ///
+	| ((nr_corigin_f_f2 != nr_corigin_m_m2) & (nr_corigin_f_f2>=2 & nr_corigin_m_m2>=2)) ///
+	| ((nr_corigin_f_m2 != nr_corigin_m_f2) & (nr_corigin_f_m2>=2 & nr_corigin_m_f2>=2)) ///
+	| ((nr_corigin_f_m2 != nr_corigin_m_m2) & (nr_corigin_f_m2>=2 & nr_corigin_m_m2>=2)) ///
+	| ((nr_corigin_m_f2 != nr_corigin_m_m2) & (nr_corigin_m_f2>=2 & nr_corigin_m_m2>=2)))
+
+* 0: Wenn ZWEI Grosselternteile zugewandert und diese aus unterschiedlichen Herkunftslaendern --> 6 Kombinationen (nicht D und kein Missing) 
+*******************************************************************************************************************************************
+	replace grosseltern_geb_hv1 = 0 if mig_gen_cn==8 & ///
+	( ((nr_corigin_f_f2!=nr_corigin_f_m2) & (nr_corigin_f_f2>=2 & nr_corigin_f_m2>=2)) ///
+	| ((nr_corigin_f_f2!=nr_corigin_m_f2) & (nr_corigin_f_f2>=2 & nr_corigin_m_f2>=2)) ///
+	| ((nr_corigin_f_f2!=nr_corigin_m_m2) & (nr_corigin_f_f2>=2 & nr_corigin_m_m2>=2)) ///
+	| ((nr_corigin_f_m2!=nr_corigin_m_f2) & (nr_corigin_f_m2>=2 & nr_corigin_m_f2>=2)) ///
+	| ((nr_corigin_f_m2!=nr_corigin_m_m2) & (nr_corigin_f_m2>=2 & nr_corigin_m_m2>=2)) ///
+	| ((nr_corigin_m_f2!=nr_corigin_m_m2) & (nr_corigin_m_f2>=2 & nr_corigin_m_m2>=2)))
+
+* -1: Wenn nur EIN Grosselternteil migriert ist (anderes deutsch oder Missing)
+*****************************************************************************
+	replace grosseltern_geb_hv1 = -1 if mig_gen_cn==9 
+
+
+	lab var grosseltern_geb_hv1 "Hilfsvariable Grosseltern aus demselben Land_kat" 
+	lab def grosseltern_geb_hv1 1 "Grosseltern aus demselben Land" ///
+	0 "Grosseltern aus unterschiedlichen Laendern" ///
+	-1 "nur 1 Grosselternteil migriert" ///
+	lab val grosseltern_geb_hv1 grosseltern_geb_hv1
+
+	tab grosseltern_geb_hv1
+
+
+
+
+
+***************************************************************************************************
+*** 3. SCHRITT: Bildung Origin_Short
+***************************************************************************************************
 
 	gen origin_short=.
 
-	replace origin_short=11 if origin_long>=1 
-	replace origin_short=1 if origin_long==1
-	replace origin_short=2 if origin_long==3
-	replace origin_short=3 if origin_long==444
-	replace origin_short=4 if origin_long==4
-	replace origin_short=5 if origin_long==5
-	replace origin_short=6 if origin_long==22
-	replace origin_short=7 if origin_long==6
-	replace origin_short=8 if origin_long==2
-	replace origin_short=9 if origin_long==83
-	replace origin_short=10 if origin_long==555 // vorausgesetzt SBS und Gebland-Infos wurden schon zusammengefasst bei Rekodierung
-	replace origin_short=-1 if origin_long==-1
-	replace origin_short=-2 if origin_long==-2
+* Wenn Nicht-Migrant (ZK, Eltern + alle Grosseltern  aus D oder Missing, aber nicht alle Missing)
+************************************************************************************************
+	replace origin_short=1 if mig_gen_cn==0
+
+
+* Befragter selbst zugewandert (mig_gen_cn==1 oder 2) --> Geburtsland ist Herkunftsland
+***************************************************************************************
+	replace origin_short=nr_corigin_zp2 if ((mig_gen_cn==1 | mig_gen_cn==2) &  nr_corigin_zp2>=2)
+
+
+* Befragter NICHT zugewandert, aber mindestens (ein) Eltern(teil)
+*****************************************************************
+
+*** Beide Eltern zugewandert und aus gleichem Land
+	replace origin_short=nr_corigin_f2 if eltern_geb_hv1==1
+
+*** Beide Eltern zugewandert und aus unterschiedlichen Laendern --> Sonstiges 2222
+	replace origin_short=2222 if eltern_geb_hv1==0
+
+*** Beide Eltern zugewandert, aber nur fuer einen Elternteil Geburtslandinfo, dann wird diese genutzt
+	replace origin_short=nr_corigin_f2 if eltern_geb_hv1==-3 & nr_corigin_f2>=2
+	replace origin_short=nr_corigin_m2 if eltern_geb_hv1==-3 & nr_corigin_m2>=2
+
+*** Nur ein Elternteil zugewandert, dann diese Info als Herkunftsland
+	replace origin_short=nr_corigin_f2 if (eltern_geb_hv1==-1 & (nr_corigin_f2>=2))
+	replace origin_short=nr_corigin_m2 if (eltern_geb_hv1==-1 & (nr_corigin_m2>=2))
+
+
+* Befragter und Eltern nicht zugewandert (oder Missing), aber mindestens ein Grosselternteil zugewandert
+*******************************************************************************************************
+
+*** VIER Grosselternteile zugewandert und alle aus demselben Land
+	replace origin_short=nr_corigin_f_f2 if (mig_gen_cn==6 & grosseltern_geb_hv1==1)
+
+
+*** DREI Grosseltern zugewandert und alle aus demselben Land, dann diejenige Info nehmen, die nicht deutsch oder Missing ist
+	replace origin_short=nr_corigin_f_f2 if (mig_gen_cn==7 & grosseltern_geb_hv1==1 & nr_corigin_f_f2>=2)
+	replace origin_short=nr_corigin_f_m2 if (mig_gen_cn==7 & grosseltern_geb_hv1==1 & nr_corigin_f_m2>=2)
+
+
+*** ZWEI Grosseltern zugewandert und diese aus demselben Land, dann diejenige Info nehmen, die nicht deutsch oder Missing ist
+	replace origin_short=nr_corigin_f_f2 if (mig_gen_cn==8 & grosseltern_geb_hv1==1 & nr_corigin_f_f2>=2)
+	replace origin_short=nr_corigin_f_m2 if (mig_gen_cn==8 & grosseltern_geb_hv1==1 & nr_corigin_f_m2>=2)
+	replace origin_short=nr_corigin_m_f2 if (mig_gen_cn==8 & grosseltern_geb_hv1==1 & nr_corigin_m_f2>=2)
+
+
+*** VIER Grosselternteile zugewandert und nur fuer einen Land bekannt, dann diese Info nutzen, die nicht Deutsch oder Missing ist 
+	replace origin_short=nr_corigin_f_f2 if mig_gen_cn==6 & nr_corigin_f_f2>=2 & (nr_corigin_f_m2<=0 & nr_corigin_m_f2<=0 & nr_corigin_m_m2<=0)
+	replace origin_short=nr_corigin_f_m2 if mig_gen_cn==6 & nr_corigin_f_m2>=2 & (nr_corigin_f_f2<=0 & nr_corigin_m_f2<=0 & nr_corigin_m_m2<=0)
+	replace origin_short=nr_corigin_m_f2 if mig_gen_cn==6 & nr_corigin_m_f2>=2 & (nr_corigin_f_f2<=0 & nr_corigin_f_m2<=0 & nr_corigin_m_m2<=0)
+	replace origin_short=nr_corigin_m_m2 if mig_gen_cn==6 & nr_corigin_m_m2>=2 & (nr_corigin_f_f2<=0 & nr_corigin_f_m2<=0 & nr_corigin_m_f2<=0)
+
+
+*** DREI Grosselternteile zugewandert und nur fuer einen Land bekannt, dann diese Info nutzen, die nicht Deutsch oder Missing ist 
+	replace origin_short=nr_corigin_f_f2 if mig_gen_cn==7 & nr_corigin_f_f2>=2 & ((nr_corigin_f_m2<=0 | nr_corigin_f_m2==1) & (nr_corigin_m_f2<=0 | nr_corigin_m_f2==1) & (nr_corigin_m_m2<=0 | nr_corigin_m_m2==1))
+	replace origin_short=nr_corigin_f_m2 if mig_gen_cn==7 & nr_corigin_f_m2>=2 & ((nr_corigin_f_f2<=0 | nr_corigin_f_f2==1) & (nr_corigin_m_f2<=0 | nr_corigin_m_f2==1) & (nr_corigin_m_m2<=0 | nr_corigin_m_m2==1))
+	replace origin_short=nr_corigin_m_f2 if mig_gen_cn==7 & nr_corigin_m_f2>=2 & ((nr_corigin_f_f2<=0 | nr_corigin_f_f2==1) & (nr_corigin_f_m2<=0 | nr_corigin_f_m2==1) & (nr_corigin_m_m2<=0 | nr_corigin_m_m2==1))
+	replace origin_short=nr_corigin_m_m2 if mig_gen_cn==7 & nr_corigin_m_m2>=2 & ((nr_corigin_f_f2<=0 | nr_corigin_f_f2==1) & (nr_corigin_f_m2<=0 | nr_corigin_f_m2==1) & (nr_corigin_m_f2<=0 | nr_corigin_m_f2==1))
+
+
+*** ZWEI Grosselternteile zugewandert und nur fuer einen Land bekannt, dann diese Info nutzen, die nicht Deutsch oder Missing ist
+	replace origin_short=nr_corigin_f_f2 if mig_gen_cn==8 & nr_corigin_f_f2>=2 & ((nr_corigin_f_m2<=0 | nr_corigin_f_m2==1) & (nr_corigin_m_f2<=0 | nr_corigin_m_f2==1) & (nr_corigin_m_m2<=0 | nr_corigin_m_m2==1))
+	replace origin_short=nr_corigin_f_m2 if mig_gen_cn==8 & nr_corigin_f_m2>=2 & ((nr_corigin_f_f2<=0 | nr_corigin_f_f2==1) & (nr_corigin_m_f2<=0 | nr_corigin_m_f2==1) & (nr_corigin_m_m2<=0 | nr_corigin_m_m2==1))
+	replace origin_short=nr_corigin_m_f2 if mig_gen_cn==8 & nr_corigin_m_f2>=2 & ((nr_corigin_f_f2<=0 | nr_corigin_f_f2==1) & (nr_corigin_f_m2<=0 | nr_corigin_f_m2==1) & (nr_corigin_m_m2<=0 | nr_corigin_m_m2==1))
+	replace origin_short=nr_corigin_m_m2 if mig_gen_cn==8 & nr_corigin_m_m2>=2 & ((nr_corigin_f_f2<=0 | nr_corigin_f_f2==1) & (nr_corigin_f_m2<=0 | nr_corigin_f_m2==1) & (nr_corigin_m_f2<=0 | nr_corigin_m_f2==1))
+
+
+*** Grosseltern aus mindestens zwei verschiedenen Laendern
+	replace origin_short=2222 if grosseltern_geb_hv1==0
+
+
+*** Wenn nur EIN Grosselternteil zugewandert ist, dann die Info nutzen, die nicht Deutsch oder Missing ist
+	replace origin_short=nr_corigin_f_f2 if (mig_gen_cn==9 & nr_corigin_f_f2>=2)
+	replace origin_short=nr_corigin_f_m2 if (mig_gen_cn==9 & nr_corigin_f_m2>=2)
+	replace origin_short=nr_corigin_m_f2 if (mig_gen_cn==9 & nr_corigin_m_f2>=2)
+	replace origin_short=nr_corigin_m_m2 if (mig_gen_cn==9 & nr_corigin_m_m2>=2)
+
+
+*  Befragter oder Eltern oder Grosseltern im Ausland geboren, aber keine Geburtslandinfo --> origin_long==-2
+***********************************************************************************************************
+*** Befragter zugewandert, aber keine Gebland-Info
+	replace origin_short=-2 if ((mig_gen_cn==1 | mig_gen_cn==2) & nr_corigin_zp2<=0)
+
+
+*** Befragter nicht selbst zugewandert oder Missing und keine Gebland-Info fuer ein bzw. beide Elternteil(e)
+	replace origin_short=-2 if (eltern_geb_hv1==-2 | eltern_geb_hv1==-4)
+
+
+*** VIER Grosselternteile zugewandert, aber keine Info zum Gebland
+	replace origin_short=-2 if mig_gen_cn==6 & (nr_corigin_f_f2<=0 & nr_corigin_f_m2<=0 & nr_corigin_m_f2<=0 & nr_corigin_m_m2<=0)
+
+
+*** DREI Grosselternteile zugewandert und fuer keinen Land bekannt
+	replace origin_short=-2 if mig_gen_cn==7 & ((nr_corigin_f_f2<=0 | nr_corigin_f_f2==1) & (nr_corigin_f_m2<=0 | nr_corigin_f_m2==1) & (nr_corigin_m_f2<=0 | nr_corigin_m_f2==1) & (nr_corigin_m_m2<=0 | nr_corigin_m_m2==1))
+	
+
+*** ZWEI Grosselternteile zugewandert und fuer keinen Land bekannt
+	replace origin_short=-2 if mig_gen_cn==8 & ((nr_corigin_f_f2<=0 | nr_corigin_f_f2==1) & (nr_corigin_f_m2<=0 | nr_corigin_f_m2==1) & (nr_corigin_m_f2<=0 | nr_corigin_m_f2==1) & (nr_corigin_m_m2<=0 | nr_corigin_m_m2==1))
+	
+
+*** EIN Grosselternteil zugewandert, aber keine Info zum Gebland
+	replace origin_short=-2 if mig_gen_cn==9 & ((nr_corigin_f_f2<=0 | nr_corigin_f_f2==1) & (nr_corigin_f_m2<=0 | nr_corigin_f_m2==1) & (nr_corigin_m_f2<=0 | nr_corigin_m_f2==1) & (nr_corigin_m_m2<=0 | nr_corigin_m_m2==1))
+	
+
+* UEberall Sysmis (Befragter, Eltern, Grosseltern): keine Info, ob ueberhaupt Migrant --> origin_long==-1
+******************************************************************************************************
+	replace origin_short=-1 if mig_gen_cn==.
+
+
+*** Werte rekodieren (Kann man das auch einfach innerhalb der origin_short machen (also keine neue Variable bilden), ohne Gefahr zu laufen, dass etwas Ã¼berschrieben wird?)
+	
+	gen origin_short1=.
+	replace origin_short1=1 if origin_short==1 // Deutschland
+	replace origin_short1=2 if origin_short==3 // Ex-Jugoslawien
+	replace origin_short1=3 if origin_short==444 // Ehem. SU
+	replace origin_short1=4 if origin_short==4 // Griechenland
+	replace origin_short1=5 if origin_short==5 // Italien
+	replace origin_short1=6 if origin_short==22 // Polen
+	replace origin_short1=7 if origin_short==6 // Spanien
+	replace origin_short1=8 if origin_short==2 // TÃ¼rkei
+	replace origin_short1=9 if origin_short==83 // Vietnam
+	replace origin_short1=10 if origin_short==555 // West-EU
+	replace origin_short1=11 if origin_short==2222 // Sonstige
+	replace origin_short1=-1 if origin_short==-1 // Sonstige
+	replace origin_short1=-2 if origin_short==-2 // Sonstige
 
 	lab var origin_short "Herkunftsland short_klassifiziert"
+
 	lab def origin_short 1 "Deutschland" ///
 	2 "Ehem. Jugoslawien" ///
 	3 "Ehem. Sowjetunion" ///
@@ -1875,9 +2165,9 @@ gen grosseltern_geb_hv=.
 	7 "Spanien" ///
 	8 "Tuerkei" ///
 	9 "Vietnam" ///
-	10 "West-EU (Belgien, Daenemark, Finnland, Frankreich, GB, Irland, Luxemburg, Holland, Österreich, Portugal, Schweden)" ///
+	10 "West-EU (Belgien, Daenemark, Finnland, Frankreich, GB, Irland, Luxemburg, Holland, ï¿½sterreich, Portugal, Schweden)" ///
 	11 "Sonstige" ///
-	-1 "UEberall Sysmis (Befragter, beide Elternteile, alle Grosselternteile)" ///
+	-1 "Ueberall Sysmis (Befragter, beide Elternteile, alle Grosselternteile)" ///
 	-2 "Befragter, Eltern oder Grosseltern im Ausland geboren, aber keine Geblandinfo"
 
 	lab val origin_short origin_short
