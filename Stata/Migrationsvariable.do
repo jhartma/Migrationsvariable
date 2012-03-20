@@ -58,6 +58,14 @@ global temp="/home/Knut/Documents/UniGoettingen/Projekte/Migrationsvariable/Stat
 global LoFi="/home/Knut/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/logs/" // Ordner fuer Log-Files
 global DoFi="/home/Knut/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/temp/" // Ordner fuer Do-Files 
 
+// Globals Melanie
+	global dir= "F:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/" // Arbeitsverzeichnis der relginaldatensaetze 
+	global AVZ= "F:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Mig/" // Arbeitsverzeichnis der neu generierten Datensaetze und anderer Ordner
+	global temp="F:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Mig/" //Temporaerer Arbeitsspeicher
+	global LoFi="F:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Mig/" // Ordner fuer Log-Files
+	global DoFi="F:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Mig/" // Ordner fuer Do-Files 
+
+
 ***Log-File erstellen***
 log using "${LoFi}miggen.log", replace
 
@@ -87,13 +95,14 @@ log using "${LoFi}miggen.log", replace
 		3.	Bildung Migrantenvariablen
 		3.1	Generationenstatus
 				3.1.1 Generationenstatus unter ausschliesslicher Nutzung Geburtsland-Informationen
-					3.1.1.1 Hilfsvariablen: sum_germborn_gp, sum_germborn_gp_mis und sum_r_nation_gp
+					3.1.1.1 Hilfsvariablen: sum_germborn_gp, sum_germborn_gp_mis und sum_r_nation_gp und eltern
 					3.1.1.2 mig_gen_c: Generationenstatus unter ausschliesslicher Nutzung der Geburtsland-Informationen
 					3.1.1.3 mig_gen_c_hv: Hilfsvariable Missings
 				3.1.2 Generationenstatus unter Nutzung weiterer Informationen (Staatsangehoerigkeit, etc.)
 					3.1.2.1 mig_gen_cn: Generationenstatus unter Beruecksichtigung weiterer Informationen
-				3.1.3 soep_info
-		3.2	Origin-Variablen
+				3.1.3 soep_info (bezogen auf die Zielperson)
+	
+		3.2 Origin-Variablen
 				3.2.1 Hilfsvariablen: eltern_geb_hv und grosseltern_geb_hv
 				3.2.2 Herkunftsland-Variable origin
 					3.2.2.1 origin_long
@@ -1172,6 +1181,26 @@ use ${AVZ}miggen_helpers.dta, clear
 	egen sum_r_nation_gp = anycount(d_r_nation_f_f d_r_nation_f_m d_r_nation_m_f d_r_nation_m_m), values(1)
 	lab var sum_r_nation_gp "Anzahl Grosselternteile mit auslaendischer SBS"
 	tab sum_r_nation_gp
+
+
+
+
+*** Bildung von "eltern": Hilfsvariable über Vorhandensein Geburtslandinfo für Eltern
+
+	gen eltern=.
+	replace eltern=1 if germborn_f==germborn_m & (germborn_f==1 | germborn_f==2) // 1: Info liegt für beide Eltern vor
+	replace eltern=2 if ((germborn_m==1 | germborn_m==2) & germborn_f<=0)  // 2: Info liegt nur für Mutter vor, Vater Missing
+	replace eltern=3 if ((germborn_f==1 | germborn_f==2) & germborn_m<=0)  // 3: Info liegt nur für den Vater vor; Mutter Missing
+	replace eltern=4 if germborn_f==germborn_m & germborn_f<=0 // 3: Info liegt für gar kein Elternteil vor
+
+
+	lab var eltern "Geburtslandinfos für Eltern vorhanden"
+	lab def eltern 1 "für beide Elternteile" ///
+ 	2 "Vater Missing; Mutter vorhanden" ///
+ 	3 "Mutter Missing; Vater vorhanden" ///
+ 	4 "fehlend für beide Elternteile" ///
+	lab val eltern eltern
+
 
 
 ***********************************************************************************************************************************************************
