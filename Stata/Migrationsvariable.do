@@ -50,6 +50,12 @@ global temp="\\Ug-uszu-s1\ussz100_all$\Projekte\SOEPlong\Migrationsvariable\temp
 global LoFi="\\Ug-uszu-s1\ussz100_all$\Projekte\SOEPlong\Migrationsvariable\LogFile/" // Ordner fuer Log-Files
 global DoFi="\\Ug-uszu-s1\ussz100_all$\Projekte\SOEPlong\Migrationsvariable\DoFile/" // Ordner fuer Do-Files 
 */
+// Globals Melanie
+	global dir= "F:/_Arbeit/_Diss/_Datens�tze/SOEP/SOEP27/" // Arbeitsverzeichnis der relginaldatensaetze 
+	global AVZ= "F:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Mig/" // Arbeitsverzeichnis der neu generierten Datensaetze und anderer Ordner
+	global temp="F:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Mig/" //Temporaerer Arbeitsspeicher
+	global LoFi="F:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Mig/" // Ordner fuer Log-Files
+	global DoFi="F:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Mig/" // Ordner fuer Do-Files 
 
 // Globals Joerg
 global dir= "/home/Knut/Documents/UniGoettingen/SOEP/" // Arbeitsverzeichnis der Originaldatensaetze 
@@ -58,12 +64,6 @@ global temp="/home/Knut/Documents/UniGoettingen/Projekte/Migrationsvariable/Stat
 global LoFi="/home/Knut/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/logs/" // Ordner fuer Log-Files
 global DoFi="/home/Knut/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/temp/" // Ordner fuer Do-Files 
 
-// Globals Melanie
-	global dir= "F:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/" // Arbeitsverzeichnis der relginaldatensaetze 
-	global AVZ= "F:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Mig/" // Arbeitsverzeichnis der neu generierten Datensaetze und anderer Ordner
-	global temp="F:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Mig/" //Temporaerer Arbeitsspeicher
-	global LoFi="F:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Mig/" // Ordner fuer Log-Files
-	global DoFi="F:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Mig/" // Ordner fuer Do-Files 
 
 
 ***Log-File erstellen***
@@ -709,8 +709,41 @@ save ${AVZ}germ_sbs, replace
 *************************************************************
 ***** 1.11 Aufbereitung Jugenddatensatz Melanie *************
 *************************************************************
-* biimgrp
+* Nehme nur die Variablen f�r die Jugendlichen, nicht die aus ppfad
 * deu_seit_j25 -> Deu_seit
+* staatsang`x', biimgrp`x', nation`x', corigin[_n-`x'], germborn[_n-`x'], immiyear[_n-`x'], gebjahr[_n-`x'], germnatbirth[_n-`x']
+
+use ${AVZ}melanie_jugendliche.dta, clear
+
+* biimgrp umkodieren und umbenennen zur Anpassung 
+recode biimgrp_j2* (1 = 1) (2 = 3) (3 = 4) (4 = 6) (5 = 7)
+soepren biimgrp_j23 biimgrp_j24 biimgrp_j25 biimgrp_j26 biimgrp_j27, newstub(biimgrp) waves (23/27)  
+
+* nation_j 'Nationality code' -> nation, Laendercodes stimmen �berein
+soepren nation_j23 nation_j24 nation_j25 nation_j26 nation_j27, newstub(nation) waves(23/27)
+
+* corigin -> corigin, nichts zu tun
+
+* germborn_j -> germborn
+recode germborn_j2* (1 2 = 1)(3 = 2)
+soepren germborn_j23 germborn_j24 germborn_j25 germborn_j26 germborn_j27, newstub(germborn) waves (23/27)
+
+* immiyear_j -> immiyear
+soepren immiyear_j23 immiyear_j24 immiyear_j25 immiyear_j26 immiyear_j27, newstub(immiyear) waves(23/27)
+
+* gebjahr_j -> gebjahr
+soepren gebjahr_j23 gebjahr_j24 gebjahr_j25 gebjahr_j26 gebjahr_j27, newstub(gebjahr) waves(23/27)
+
+// Wo ist der Unterschied zwischen germnatbirth und staatsang? Beide aus SP116!
+* deu_seit_j -> germnatbirth (SP116, German nationality since: birth, later)
+soepren deu_seit_j23 deu_seit_j24 deu_seit_j25 deu_seit_j26 deu_seit_j27, newstub(germnatbirth) waves(23/27)
+
+* deu_seit_j -> staatsang (SP116 seit wann dt. staatsangehoerigkeit: geburt, erworben)
+soepren deu_seit_j23 deu_seit_j24 deu_seit_j25 deu_seit_j26 deu_seit_j27, newstub(staatsang) waves(23/27)
+
+keep persnr hhnr biimgrp nation corigin germborn immiyear gebjahr germnatbirth
+
+save ${AVZ}melanie_jugendliche_recoded, replace
 
 *************************************************************
 ***** 1.11 Mergen aller Datensaetze - Output: miggen.dta ****
@@ -751,7 +784,7 @@ drop _merge
 * drop _merge
 
 sort persnr
-merge persnr using melanie_jugendliche.dta  // hier eventuell nicht alle Variablen mitnehmen, sondern aussortieren
+merge persnr using melanie_jugendliche_recoded.dta 
 drop _merge
 
 sort persnr 
@@ -1191,20 +1224,20 @@ use ${AVZ}miggen_helpers.dta, clear
 
 
 
-*** Bildung von "eltern": Hilfsvariable über Vorhandensein Geburtslandinfo für Eltern
+*** Bildung von "eltern": Hilfsvariable �ber Vorhandensein Geburtslandinfo f�r Eltern
 
 	gen eltern=.
-	replace eltern=1 if germborn_f==germborn_m & (germborn_f==1 | germborn_f==2) // 1: Info liegt für beide Eltern vor
-	replace eltern=2 if ((germborn_m==1 | germborn_m==2) & germborn_f<=0)  // 2: Info liegt nur für Mutter vor, Vater Missing
-	replace eltern=3 if ((germborn_f==1 | germborn_f==2) & germborn_m<=0)  // 3: Info liegt nur für den Vater vor; Mutter Missing
-	replace eltern=4 if germborn_f==germborn_m & germborn_f<=0 // 3: Info liegt für gar kein Elternteil vor
+	replace eltern=1 if germborn_f==germborn_m & (germborn_f==1 | germborn_f==2) // 1: Info liegt f�r beide Eltern vor
+	replace eltern=2 if ((germborn_m==1 | germborn_m==2) & germborn_f<=0)  // 2: Info liegt nur f�r Mutter vor, Vater Missing
+	replace eltern=3 if ((germborn_f==1 | germborn_f==2) & germborn_m<=0)  // 3: Info liegt nur f�r den Vater vor; Mutter Missing
+	replace eltern=4 if germborn_f==germborn_m & germborn_f<=0 // 3: Info liegt f�r gar kein Elternteil vor
 
 
-	lab var eltern "Geburtslandinfos für Eltern vorhanden"
-	lab def eltern 1 "für beide Elternteile" ///
+	lab var eltern "Geburtslandinfos f�r Eltern vorhanden"
+	lab def eltern 1 "f�r beide Elternteile" ///
  	2 "Vater Missing; Mutter vorhanden" ///
  	3 "Mutter Missing; Vater vorhanden" ///
- 	4 "fehlend für beide Elternteile" ///
+ 	4 "fehlend f�r beide Elternteile" ///
 	lab val eltern eltern
 
 
@@ -1917,7 +1950,7 @@ foreach var of varlist nr_corigin_zp2 nr_corigin_f2 nr_corigin_m2 nr_corigin_m_m
 	replace `var' = 555 if `var' == 117 // Rekodiere Belgien
 	replace `var' = 555 if `var' == 118 // Rekodiere Holland
 
-	// Sonstige Länder
+	// Sonstige L�nder
 	replace `var' =   2222 if `var' == 16
 	replace `var' =   2222 if `var' >= 18 & `var'<=21 
 	replace `var' =   2222 if `var' >= 23 & `var'<=82 
@@ -1927,7 +1960,7 @@ foreach var of varlist nr_corigin_zp2 nr_corigin_f2 nr_corigin_m2 nr_corigin_m_m
 
 
 ***************************************************************************************************
-*** 2. SCHRITT: Bildung neuer Eltern- und Großeltern-HVs
+*** 2. SCHRITT: Bildung neuer Eltern- und Gro�eltern-HVs
 ***************************************************************************************************
 
 * Eltern aus demselben Land?: "eltern_geb_hv"
