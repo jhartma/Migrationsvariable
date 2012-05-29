@@ -51,11 +51,11 @@ global LoFi="\\Ug-uszu-s1\ussz100_all$\Projekte\SOEPlong\Migrationsvariable\LogF
 global DoFi="\\Ug-uszu-s1\ussz100_all$\Projekte\SOEPlong\Migrationsvariable\DoFile/" // Ordner fuer Do-Files 
 */
 // Globals Melanie
-	global dir= "F:/_Arbeit/_Diss/_Datens�tze/SOEP/SOEP27/" // Arbeitsverzeichnis der relginaldatensaetze 
-	global AVZ= "F:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Mig/" // Arbeitsverzeichnis der neu generierten Datensaetze und anderer Ordner
-	global temp="F:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Mig/" //Temporaerer Arbeitsspeicher
-	global LoFi="F:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Mig/" // Ordner fuer Log-Files
-	global DoFi="F:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Mig/" // Ordner fuer Do-Files 
+	global dir= "F:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/" // Arbeitsverzeichnis der relginaldatensaetze 
+	global AVZ= "F:/_Arbeit/_Diss/_DatensÃ¤tze/SOEP/SOEP27/DatensÃ¤tze_Mig/" // Arbeitsverzeichnis der neu generierten Datensaetze und anderer Ordner
+	global temp="F:/_Arbeit/_Diss/_DatensÃ¤tze/SOEP/SOEP27/DatensÃ¤tze_Mig/" //Temporaerer Arbeitsspeicher
+	global LoFi="F:/_Arbeit/_Diss/_DatensÃ¤tze/SOEP/SOEP27/DatensÃ¤tze_Mig/" // Ordner fuer Log-Files
+	global DoFi="F:/_Arbeit/_Diss/_DatensÃ¤tze/SOEP/SOEP27/DatensÃ¤tze_Mig/" // Ordner fuer Do-Files 
 
 // Globals Joerg
 global dir= "/home/Knut/Documents/UniGoettingen/SOEP/" // Arbeitsverzeichnis der Originaldatensaetze 
@@ -709,7 +709,7 @@ save ${AVZ}germ_sbs, replace
 *************************************************************
 ***** 1.11 Aufbereitung Jugenddatensatz Melanie *************
 *************************************************************
-* Nehme nur die Variablen f�r die Jugendlichen, nicht die aus ppfad
+* Nehme nur die Variablen für die Jugendlichen, nicht die aus ppfad
 * deu_seit_j25 -> Deu_seit
 * staatsang`x', biimgrp`x', nation`x', corigin[_n-`x'], germborn[_n-`x'], immiyear[_n-`x'], gebjahr[_n-`x'], germnatbirth[_n-`x']
 
@@ -719,7 +719,7 @@ use ${AVZ}melanie_jugendliche.dta, clear
 recode biimgrp_j2* (1 = 1) (2 = 3) (3 = 4) (4 = 6) (5 = 7)
 soepren biimgrp_j23 biimgrp_j24 biimgrp_j25 biimgrp_j26 biimgrp_j27, newstub(biimgrp) waves (23/27)  
 
-* nation_j 'Nationality code' -> nation, Laendercodes stimmen �berein
+* nation_j 'Nationality code' -> nation, Laendercodes stimmen überein
 soepren nation_j23 nation_j24 nation_j25 nation_j26 nation_j27, newstub(nation) waves(23/27)
 
 * corigin -> corigin, nichts zu tun
@@ -739,7 +739,28 @@ soepren gebjahr_j23 gebjahr_j24 gebjahr_j25 gebjahr_j26 gebjahr_j27, newstub(geb
 soepren deu_seit_j23 deu_seit_j24 deu_seit_j25 deu_seit_j26 deu_seit_j27, newstub(germnatbirth) waves(23/27)
 
 * deu_seit_j -> staatsang (SP116 seit wann dt. staatsangehoerigkeit: geburt, erworben)
-soepren deu_seit_j23 deu_seit_j24 deu_seit_j25 deu_seit_j26 deu_seit_j27, newstub(staatsang) waves(23/27)
+* soepren deu_seit_j23 deu_seit_j24 deu_seit_j25 deu_seit_j26 deu_seit_j27, newstub(staatsang) waves(23/27)
+
+keep persnr hhnr biimgrp* nation* corigin germborn immiyear gebjahr germnatbirth*
+aorder
+order persnr 
+sort persnr
+
+* Select one answer from many years
+recode biimgrp* (-2 -1 = .)
+recode nation*  (-2 -1 = .)
+recode germnatbirth* (-2 -1 = .)
+
+egen bii_count = anymatch(biimgrp*), values(1 2 3 4 5 6 7)  // Pruefe, ob Personen Angaben zu mehreren Jahren haben
+tab bii_count
+egen na_count = anymatch(nation*), values(2 3 4 5 6 12 13 21 75 118 119 165)
+tab na_count
+egen ger_count = anymatch(germnatbirth*), values(1 2)
+tab ger_count
+
+egen biimgrp = rowmax(biimgrp*)
+egen nation  = rowmax(nation*)
+egen germnatbirth = rowmax(germnatbirth*)
 
 keep persnr hhnr biimgrp nation corigin germborn immiyear gebjahr germnatbirth
 
@@ -825,12 +846,12 @@ forvalues x=19/26 {
 	replace staatsang = staatsang`x' if staatsang`x'!=.
 }
 
-generate biimgrp =.
+*generate biimgrp =.
 forvalues x=1/26 {
 	replace biimgrp = biimgrp`x' if biimgrp`x'!=.
 }
 
-generate nation =.
+*generate nation =.
 forvalues x=1/26 {
 	replace nation = nation`x' if nation`x'!=.
 }
@@ -1224,20 +1245,20 @@ use ${AVZ}miggen_helpers.dta, clear
 
 
 
-*** Bildung von "eltern": Hilfsvariable �ber Vorhandensein Geburtslandinfo f�r Eltern
+*** Bildung von "eltern": Hilfsvariable über Vorhandensein Geburtslandinfo für Eltern
 
 	gen eltern=.
-	replace eltern=1 if germborn_f==germborn_m & (germborn_f==1 | germborn_f==2) // 1: Info liegt f�r beide Eltern vor
-	replace eltern=2 if ((germborn_m==1 | germborn_m==2) & germborn_f<=0)  // 2: Info liegt nur f�r Mutter vor, Vater Missing
-	replace eltern=3 if ((germborn_f==1 | germborn_f==2) & germborn_m<=0)  // 3: Info liegt nur f�r den Vater vor; Mutter Missing
-	replace eltern=4 if germborn_f==germborn_m & germborn_f<=0 // 3: Info liegt f�r gar kein Elternteil vor
+	replace eltern=1 if germborn_f==germborn_m & (germborn_f==1 | germborn_f==2) // 1: Info liegt für beide Eltern vor
+	replace eltern=2 if ((germborn_m==1 | germborn_m==2) & germborn_f<=0)  // 2: Info liegt nur für Mutter vor, Vater Missing
+	replace eltern=3 if ((germborn_f==1 | germborn_f==2) & germborn_m<=0)  // 3: Info liegt nur für den Vater vor; Mutter Missing
+	replace eltern=4 if germborn_f==germborn_m & germborn_f<=0 // 3: Info liegt für gar kein Elternteil vor
 
 
-	lab var eltern "Geburtslandinfos f�r Eltern vorhanden"
-	lab def eltern 1 "f�r beide Elternteile" ///
+	lab var eltern "Geburtslandinfos fuer Eltern vorhanden"
+	lab def eltern 1 "fuer beide Elternteile" ///
  	2 "Vater Missing; Mutter vorhanden" ///
  	3 "Mutter Missing; Vater vorhanden" ///
- 	4 "fehlend f�r beide Elternteile" ///
+ 	4 "fehlend für beide Elternteile" 
 	lab val eltern eltern
 
 
@@ -1600,7 +1621,7 @@ use ${AVZ}miggen_mig_gen_c.dta, clear
 ***************************************************************************************************
 * TODO
 
-*** HINWEIS MO: JETZIGE BILDUNG SOEPINFO BEZIEHT SICH NUR AUF ZP! WIR HABEN ABER AUCH DIE ELTERN- UND GRO�ELTERNINFO!
+*** HINWEIS MO: JETZIGE BILDUNG SOEPINFO BEZIEHT SICH NUR AUF ZP! WIR HABEN ABER AUCH DIE ELTERN- UND GROßELTERNINFO!
 
 * Vorbereitung
 	gen soep_info=.
@@ -1936,11 +1957,11 @@ gen nr_corigin_f_f2  = nr_corigin_f_f
 * HINWEIS: Deutschland; Ex-Jugoslawien und Ex-Sojetunion sind schon rekodiert
 
 foreach var of varlist nr_corigin_zp2 nr_corigin_f2 nr_corigin_m2 nr_corigin_m_m2 nr_corigin_m_f2 nr_corigin_f_m2 nr_corigin_f_f2 {
-	// West-EU (Belgien, Daenemark, Finnland, Frankreich, GB, Irland, Luxemburg, Holland, �sterreich, Portugal, Schweden)" 
-	replace `var' = 555 if `var' ==  10 // Rekodiere Österreich 
+	// West-EU (Belgien, Daenemark, Finnland, Frankreich, GB, Irland, Luxemburg, Holland, ï¿½sterreich, Portugal, Schweden)" 
+	replace `var' = 555 if `var' ==  10 // Rekodiere Oesterreich 
 	replace `var' = 555 if `var' ==  11 // Rekodiere Frankreich
 	replace `var' = 555 if `var' ==  12 // Rekodiere Benelux
-	replace `var' = 555 if `var' ==  13 // Rekodiere Dänemark
+	replace `var' = 555 if `var' ==  13 // Rekodiere DÃ¤nemark
 	replace `var' = 555 if `var' ==  14 // Rekodiere GB
 	replace `var' = 555 if `var' ==  15 // Rekodiere Schweden
 	replace `var' = 555 if `var' ==  17 // Rekodiere Finnland
@@ -1950,7 +1971,7 @@ foreach var of varlist nr_corigin_zp2 nr_corigin_f2 nr_corigin_m2 nr_corigin_m_m
 	replace `var' = 555 if `var' == 117 // Rekodiere Belgien
 	replace `var' = 555 if `var' == 118 // Rekodiere Holland
 
-	// Sonstige L�nder
+	// Sonstige Länder
 	replace `var' =   2222 if `var' == 16
 	replace `var' =   2222 if `var' >= 18 & `var'<=21 
 	replace `var' =   2222 if `var' >= 23 & `var'<=82 
@@ -1960,7 +1981,7 @@ foreach var of varlist nr_corigin_zp2 nr_corigin_f2 nr_corigin_m2 nr_corigin_m_m
 
 
 ***************************************************************************************************
-*** 2. SCHRITT: Bildung neuer Eltern- und Gro�eltern-HVs
+*** 2. SCHRITT: Bildung neuer Eltern- und Großeltern-HVs
 ***************************************************************************************************
 
 * Eltern aus demselben Land?: "eltern_geb_hv"
@@ -2335,7 +2356,7 @@ gen origin_hv=.
 	lab val origin_hv origin_hv
 
 
-
+order persnr mig_gen_c mig_gen_c_hv origin_long mig_gen_cn eltern_geb_hv grosseltern_geb_hv origin_short origin_hv
 
 ***Log-File schliessen***
 log close 
@@ -2345,6 +2366,8 @@ log close
 * ------- THE END -------- *
 * ------------------------ *
 
+
+tab mig_gen_c mig_gen_cn, m
 
 
 
