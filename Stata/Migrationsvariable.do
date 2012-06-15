@@ -124,12 +124,12 @@ log using "${LoFi}miggen.log", replace
 use ${dir}ppfad.dta, clear
 
 ***Beibehaltung ausgewaehlter Variablen***
-keep hhnr persnr sex gebmoval gebjahr ?hhnr immiyear germborn corigin migback
+keep hhnr persnr sex gebmoval gebjahr *hhnr immiyear germborn corigin migback
 
 ***Zahlen als Missings kodieren***
 * quietly: mvdecode _all, mv(-1=.k\-2=.t\-3=.v) // deprecated 14.12.11
 
-soepren ahhnr bhhnr chhnr dhhnr ehhnr fhhnr ghhnr hhhnr ihhnr jhhnr khhnr lhhnr mhhnr nhhnr ohhnr phhnr qhhnr rhhnr shhnr thhnr uhhnr vhhnr whhnr xhhnr yhhnr zhhnr, newstub(hhnr) waves (1/26)   
+soepren ahhnr bhhnr chhnr dhhnr ehhnr fhhnr ghhnr hhhnr ihhnr jhhnr khhnr lhhnr mhhnr nhhnr ohhnr phhnr qhhnr rhhnr shhnr thhnr uhhnr vhhnr whhnr xhhnr yhhnr zhhnr bahhnr, newstub(hhnr) waves (1984/2010)   
 
 ***Reduzierten Datensatz speichern***
 isid persnr // persnr ist eindeutige Identifikationsvariable
@@ -352,12 +352,12 @@ save ${AVZ}bioparen_mig.dta, replace
 use ${dir}/wpage17.dta, clear
 
 ***Beibehaltung ausgewaehlter Variablen***
-keep wj6001 wj6002 wj61 wj6201 wj63 wj64 wj65 wj67 wj6601 wj6602 wj6801 wj69 persnr hhnr ?hhnr
+keep wj6001 wj6002 wj61 wj6201 wj63 wj64 wj65 wj67 wj6601 wj6602 wj6801 wj69 persnr hhnr *hhnr
 sort persnr
 
 ***Datensatzzusammenfuehrung und Beibehaltung ausgewaehlter Variablen***
 foreach file in xpage17.dta ypage17.dta zpage17.dta bapage17.dta{
-	merge persnr using "`file'", sort keep (hhnr ?hhnr ?j6001 ?j6002 ?j61 ?j62 ?j63 ?j64 ?j65 ?j67 ?j6601 ?j6602 ?j68 ?j69)
+	merge persnr using "`file'", sort keep (hhnr *hhnr *j6001 *j6002 *j61 *j62 *j63 *j64 *j65 *j67 *j6601 *j6602 *j68 *j69)
   	drop _merge
 	quietly: compress
 }
@@ -366,19 +366,19 @@ foreach file in xpage17.dta ypage17.dta zpage17.dta bapage17.dta{
 * quietly: mvdecode _all, mv(-1=.k\-2=.t\-3=.v)	// deprecated 14.12.11
 
 ***Umbennenung ausgewaehlter Variablen***
-soepren wj6001 xj6001 yj6001 zj6001, newstub(Jgebjahr) waves (23, 24, 25, 26)  
-soepren wj6002 xj6002 yj6002 zj6002, newstub(Jgebmoval) waves (23, 24, 25, 26)  
-soepren wj61 xj61 yj61 zj61, newstub(Jgermborn) waves (23, 24, 25, 26)  
-soepren wj6201 xj62 yj62 zj62, newstub(Jcorigin) waves (23, 24, 25, 26)  
-soepren wj63 xj63 yj63 zj63, newstub(Jimmiyear) waves (23, 24, 25, 26)  
-soepren wj64 xj64 yj64 zj64, newstub(Jbiimgrp) waves (23, 24, 25, 26)  
-soepren wj65 xj65 yj65 zj65, newstub(Jdeutschstaatsang) waves (23, 24, 25, 26)  
-soepren wj67 xj67 yj67 zj67, newstub(Jnation) waves (23, 24, 25, 26)  
-soepren wj6601 xj6601 yj6601 zj6601, newstub(Jzweitestaatsang) waves (23, 24, 25, 26)  
-soepren wj6602 xj6602 yj6602 zj6602, newstub(Jzweitestaatsang_code) waves (23, 24, 25, 26)  
-soepren wj6801 xj68 yj68 zj68, newstub(Jstaatsang) waves (23, 24, 25, 26)  
-soepren wj69 xj69 yj69 zj69, newstub(Jaufenthaltserl) waves (23, 24, 25, 26)  
-soepren whhnr xhhnr yhhnr zhhnr, newstub(hhnr) waves (23, 24, 25, 26)   
+soepren wj6001 xj6001 yj6001 zj6001 baj6001, newstub(Jgebjahr) waves (23, 24, 25, 26, 27)  
+soepren wj6002 xj6002 yj6002 zj6002 baj6002, newstub(Jgebmoval) waves (23, 24, 25, 26, 27)  
+soepren wj61 xj61 yj61 zj61 baj61, newstub(Jgermborn) waves (23, 24, 25, 26, 27)  
+soepren wj6201 xj62 yj62 zj62 baj62, newstub(Jcorigin) waves (23, 24, 25, 26, 27)  
+soepren wj63 xj63 yj63 zj63 baj63, newstub(Jimmiyear) waves (23, 24, 25, 26, 27)  
+soepren wj64 xj64 yj64 zj64 baj64, newstub(Jbiimgrp) waves (23, 24, 25, 26, 27)  
+soepren wj65 xj65 yj65 zj65 baj65, newstub(Jdeutschstaatsang) waves (23, 24, 25, 26, 27)  
+soepren wj67 xj67 yj67 zj67 baj67, newstub(Jnation) waves (23, 24, 25, 26, 27)  
+soepren wj6601 xj6601 yj6601 zj6601 baj6601, newstub(Jzweitestaatsang) waves (23, 24, 25, 26, 27)  
+soepren wj6602 xj6602 yj6602 zj6602 baj6602, newstub(Jzweitestaatsang_code) waves (23, 24, 25, 26, 27)  
+soepren wj6801 xj68 yj68 zj68 baj68, newstub(Jstaatsang) waves (23, 24, 25, 26, 27)  
+soepren wj69 xj69 yj69 zj69 baj69, newstub(Jaufenthaltserl) waves (23, 24, 25, 26, 27)  
+soepren whhnr xhhnr yhhnr zhhnr bahhnr, newstub(hhnr) waves (23, 24, 25, 26, 27)   
 
 ***Zahlen als Missings kodieren***
 * quietly: mvdecode _all, mv(-1=.k\-2=.t\-3=.v)  // deprecated 14.12.11
@@ -402,11 +402,11 @@ save ${AVZ}page17_mig.dta, replace
 use ${dir}apbrutto, clear
 keep persnr *hhnr *stell
 cd ${dir}
-quietly: merge persnr using bpbrutto cpbrutto dpbrutto epbrutto fpbrutto gpbrutto hpbrutto ipbrutto jpbrutto kpbrutto lpbrutto mpbrutto npbrutto opbrutto ppbrutto qpbrutto rpbrutto spbrutto tpbrutto upbrutto vpbrutto wpbrutto xpbrutto ypbrutto zpbrutto, sort keep (*stell *hhnr)
+quietly: merge persnr using bpbrutto cpbrutto dpbrutto epbrutto fpbrutto gpbrutto hpbrutto ipbrutto jpbrutto kpbrutto lpbrutto mpbrutto npbrutto opbrutto ppbrutto qpbrutto rpbrutto spbrutto tpbrutto upbrutto vpbrutto wpbrutto xpbrutto ypbrutto zpbrutto bapbrutto, sort keep (*stell *hhnr)
 drop _merge* hhnr
 
-soepren astell bstell cstell dstell estell fstell gstell hstell istell jstell kstell lstell mstell nstell ostell pstell qstell rstell sstell tstell ustell vstell wstell xstell ystell zstell, newstub(stell) wave(1/26)
-soepren ahhnr bhhnr chhnr dhhnr ehhnr fhhnr ghhnr hhhnr ihhnr jhhnr khhnr lhhnr mhhnr nhhnr ohhnr phhnr qhhnr rhhnr shhnr thhnr uhhnr vhhnr whhnr xhhnr yhhnr zhhnr, newstub(hhnr) wave(1/26)
+soepren astell bstell cstell dstell estell fstell gstell hstell istell jstell kstell lstell mstell nstell ostell pstell qstell rstell sstell tstell ustell vstell wstell xstell ystell zstell bastell, newstub(stell) wave(1/27)
+soepren ahhnr bhhnr chhnr dhhnr ehhnr fhhnr ghhnr hhhnr ihhnr jhhnr khhnr lhhnr mhhnr nhhnr ohhnr phhnr qhhnr rhhnr shhnr thhnr uhhnr vhhnr whhnr xhhnr yhhnr zhhnr bahhnr, newstub(hhnr) wave(1/27)
 
 merge persnr using ${dir}ppfad, sort keep (sex)
 drop _merge
@@ -466,7 +466,8 @@ save ${temp}Eltern, replace // im AVZ im TEMPoraeren Ordner Sortierung und Reduz
 ***Elterninformationen aus dem Kinderdatensaetzen ($Kind) holen***
 cd ${dir}
 use akind, clear
-merge persnr using bkind ckind dkind ekind fkind gkind hkind ikind jkind kkind lkind mkind nkind okind pkind qkind rkind skind tkind ukind vkind wkind xkind ykind zkind, sort
+sort persnr
+merge 1:1 persnr using bkind ckind dkind ekind fkind gkind hkind ikind jkind kkind lkind mkind nkind okind pkind qkind rkind skind tkind ukind vkind wkind xkind ykind zkind bakind, sort
 drop _merge*
 keep persnr *kmutti *kmup // nur die Elterninfos beibehalten
 quietly: mvdecode _all, mv(-1=.k\-2=.t\-3=.v)
