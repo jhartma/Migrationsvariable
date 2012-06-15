@@ -715,16 +715,22 @@ save ${AVZ}germ_sbs, replace
 ***** 1.11 Aufbereitung Jugenddatensatz Melanie *************
 *************************************************************
 
-	
+*************************************************************
+***** 1.11 Aufbereitung Jugenddatensatz Melanie *************
+*************************************************************
+
+
 *****************************************************************************************************************
-*** 1. Bildung Masterdatensatz: bioage17_diss.dta
+*** 1. Bildung Masterdatensatz: Melanie_jugendliche.dta
 *****************************************************************************************************************
 
 *****************************************************************************************
 *** $PAGE17: Informationen zur Bestimmung Generationenstatus Jugendlicher (seit 2006) ***
 *****************************************************************************************
 
-* FRAGE: Müssen tatsächlich wieder alle Datensätze (BIOIMMIG, etc.) berücksichtigt werden?
+* FRAGE: Müssen hier jetzt tatsächlich wieder alle Datensätze (BIOIMMIG, etc.) berücksichtigt werden?
+	
+
 	cd ${dir}
 	use ${dir}wpage17.dta, clear
 
@@ -759,7 +765,7 @@ save ${AVZ}germ_sbs, replace
 * Reduzierten Datensatz speichern
 	isid persnr // persnr ist eindeutige Identifikationsvariable
 	sort persnr
-	save ${AVZ}page17_mig.dta, replace
+	save ${AVZ}page17_mig1.dta, replace
 
 
 
@@ -775,7 +781,7 @@ save ${AVZ}germ_sbs, replace
 * Reduzierten Datensatz speichern
 	isid persnr // persnr ist eindeutige Identifikationsvariable
 	sort persnr
-	save ${AVZ}ppfad_mig.dta, replace
+	save ${AVZ}ppfad_mig1.dta, replace
 
 
 ****************
@@ -795,11 +801,11 @@ save ${AVZ}germ_sbs, replace
 	keep persnr hhnr vnr mnr vnat mnat vorigin morigin vgebj mgebj vaortakt maortakt vaortup maortup living* 
 
 	*** FRAGE: Benötigt man hier die vnr bzw. mnr? Ich habe jetzt die persnr des Jugendlichen zum mergen genommen ...
-	
+
 * Reduzierten Datensatz speichern***
 	isid persnr // persnr ist eindeutige Identifikationsvariable
 	sort persnr
-	save ${AVZ}bioparen_mig.dta, replace
+	save ${AVZ}bioparen_mig1.dta, replace
 
 *******************************************
 *** BILDUNG MASTERDATENSATZ Jugendliche ***
@@ -819,8 +825,8 @@ save ${AVZ}germ_sbs, replace
 	rename bymnr persnr
 	sort persnr
 
-* Ranspielen Infos für die Mutter aus ppfad_diss
-	merge m:1 persnr using ${AVZ}ppfad_diss.dta
+* Ranspielen Infos für die Mutter aus ppfad_mig1
+	merge m:1 persnr using ${AVZ}ppfad_mig1.dta
 	tab _merge
 
 	rename hhnr hhnr_m
@@ -834,85 +840,6 @@ save ${AVZ}germ_sbs, replace
 	drop if _merge==2
 	drop _merge
 
-* Ranspielen Infos für die Mutter aus mp_diss
-	sort persnr
-	merge m:1 persnr using ${AVZ}mp_diss.dta
-
-	rename hhnr hhnr_96_m
-	
-	rename bf1_sex_96 bf1_sex_96_m
-	rename bf2_sex_96 bf2_sex_96_m
-	rename bf3_sex_96 bf3_sex_96_m
-
-	rename bf1_rel_96 bf1_rel_96_m
-	rename bf2_rel_96 bf2_rel_96_m
-	rename bf3_rel_96 bf3_rel_96_m
-
-	rename bf1_ori_96 bf1_ori_96_m
-	rename bf2_ori_96 bf2_ori_96_m
-	rename bf3_ori_96 bf3_ori_96_m
-
-	rename bf1_sameori_96 bf1_sameori_96_m
-	rename bf2_sameori_96 bf2_sameori_96_m
-	rename bf3_sameori_96 bf3_sameori_96_m
-
-	tab _merge
-	drop if _merge==2
-	drop _merge
-	
-* Ranspielen Infos für die Mutter aus rp_diss
-	sort persnr
-	merge m:1 persnr using ${AVZ}rp_diss.dta
-
-	rename hhnr hhnr_01_m
-
-	rename bf1_sex_01 bf1_sex_01_m
-	rename bf2_sex_01 bf2_sex_01_m
-	rename bf3_sex_01 bf3_sex_01_m
-
-	rename bf1_rel_01 bf1_rel_01_m
-	rename bf2_rel_01 bf2_rel_01_m
-	rename bf3_rel_01 bf3_rel_01_m
-
-	rename bf1_ori_01 bf1_ori_01_m
-	rename bf2_ori_01 bf2_ori_01_m
-	rename bf3_ori_01 bf3_ori_01_m
-
-	rename bf1_sameori_01 bf1_sameori_01_m
-	rename bf2_sameori_01 bf2_sameori_01_m
-	rename bf3_sameori_01 bf3_sameori_01_m
-
-
-	tab _merge
-	drop if _merge==2
-	drop _merge
-
-	
-* Ranspielen Infos für die Mutter aus wp_diss
-	sort persnr
-	merge m:1 persnr using ${AVZ}wp_diss.dta
-
-	rename hhnr hhnr_06_m
-
-	rename bf1_sex_06 bf1_sex_06_m
-	rename bf2_sex_06 bf2_sex_06_m
-	rename bf3_sex_06 bf3_sex_06_m
-
-	rename bf1_rel_06 bf1_rel_06_m
-	rename bf2_rel_06 bf2_rel_06_m
-	rename bf3_rel_06 bf3_rel_06_m
-
-	rename bf1_ori_06 bf1_ori_06_m
-	rename bf2_ori_06 bf2_ori_06_m
-	rename bf3_ori_06 bf3_ori_06_m
-
-	rename bf1_sameori_06 bf1_sameori_06_m
-	rename bf2_sameori_06 bf2_sameori_06_m
-	rename bf3_sameori_06 bf3_sameori_06_m
-
-	tab _merge
-	drop if _merge==2
-	drop _merge
 
 ***************************************************
 *** Ranspielen der Infos für den VATER
@@ -922,7 +849,7 @@ save ${AVZ}germ_sbs, replace
 	sort persnr
 
 * Ranspielen Infos für den Vater aus PPFAD
-	merge m:1 persnr using ${AVZ}ppfad_diss.dta
+	merge m:1 persnr using ${AVZ}ppfad_mig1.dta
 
 	rename hhnr hhnr_f
 	rename gebmoval gebmoval_f
@@ -931,84 +858,6 @@ save ${AVZ}germ_sbs, replace
 	rename germborn germborn_f
 	rename corigin corigin_f
 	rename sex sex_f
-
-	tab _merge
-	drop if _merge==2
-	drop _merge
-	
-* Ranspielen Infos für den Vater aus MP 
-	sort persnr
-	merge m:1 persnr using ${AVZ}mp_diss.dta
-
-	rename hhnr hhnr_96_f
-
-	rename bf1_sex_96 bf1_sex_96_f
-	rename bf2_sex_96 bf2_sex_96_f
-	rename bf3_sex_96 bf3_sex_96_f
-
-	rename bf1_rel_96 bf1_rel_96_f
-	rename bf2_rel_96 bf2_rel_96_f
-	rename bf3_rel_96 bf3_rel_96_f
-
-	rename bf1_ori_96 bf1_ori_96_f
-	rename bf2_ori_96 bf2_ori_96_f
-	rename bf3_ori_96 bf3_ori_96_f
-
-	rename bf1_sameori_96 bf1_sameori_96_f
-	rename bf2_sameori_96 bf2_sameori_96_f
-	rename bf3_sameori_96 bf3_sameori_96_f
-
-	tab _merge
-	drop if _merge==2
-	drop _merge
-
-* Ranspielen Infos für den Vater aus RP
-	sort persnr
-	merge m:1 persnr using ${AVZ}rp_diss.dta
-
-	rename hhnr hhnr_01_f
-
-	rename bf1_sex_01 bf1_sex_01_f
-	rename bf2_sex_01 bf2_sex_01_f
-	rename bf3_sex_01 bf3_sex_01_f
-
-	rename bf1_rel_01 bf1_rel_01_f
-	rename bf2_rel_01 bf2_rel_01_f
-	rename bf3_rel_01 bf3_rel_01_f
-
-	rename bf1_ori_01 bf1_ori_01_f
-	rename bf2_ori_01 bf2_ori_01_f
-	rename bf3_ori_01 bf3_ori_01_f
-
-	rename bf1_sameori_01 bf1_sameori_01_f
-	rename bf2_sameori_01 bf2_sameori_01_f
-	rename bf3_sameori_01 bf3_sameori_01_f
-
-	tab _merge
-	drop if _merge==2
-	drop _merge
-
-* Ranspielen Infos für den Vater aus WP
-	sort persnr
-	merge m:1 persnr using ${AVZ}wp_diss.dta
-
-	rename hhnr hhnr_06_f
-
-	rename bf1_sex_06 bf1_sex_06_f
-	rename bf2_sex_06 bf2_sex_06_f
-	rename bf3_sex_06 bf3_sex_06_f
-
-	rename bf1_rel_06 bf1_rel_06_f
-	rename bf2_rel_06 bf2_rel_06_f
-	rename bf3_rel_06 bf3_rel_06_f
-
-	rename bf1_ori_06 bf1_ori_06_f
-	rename bf2_ori_06 bf2_ori_06_f
-	rename bf3_ori_06 bf3_ori_06_f
-
-	rename bf1_sameori_06 bf1_sameori_06_f
-	rename bf2_sameori_06 bf2_sameori_06_f
-	rename bf3_sameori_06 bf3_sameori_06_f
 
 	tab _merge
 	drop if _merge==2
@@ -1022,13 +871,13 @@ save ${AVZ}germ_sbs, replace
 	sort persnr
 
 * Ranspielen Infos für Kind aus $PAGE17
-	merge m:1 persnr using ${AVZ}page17_diss.dta // Merge 1:1, da Kinder nur einmal im Datensatz sein können, allerdings: funktioniert nicht!
+	merge m:1 persnr using ${AVZ}page17_mig1.dta
 	tab _merge
 	drop _merge
 
 * Ranspielen Infos für Kind aus dem Datensatz von Elisabeth
 	sort persnr
-	merge m:1 persnr using ${AVZ}wjugend.dta
+	merge m:1 persnr using ${AVZ}wjugend.dta // WICHTIG: Der Datensatz von Elisabeth muss im AVZ liegen!
 	tab _merge
 	drop _merge
 
@@ -1037,16 +886,16 @@ save ${AVZ}germ_sbs, replace
 
 * Ranspielen Infos für Kind aus PPFAD
 	sort persnr
-	merge m:1 persnr using ${AVZ}ppfad_diss.dta
-	
+	merge m:1 persnr using ${AVZ}ppfad_mig1.dta
+
 	tab _merge
 	drop if _merge==2
 	drop _merge
-	
+
 * Ranspielen Infos für Kind aus BIOPAREN --> FRAGE: Hier gibt es eine mnr und vnr --> Sind das dieselben wie bymnr und byvnr? 
 	sort persnr
-	merge m:1 persnr using ${AVZ}bioparen_diss.dta
-	
+	merge m:1 persnr using ${AVZ}bioparen_mig1.dta
+
 	tab _merge
 	drop if _merge==2
 	drop _merge
@@ -1055,13 +904,231 @@ save ${AVZ}germ_sbs, replace
 drop hhnr
 rename kindhhnr hhnr
 
+save ${AVZ}Melanie_jugendliche.dta, replace
 
 
 
+* Prüfen, ob Zusammenfassung verteilter Infos notwendig
+*******************************************************
+
+*** bei den JUGENDLICHEN (Mögliche Quellen - Jetzige Annahme: page17 (seit 2006); ppfad (bis 2005))
+
+* Prüfen, ob Geburtslandinfos aus $PAGE in der PPFAD-Info enthalten ist
+
+	tab germborn, m
+	tab germborn germborn_j23
+	tab germborn germborn_j24
+	tab germborn germborn_j25
+	tab germborn germborn_j26
+	tab germborn germborn_j27
+
+*** Ja, Infos sind in PPFAD-Daten enthalten, wobei Abweichungen (25; 26; 27) --> Warum?
+*** --> Germborn kann grundsätzlich für Jugendliche genutzt werden
+
+
+* Prüfen, ob corigin-Infos aus $PAGE in PPFAD-corigin enthalten sind
+
+	tab corigin, m
+	tab corigin corigin_j23
+	tab corigin corigin_j24
+	tab corigin corigin_j25
+	tab corigin corigin_j26
+	tab corigin corigin_j27
+
+*** Ja, Infos sind enthalten 
+*** --> corigin aus PPFAD kann grundsätzlich genutzt werden
+
+
+* Prüfen, ob immiyearinfos aus $PAGE auch bei PPFAD enthalten
+	tab immiyear, m
+	tab immiyear immiyear_j23
+	tab immiyear immiyear_j24
+	tab immiyear immiyear_j25
+	tab immiyear immiyear_j26
+	tab immiyear immiyear_j27
+
+*** Ja, Info ist enthalten, wobei teilweise Abweichungen (23; 24; 25; 26) --> Warum?
+*** --> immiyear aus PPFAD kann grundsätzlich genutzt werden 
 
 
 
+*****************************************************************************************************************
+*** bei den ELTERN (Mögliche Quellen: bioparen, ppfad, wjugend für 2006 von Elisabeth)
 
+* Kongruente Infos aus PPFAD bei Germborn und Corigin?
+	tab corigin_f germborn_f, m
+* 503 x Sysmis bei beiden 
+
+	tab corigin_m germborn_m, m
+* 74 x Sysmis bei beiden Variablen 
+
+
+
+*****************************************************************
+* WJUGEND: Benötigt man die Dummy-Info von den Jugendlichen zu dem Geburtsland ihrer Eltern aus dem DS von Elisabeth für 2006?
+
+* VATER
+	tab germborn_f_j
+	tab germborn_f germborn_f_j if erhebj==2006, m
+*** 39 "." bei germborn_f; Wenn Nutzung Info von Elisabeth für 2006, dann könnten 35 Fälle deutsch und 3 Fälle den Immigranten zugeordnet werden
+*** Folglich: Diese Fälle würde ich noch zuordnen + Vermerk in Hilfsvariable, dass diese Info vom Jugendlichen kommt
+
+* Ist die Info bei vorigin enthalten?
+	tab vorigin germborn_f_j if erhebj==2006, m //--> Nein; hier -1
+
+
+* MUTTER
+	tab germborn_m germborn_m_j if erhebj==2006, m
+*** 6 Sysmis bei germborn_m; bei der Info von Elisabeth 4x Deutschland und 2x-2
+
+* Ist die Info bei morigin enthalten?
+	tab morigin germborn_m_j if erhebj==2006, m //--> Nein; hier -1
+
+
+*****************************************************************
+
+
+* Vorigin und Morigin aus BIOPAREN (auch Infos von Jugendlichen zu den Eltern seit 2007 enthalten)
+	tab vorigin, m
+*** 2640 x keine Angabe (-1) - Was ist da los? Eventuell doch nicht zusätzlich die Infos aus PPFAD zugespielt, sondern nur Angaben der Jugendlichen?
+*** Dennoch FRAGE: Wie kann es sein, dass es hier weniger Infos gibt als bei den aus PPFAD zugespielten Infos???
+*** Verstehe ich nicht ... Sind das andere Personen?  
+
+	tab morigin, m
+*** 2640 x keine Angabe (-1) - Was ist da los? Siehe Vater
+
+
+
+* Sind bei den PPFAD-Infos zu den Eltern mehr Informationen enthalten als bei der VORIGIN und MORGIN aus Bioparen oder umgekehrt?
+	tab vorigin germborn_f, m
+*** vorigin -1=2261 Fälle; in germborn_f sind davon 1821 in Deutschland geboren, 418 migriert und 20 haben anderen Missing-Wert
+*** + Eine Reihe von Fällen, hat in vorigin ein anderes Geburtsland und ist gemäß der germborn aber in D geboren --> Sehr suspekt, welche Info nun wahr ...
+*** + 503 Fälle, die in germborn "." haben: sind in der vorigin: 103 x 1; 20 x 2; 1 x -3; 379 x -1
+
+	tab morigin germborn_m, m
+* 1 von den fehlenden 74 Fällen kann zugeordnet werden (Migrant)
+
+
+*** HINWEIS: Wenn Verwendung der Informationen von vorigin und morigin, dann muss diese Info sowohl Origin als auch germborn zugespielt werden
+
+
+
+* 2. Schritt: Zuspielen weiterer Infos zu den Eltern-Variablen
+**************************************************************
+
+* Für die ELTERN
+
+* Aus wjugend
+*** Zuspielen der Infos für VATER (zu der germborn_f)
+	replace germborn_f=2 if germborn_f==. & germborn_f_j==2
+	replace germborn_f=1 if germborn_f==. & germborn_f_j==1
+	replace germborn_f=-2 if germborn_f==. & germborn_f_j==-2
+
+	tab germborn_f, m
+
+
+*** Zuspielen der Infos für MUTTER (zu der germborn_m)
+	replace germborn_m=1 if germborn_m==. & germborn_m_j==1
+	replace germborn_m=-2 if germborn_m==. & germborn_m_j==-2
+
+	tab germborn_m, m
+
+
+*************************************************************************
+
+* Aus Bioparen
+**************
+
+* VATER
+
+*** Zuspielen Infos aus vorigin/BIOPAREN zu germborn_f
+	tab vorigin germborn_f, m
+* 464 Sysmis könnten so eliminiert werden
+
+* Was haben die aus Wjugend zugespielten Fälle bei Vorigin?
+	tab corigin_f germborn_f_j if erhebj==2006, m
+	tab vorigin germborn_f_j if erhebj==2006, m
+* Die aus Wjugend der germborn_f zugespielten Fälle bekommen folglich -1
+
+* Zuspielen
+	replace germborn_f=2 if germborn_f==. & vorigin>=2
+	replace germborn_f=1 if germborn_f==. & vorigin==1
+	replace germborn_f=-1 if germborn_f==. & vorigin==-1
+	replace germborn_f=-3 if germborn_f==. & vorigin==-3
+	tab vorigin germborn_f, m
+
+
+*** Zuspielen Infos aus vorigin/BIOPAREN zu corigin_f
+	tab corigin_f vorigin, m
+
+	replace corigin_f=vorigin if corigin_f==.
+	tab corigin_f, m
+
+
+* MUTTER
+
+*** Zuspielen Infos aus morigin/BIOPAREN zu germborn_m
+*******************************************************
+
+	tab morigin germborn_m, m
+* 68 Sysmis könnten so eliminiert werden, wobei 67 x -1
+
+* Was haben aber die aus Wjugend zugespielten Fälle bei Morigin?
+	tab corigin_m germborn_m_j if erhebj==2006, m
+	tab morigin germborn_m_j if erhebj==2006, m
+* Die aus Wjugend der germborn_m zugespielten Fälle bekommen folglich -1
+
+* Zuspielen
+	replace germborn_m=2 if germborn_m==. & morigin>=2
+	replace germborn_m=-1 if germborn_m==. & morigin==-1
+	tab germborn_m
+
+
+*** Zuspielen Infos aus morigin/BIOPAREN zu corigin_m
+	tab corigin_m morigin, m
+
+	replace corigin_m=morigin if corigin_m==.
+	tab corigin_m, m
+
+
+
+**************************************************************************
+
+* Vermerk zugewiesener Fälle in einer Hilfsvariable (sind höchstwahrscheinlich Infos von den Jugendlichen zu ihren Eltern).
+
+*** Vermerk in Hilfsvariable "quelle_germborn_f"
+	gen quelle_germborn_f=.
+	replace quelle_germborn_f=0 if germborn_f!=. & erhebj==2006 // Bezug auf Wjugend hätte man sich sparen können. Naja ...
+	replace quelle_germborn_f=1 if germborn_f==. & (germborn_f_j==2 | germborn_f_j==1 | germborn_f_j==-2) & erhebj==2006
+
+	replace quelle_germborn_f=0 if corigin_f!=. 
+	replace quelle_germborn_f=1 if corigin_f==. 
+
+
+	tab quelle_germborn_f, m
+	tab quelle_germborn_f germborn_f_j if erhebj==2006, m
+
+
+*** Vermerk in Hilfsvariable "quelle_rgermborn_m"
+	gen quelle_germborn_m=.
+	replace quelle_germborn_m=0 if germborn_m!=. & erhebj==2006 
+	replace quelle_germborn_m=1 if germborn_m==. & (germborn_m_j==2 | germborn_m_j==1 | germborn_m_j==-2) & erhebj==2006
+
+	replace quelle_germborn_m=0 if corigin_m!=. 
+	replace quelle_germborn_m=1 if corigin_m==. 
+
+	tab quelle_germborn_m, m
+	tab quelle_germborn_m germborn_m_j if erhebj==2006, m
+
+
+*** Bildung Summenscore: Anzahl Fälle bei denen Elterninfo von den Jugendlichen
+
+	egen sum_quelle_gp = anycount(quelle_germborn_m quelle_germborn_f), values(1)
+	tab sum_quelle_gp
+
+
+
+*** HIER UNBEDINGT NOCH MAL PRÜFEN --> EVENTUELL AUCH GLEICH DIE ELTERN-INFOS beibehalten (unberücksichtigt sind dann aber die NATION-Sachen)?????????
 * Nehme nur die Variablen für die Jugendlichen, nicht die aus ppfad
 * deu_seit_j25 -> Deu_seit
 * staatsang`x', biimgrp`x', nation`x', corigin[_n-`x'], germborn[_n-`x'], immiyear[_n-`x'], gebjahr[_n-`x'], germnatbirth[_n-`x']
@@ -1491,6 +1558,83 @@ save ${AVZ}miggen_helpers.dta, replace
 *** und im naechsten Schritt fuer juengste Generation --> ich bezweifle, dass das weniger komplex wird,
 *** da die Zwischenschritte und Teilbedingungen immer anfallen werden
 ****************************************************************************************************
+
+*** Variablenliste Bildung Mig
+*** Germborn (wie germborn) --> hier werden später noch Dummies gebildet/Rekodierungen vorgenommen 
+* germborn
+* germborn_m
+* germborn_f
+* germborn_m_m
+* germborn_m_f
+* germborn_f_m
+* germborn_f_f
+
+
+* migage // Muss zuvor aus Geburts- und Zuwanderungsalter (gebjahr und immiyear) für alle gebildet werden
+** FRAGE: Ist das schon gebildet?
+
+*** Corigin (wie corigin)
+* corigin
+* corigin_f
+* corigin_m
+* corigin_f_f
+* corigin_f_m
+* corigin_m_f
+* corigin_m_m
+
+*** r_corigin (Rekodierungen; siehe auch Excel-Sheet)
+* r_corigin_zp
+* r_corigin_f
+* r_corigin_m
+* r_corigin_f_f
+* r_corigin_f_m
+* r_corigin_m_f
+* r_corigin_m_m
+
+*** nr_corigin (Kombi aus r_nation und r_corigin)
+* nr_corigin_zp
+* nr_corigin_f
+* nr_corigin_m
+* nr_corigin_f_f
+* nr_corigin_f_m
+* nr_corigin_m_f
+* nr_corigin_m_m
+
+*** Nation (wie nation)
+* nation
+* nation_f
+* nation_m
+* nation_f_f
+* nation_f_m
+* nation_m_f
+* nation_m_m
+
+*** r_nation (Rekodierungen; siehe auch Excel-Sheet)
+* r_nation_zp
+* r_nation_f
+* r_nation_m
+* r_nation_f_f
+* r_nation_f_m
+* r_nation_m_f
+* r_nation_m_m
+
+
+*** BIIMGRP (wie BIIMGRP)
+* BIIMGRP_f
+* BIIMGRP_m
+* BIIMGRP_f_f
+* BIIMGRP_f_m
+* BIIMGRP_m_f
+* BIIMGRP_m_m
+
+*** DEU_seit 
+* Deu_seit_zp
+* Deu_seit_f
+* Deu_seit_m
+* Deu_seit_f_f
+* Deu_seit_f_m
+* Deu_seit_m_f
+* Deu_seit_m_m
 
 ****************************************************************************************************
 *** 3.1. Generationenstatus ************************************************************************
