@@ -51,11 +51,11 @@ global LoFi="\\Ug-uszu-s1\ussz100_all$\Projekte\SOEPlong\Migrationsvariable\LogF
 global DoFi="\\Ug-uszu-s1\ussz100_all$\Projekte\SOEPlong\Migrationsvariable\DoFile/" // Ordner fuer Do-Files 
 */
 // Globals Melanie
-	global dir= "F:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/" // Arbeitsverzeichnis der relginaldatensaetze 
-	global AVZ= "F:/_Arbeit/_Diss/_DatensÃ¤tze/SOEP/SOEP27/DatensÃ¤tze_Mig/" // Arbeitsverzeichnis der neu generierten Datensaetze und anderer Ordner
-	global temp="F:/_Arbeit/_Diss/_DatensÃ¤tze/SOEP/SOEP27/DatensÃ¤tze_Mig/" //Temporaerer Arbeitsspeicher
-	global LoFi="F:/_Arbeit/_Diss/_DatensÃ¤tze/SOEP/SOEP27/DatensÃ¤tze_Mig/" // Ordner fuer Log-Files
-	global DoFi="F:/_Arbeit/_Diss/_DatensÃ¤tze/SOEP/SOEP27/DatensÃ¤tze_Mig/" // Ordner fuer Do-Files 
+	global dir= "L:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/" // Arbeitsverzeichnis der relginaldatensaetze 
+	global AVZ= "L:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Mig/" // Arbeitsverzeichnis der neu generierten Datensaetze und anderer Ordner
+	global temp="L:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Mig/" //Temporaerer Arbeitsspeicher
+	global LoFi="L:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Mig/" // Ordner fuer Log-Files
+	global DoFi="L:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Mig/" // Ordner fuer Do-Files 
 
 // Globals Joerg
 global dir= "/home/Knut/Documents/UniGoettingen/SOEP2010/" // Arbeitsverzeichnis der Originaldatensaetze 
@@ -87,7 +87,9 @@ log using "${LoFi}miggen.log", replace
 				1.9.1 Eltern
 				1.9.2 Grosseltern
 				1.9.3 Zusammenf�ehrung von Eltern und Grosseltern 
-		1.10 	Mergen aller Datensaetze - Output: miggen.dta	
+		1.10 	Seit wann dt. SBS - Output: germ_sbs.dta
+		1.11 	Aufbereitung Jugenddatensatz Melanie
+		1.12	Mergen aller Datensaetze - Output: miggen.dta	
 		2. 	Bildung von Hilfsvariablen
 		2.1 Eltern und Grosseltern (gebjahr, germborn, corigin, nation immiyear, BIIGRP, Deu_seit, biimgrp, staatsang)			
 		2.2 Weitere Hilfsvariablen 
@@ -343,6 +345,9 @@ save ${AVZ}bioparen_mig.dta, replace
 ****************************************************
 ***** 1.8 $page17.dta - Output: page17_mig.dta ***** 
 ****************************************************
+
+* FRAGE: Hab jetzt doch meinen Do-File reinkopiert - Das hier kann dann eigentlich gelöscht werden
+
 
 use ${dir}/wpage17.dta, clear
 
@@ -716,6 +721,354 @@ save ${AVZ}germ_sbs, replace
 *************************************************************
 ***** 1.11 Aufbereitung Jugenddatensatz Melanie *************
 *************************************************************
+
+	
+*****************************************************************************************************************
+*** 1. Bildung Masterdatensatz: bioage17_diss.dta
+*****************************************************************************************************************
+
+*****************************************************************************************
+*** $PAGE17: Informationen zur Bestimmung Generationenstatus Jugendlicher (seit 2006) ***
+*****************************************************************************************
+
+* FRAGE: Müssen tatsächlich wieder alle Datensätze (BIOIMMIG, etc.) berücksichtigt werden?
+	cd ${dir}
+	use ${dir}wpage17.dta, clear
+
+* Beibehaltung ausgewaehlter Variablen***
+	keep wj6001 wj6002 wj61 wj6201 wj63 wj64 wj65 wj67 wj6601 wj6602 wj6801 wj69 persnr hhnr
+	sort persnr
+
+* Datensatzzusammenfuehrung und Beibehaltung ausgewaehlter Variablen*** /// 2010er jetzt auch enthalten
+	cd ${dir}
+	foreach file in xpage17.dta ypage17.dta zpage17.dta bapage17.dta{
+	merge 1:1 persnr using "`file'", keepusing (hhnr *j6001 *j6002 *j61 *j62 *j63 *j64 *j65 *j67 *j6601 *j6602 *j68 *j69)
+	drop _merge
+	quietly: compress
+}
+
+
+* Umbennenung ausgewaehlter Variablen***
+	soepren wj6001 xj6001 yj6001 zj6001 baj6001, newstub(gebjahr_j) waves (23/27)  
+	soepren wj6002 xj6002 yj6002 zj6002 baj6002, newstub(gebmoval_j) waves (23/27)  
+	soepren wj61 xj61 yj61 zj61 baj61, newstub(germborn_j) waves (23/27)  
+	soepren wj6201 xj62 yj62 zj62 baj62, newstub(crelgin_j) waves (23/27)  
+	soepren wj63 xj63 yj63 zj63 baj63, newstub(immiyear_j) waves (23/27)  
+	soepren wj64 xj64 yj64 zj64 baj64, newstub(biimgrp_j) waves (23/27)  
+	soepren wj65 xj65 yj65 zj65 baj65, newstub(nation_deu_j) waves (23/27)  
+	soepren wj67 xj67 yj67 zj67 baj67, newstub(deu_seit_j) waves (23/27)  
+	soepren wj6601 xj6601 yj6601 zj6601 baj6601, newstub(d_nation2_j) waves (23/27)  
+	soepren wj6602 xj6602 yj6602 zj6602 baj6602, newstub(nation2_j) waves (23/27)  
+	soepren wj6801 xj68 yj68 zj68 baj68, newstub(nation_j) waves (23/27)  
+	soepren wj69 xj69 yj69 zj69 baj69, newstub(biresper_j) waves (23/27)  
+
+
+* Reduzierten Datensatz speichern
+	isid persnr // persnr ist eindeutige Identifikationsvariable
+	sort persnr
+	save ${AVZ}page17_mig.dta, replace
+
+
+
+************************************************************************************************************
+*** PPFAD: Weitere Hintergrundinformationen zum Jugendlichen (bis einschließlich 2005) und dessen Eltern ***
+************************************************************************************************************
+
+	use ${dir}ppfad.dta, clear
+
+* Beibehaltung ausgewaehlter Variablen*** 
+	keep hhnr persnr sex gebmoval gebjahr immiyear germborn corigin 
+
+* Reduzierten Datensatz speichern
+	isid persnr // persnr ist eindeutige Identifikationsvariable
+	sort persnr
+	save ${AVZ}ppfad_mig.dta, replace
+
+
+****************
+*** BIOIMMIG ***
+****************
+
+* Erst einmal unberücksichtigt
+
+
+****************
+*** BIOPAREN ***
+****************
+
+	use ${dir}/bioparen.dta, clear
+
+* Beibehaltung ausgewaehlter Variablen***
+	keep persnr hhnr vnr mnr vnat mnat vorigin morigin vgebj mgebj vaortakt maortakt vaortup maortup living* 
+
+	*** FRAGE: Benötigt man hier die vnr bzw. mnr? Ich habe jetzt die persnr des Jugendlichen zum mergen genommen ...
+	
+* Reduzierten Datensatz speichern***
+	isid persnr // persnr ist eindeutige Identifikationsvariable
+	sort persnr
+	save ${AVZ}bioparen_mig.dta, replace
+
+*******************************************
+*** BILDUNG MASTERDATENSATZ Jugendliche ***
+*******************************************
+
+* Öffnen des Masterdatensatzes 
+	use ${dir}/bioage17.dta, clear
+
+**************************************************
+*** FRAGE:Wird das später eh gemacht? Dann kann das hier weg
+
+
+*** Ranspielen der Infos für die MUTTER
+* Umbenennung der persnr
+	rename hhnr kindhhnr
+	rename persnr kindpersnr
+	rename bymnr persnr
+	sort persnr
+
+* Ranspielen Infos für die Mutter aus ppfad_diss
+	merge m:1 persnr using ${AVZ}ppfad_diss.dta
+	tab _merge
+
+	rename hhnr hhnr_m
+	rename gebmoval gebmoval_m
+	rename gebjahr gebjahr_m
+	rename immiyear immiyear_m
+	rename germborn germborn_m
+	rename corigin corigin_m 
+	rename sex sex_m
+
+	drop if _merge==2
+	drop _merge
+
+* Ranspielen Infos für die Mutter aus mp_diss
+	sort persnr
+	merge m:1 persnr using ${AVZ}mp_diss.dta
+
+	rename hhnr hhnr_96_m
+	
+	rename bf1_sex_96 bf1_sex_96_m
+	rename bf2_sex_96 bf2_sex_96_m
+	rename bf3_sex_96 bf3_sex_96_m
+
+	rename bf1_rel_96 bf1_rel_96_m
+	rename bf2_rel_96 bf2_rel_96_m
+	rename bf3_rel_96 bf3_rel_96_m
+
+	rename bf1_ori_96 bf1_ori_96_m
+	rename bf2_ori_96 bf2_ori_96_m
+	rename bf3_ori_96 bf3_ori_96_m
+
+	rename bf1_sameori_96 bf1_sameori_96_m
+	rename bf2_sameori_96 bf2_sameori_96_m
+	rename bf3_sameori_96 bf3_sameori_96_m
+
+	tab _merge
+	drop if _merge==2
+	drop _merge
+	
+* Ranspielen Infos für die Mutter aus rp_diss
+	sort persnr
+	merge m:1 persnr using ${AVZ}rp_diss.dta
+
+	rename hhnr hhnr_01_m
+
+	rename bf1_sex_01 bf1_sex_01_m
+	rename bf2_sex_01 bf2_sex_01_m
+	rename bf3_sex_01 bf3_sex_01_m
+
+	rename bf1_rel_01 bf1_rel_01_m
+	rename bf2_rel_01 bf2_rel_01_m
+	rename bf3_rel_01 bf3_rel_01_m
+
+	rename bf1_ori_01 bf1_ori_01_m
+	rename bf2_ori_01 bf2_ori_01_m
+	rename bf3_ori_01 bf3_ori_01_m
+
+	rename bf1_sameori_01 bf1_sameori_01_m
+	rename bf2_sameori_01 bf2_sameori_01_m
+	rename bf3_sameori_01 bf3_sameori_01_m
+
+
+	tab _merge
+	drop if _merge==2
+	drop _merge
+
+	
+* Ranspielen Infos für die Mutter aus wp_diss
+	sort persnr
+	merge m:1 persnr using ${AVZ}wp_diss.dta
+
+	rename hhnr hhnr_06_m
+
+	rename bf1_sex_06 bf1_sex_06_m
+	rename bf2_sex_06 bf2_sex_06_m
+	rename bf3_sex_06 bf3_sex_06_m
+
+	rename bf1_rel_06 bf1_rel_06_m
+	rename bf2_rel_06 bf2_rel_06_m
+	rename bf3_rel_06 bf3_rel_06_m
+
+	rename bf1_ori_06 bf1_ori_06_m
+	rename bf2_ori_06 bf2_ori_06_m
+	rename bf3_ori_06 bf3_ori_06_m
+
+	rename bf1_sameori_06 bf1_sameori_06_m
+	rename bf2_sameori_06 bf2_sameori_06_m
+	rename bf3_sameori_06 bf3_sameori_06_m
+
+	tab _merge
+	drop if _merge==2
+	drop _merge
+
+***************************************************
+*** Ranspielen der Infos für den VATER
+* Umbenennung der persnr
+	rename persnr bymnr
+	rename byvnr persnr
+	sort persnr
+
+* Ranspielen Infos für den Vater aus PPFAD
+	merge m:1 persnr using ${AVZ}ppfad_diss.dta
+
+	rename hhnr hhnr_f
+	rename gebmoval gebmoval_f
+	rename gebjahr gebjahr_f
+	rename immiyear immiyear_f
+	rename germborn germborn_f
+	rename corigin corigin_f
+	rename sex sex_f
+
+	tab _merge
+	drop if _merge==2
+	drop _merge
+	
+* Ranspielen Infos für den Vater aus MP 
+	sort persnr
+	merge m:1 persnr using ${AVZ}mp_diss.dta
+
+	rename hhnr hhnr_96_f
+
+	rename bf1_sex_96 bf1_sex_96_f
+	rename bf2_sex_96 bf2_sex_96_f
+	rename bf3_sex_96 bf3_sex_96_f
+
+	rename bf1_rel_96 bf1_rel_96_f
+	rename bf2_rel_96 bf2_rel_96_f
+	rename bf3_rel_96 bf3_rel_96_f
+
+	rename bf1_ori_96 bf1_ori_96_f
+	rename bf2_ori_96 bf2_ori_96_f
+	rename bf3_ori_96 bf3_ori_96_f
+
+	rename bf1_sameori_96 bf1_sameori_96_f
+	rename bf2_sameori_96 bf2_sameori_96_f
+	rename bf3_sameori_96 bf3_sameori_96_f
+
+	tab _merge
+	drop if _merge==2
+	drop _merge
+
+* Ranspielen Infos für den Vater aus RP
+	sort persnr
+	merge m:1 persnr using ${AVZ}rp_diss.dta
+
+	rename hhnr hhnr_01_f
+
+	rename bf1_sex_01 bf1_sex_01_f
+	rename bf2_sex_01 bf2_sex_01_f
+	rename bf3_sex_01 bf3_sex_01_f
+
+	rename bf1_rel_01 bf1_rel_01_f
+	rename bf2_rel_01 bf2_rel_01_f
+	rename bf3_rel_01 bf3_rel_01_f
+
+	rename bf1_ori_01 bf1_ori_01_f
+	rename bf2_ori_01 bf2_ori_01_f
+	rename bf3_ori_01 bf3_ori_01_f
+
+	rename bf1_sameori_01 bf1_sameori_01_f
+	rename bf2_sameori_01 bf2_sameori_01_f
+	rename bf3_sameori_01 bf3_sameori_01_f
+
+	tab _merge
+	drop if _merge==2
+	drop _merge
+
+* Ranspielen Infos für den Vater aus WP
+	sort persnr
+	merge m:1 persnr using ${AVZ}wp_diss.dta
+
+	rename hhnr hhnr_06_f
+
+	rename bf1_sex_06 bf1_sex_06_f
+	rename bf2_sex_06 bf2_sex_06_f
+	rename bf3_sex_06 bf3_sex_06_f
+
+	rename bf1_rel_06 bf1_rel_06_f
+	rename bf2_rel_06 bf2_rel_06_f
+	rename bf3_rel_06 bf3_rel_06_f
+
+	rename bf1_ori_06 bf1_ori_06_f
+	rename bf2_ori_06 bf2_ori_06_f
+	rename bf3_ori_06 bf3_ori_06_f
+
+	rename bf1_sameori_06 bf1_sameori_06_f
+	rename bf2_sameori_06 bf2_sameori_06_f
+	rename bf3_sameori_06 bf3_sameori_06_f
+
+	tab _merge
+	drop if _merge==2
+	drop _merge
+
+************************************************************
+*** Ranspielen der Infos für den befragten JUGENDLICHEN/KIND
+* Umbenennung der persnr
+	rename persnr byvnr
+	rename kindpersnr persnr
+	sort persnr
+
+* Ranspielen Infos für Kind aus $PAGE17
+	merge m:1 persnr using ${AVZ}page17_diss.dta // Merge 1:1, da Kinder nur einmal im Datensatz sein können, allerdings: funktioniert nicht!
+	tab _merge
+	drop _merge
+
+* Ranspielen Infos für Kind aus dem Datensatz von Elisabeth
+	sort persnr
+	merge m:1 persnr using ${AVZ}wjugend.dta
+	tab _merge
+	drop _merge
+
+	rename wj7901 germborn_f_j
+	rename wj7902 germborn_m_j
+
+* Ranspielen Infos für Kind aus PPFAD
+	sort persnr
+	merge m:1 persnr using ${AVZ}ppfad_diss.dta
+	
+	tab _merge
+	drop if _merge==2
+	drop _merge
+	
+* Ranspielen Infos für Kind aus BIOPAREN --> FRAGE: Hier gibt es eine mnr und vnr --> Sind das dieselben wie bymnr und byvnr? 
+	sort persnr
+	merge m:1 persnr using ${AVZ}bioparen_diss.dta
+	
+	tab _merge
+	drop if _merge==2
+	drop _merge
+
+
+drop hhnr
+rename kindhhnr hhnr
+
+
+
+
+
+
+
+
 * Nehme nur die Variablen für die Jugendlichen, nicht die aus ppfad
 * deu_seit_j25 -> Deu_seit
 * staatsang`x', biimgrp`x', nation`x', corigin[_n-`x'], germborn[_n-`x'], immiyear[_n-`x'], gebjahr[_n-`x'], germnatbirth[_n-`x']
