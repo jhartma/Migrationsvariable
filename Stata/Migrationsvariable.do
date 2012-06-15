@@ -671,14 +671,14 @@ keep persnr nation*
 sort persnr
 
 ***Datensatzzusammenfuehrung und Beibehaltung ausgewaehlter Variablen***
-foreach file in bpgen.dta cpgen.dta dpgen.dta epgen.dta fpgen.dta gpgen.dta hpgen.dta ipgen.dta jpgen.dta kpgen.dta lpgen.dta mpgen.dta npgen.dta opgen.dta ppgen.dta qpgen.dta rpgen.dta spgen.dta tpgen.dta upgen.dta vpgen.dta wpgen.dta xpgen.dta ypgen.dta zpgen.dta{
+foreach file in bpgen.dta cpgen.dta dpgen.dta epgen.dta fpgen.dta gpgen.dta hpgen.dta ipgen.dta jpgen.dta kpgen.dta lpgen.dta mpgen.dta npgen.dta opgen.dta ppgen.dta qpgen.dta rpgen.dta spgen.dta tpgen.dta upgen.dta vpgen.dta wpgen.dta xpgen.dta ypgen.dta zpgen.dta bapgen.dta{
 	merge persnr using "`file'", sort keep (persnr nation*)
   	drop _merge
 	quietly: compress
 }
 
 ***Umbennenung ausgewaehlter Variablen***
-soepren nation84 nation85 nation86 nation87 nation88 nation89 nation90 nation91 nation92 nation93 nation94 nation95 nation96 nation97 nation98 nation99 nation00 nation01 nation02 nation03 nation04 nation05 nation06 nation07 nation08 nation09, newstub(nation) waves (1/26)  
+soepren nation84 nation85 nation86 nation87 nation88 nation89 nation90 nation91 nation92 nation93 nation94 nation95 nation96 nation97 nation98 nation99 nation00 nation01 nation02 nation03 nation04 nation05 nation06 nation07 nation08 nation09, newstub(nation) waves (1984/2010)  
 
 merge persnr using ${dir}sp, sort keep(persnr sp118)
 drop _merge
@@ -1270,17 +1270,17 @@ use miggen_merged.dta, clear
 
 ***Vorbereitungen***
 generate staatsang = .
-forvalues x=19/26 {
+forvalues x=19/27 {
 	replace staatsang = staatsang`x' if staatsang`x'!=.
 }
 
 *generate biimgrp =.
-forvalues x=1/26 {
+forvalues x=1/27 {
 	replace biimgrp = biimgrp`x' if biimgrp`x'!=.
 }
 
 *generate nation =.
-forvalues x=1/26 {
+forvalues x=1/27 {
 	replace nation = nation`x' if nation`x'!=.
 }
 
@@ -1793,7 +1793,7 @@ use ${AVZ}miggen_helpers.dta, clear
 
 *1,5. Generation (vor dem 7. Lebensjahr zugewandert)
 ****************************************************
-	replace mig_gen_c = 2 if germborn==2 & migage <=6
+	replace mig_gen_c = 2 if germborn==2 & migage <=6 & migage != .
 
 
 *2. Generation: beide Elternteile zugewandert (ZP in Deutschland geboren oder Missing)
