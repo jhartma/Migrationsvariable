@@ -329,7 +329,7 @@ save ${AVZ}bioimmig_mig.dta, replace
 use ${dir}/bioparen.dta, clear
 
 ***Beibehaltung ausgewaehlter Variablen***
-keep vnat mnat vgebj mgebj vaortakt maortakt vaortup maortup living* persnr hhnr
+keep vnat mnat vgebj mgebj vaortakt maortakt vaortup maortup living* persnr hhnr 
 
 ***Zahlen als Missings kodieren***
 * quietly: mvdecode _all, mv(-1=.k\-2=.t\-3=.v)   // deprecated 14.12.11
@@ -340,58 +340,9 @@ sort persnr
 save ${AVZ}bioparen_mig.dta, replace
 
 
-****************************************************
-***** 1.8 $page17.dta - Output: page17_mig.dta ***** 
-****************************************************
-
-* FRAGE: Hab jetzt doch meinen Do-File reinkopiert - Das hier kann dann eigentlich gelöscht werden
-
-
-use ${dir}/wpage17.dta, clear
-
-***Beibehaltung ausgewaehlter Variablen***
-keep wj6001 wj6002 wj61 wj6201 wj63 wj64 wj65 wj67 wj6601 wj6602 wj6801 wj69 persnr hhnr *hhnr
-sort persnr
-
-***Datensatzzusammenfuehrung und Beibehaltung ausgewaehlter Variablen***
-foreach file in xpage17.dta ypage17.dta zpage17.dta bapage17.dta{
-	merge persnr using "`file'", sort keep (hhnr *hhnr *j6001 *j6002 *j61 *j62 *j63 *j64 *j65 *j67 *j6601 *j6602 *j68 *j69)
-  	drop _merge
-	quietly: compress
-}
-
-***Zahlen als Missings kodieren***
-* quietly: mvdecode _all, mv(-1=.k\-2=.t\-3=.v)	// deprecated 14.12.11
-
-***Umbennenung ausgewaehlter Variablen***
-soepren wj6001 xj6001 yj6001 zj6001 baj6001, newstub(Jgebjahr) waves (23, 24, 25, 26, 27)  
-soepren wj6002 xj6002 yj6002 zj6002 baj6002, newstub(Jgebmoval) waves (23, 24, 25, 26, 27)  
-soepren wj61 xj61 yj61 zj61 baj61, newstub(Jgermborn) waves (23, 24, 25, 26, 27)  
-soepren wj6201 xj62 yj62 zj62 baj62, newstub(Jcorigin) waves (23, 24, 25, 26, 27)  
-soepren wj63 xj63 yj63 zj63 baj63, newstub(Jimmiyear) waves (23, 24, 25, 26, 27)  
-soepren wj64 xj64 yj64 zj64 baj64, newstub(Jbiimgrp) waves (23, 24, 25, 26, 27)  
-soepren wj65 xj65 yj65 zj65 baj65, newstub(Jdeutschstaatsang) waves (23, 24, 25, 26, 27)  
-soepren wj67 xj67 yj67 zj67 baj67, newstub(Jnation) waves (23, 24, 25, 26, 27)  
-soepren wj6601 xj6601 yj6601 zj6601 baj6601, newstub(Jzweitestaatsang) waves (23, 24, 25, 26, 27)  
-soepren wj6602 xj6602 yj6602 zj6602 baj6602, newstub(Jzweitestaatsang_code) waves (23, 24, 25, 26, 27)  
-soepren wj6801 xj68 yj68 zj68 baj68, newstub(Jstaatsang) waves (23, 24, 25, 26, 27)  
-soepren wj69 xj69 yj69 zj69 baj69, newstub(Jaufenthaltserl) waves (23, 24, 25, 26, 27)  
-soepren whhnr xhhnr yhhnr zhhnr bahhnr, newstub(hhnr) waves (23, 24, 25, 26, 27)   
-
-***Zahlen als Missings kodieren***
-* quietly: mvdecode _all, mv(-1=.k\-2=.t\-3=.v)  // deprecated 14.12.11
-
-***Reduzierten Datensatz speichern***
-isid persnr // persnr ist eindeutige Identifikationsvariable
-sort persnr
-save ${AVZ}page17_mig.dta, replace
-
-
 ***************************************************************************************************
 ***** 1.9 Elternzeiger (von Sabine Keller) - Output: elternzeiger.dta (Stand: Mail vom 12.05) *****
 ***************************************************************************************************
-
-
 ************************
 ***** 1.9.1 Eltern *****
 ************************
@@ -657,12 +608,14 @@ merge persnr using yp.dta, sort keep(yp139)
 drop _merge
 merge persnr using zp.dta, sort keep(zp139)
 drop _merge
+merge persnr using bap.dta, sort keep(bap137)
+drop _merge
 
-gen check = 1 if (sp116 == tp124 | tp124 == . | sp116 == .) & (tp124 == up128 | tp124 == . | up128 == .) & (up128 == vp137 | up128 == . | vp137 == .) & (vp137 == wp129 | vp137 == . | wp129 == .) & (wp129 == xp141 | wp129 == . | xp141 == .) & (xp141 == yp139 | xp141 == . | yp139 == .) & (yp139 == zp139 | yp139 == . | zp139 == .) 
+gen check = 1 if (sp116 == tp124 | tp124 == . | sp116 == .) & (tp124 == up128 | tp124 == . | up128 == .) & (up128 == vp137 | up128 == . | vp137 == .) & (vp137 == wp129 | vp137 == . | wp129 == .) & (wp129 == xp141 | wp129 == . | xp141 == .) & (xp141 == yp139 | xp141 == . | yp139 == .) & (yp139 == zp139 | yp139 == . | zp139 == .) & (zp139 == bap137 | bap137 == . | zp139 == .)
 list if check == . // es gibt Inkonsistenzen
-gen germnatbirth = 1 if check == 1 & (sp116 == 1 | tp124 == 1 | up128 == 1 | vp137 == 1 | wp129 == 1 | xp141 == 1 | yp139 == 1 | zp139 == 1)
-replace germnatbirth = 0 if germnatbirth == . // alle mit Inkonsistenzem werden als Nicht Mit Dt. SBS geboren gezaehlt
-keep persnr germnatbirth
+gen deu_seit = 1 if check == 1 & (sp116 == 1 | tp124 == 1 | up128 == 1 | vp137 == 1 | wp129 == 1 | xp141 == 1 | yp139 == 1 | zp139 == 1 | bap137 == 1)
+replace deu_seit = 0 if deu_seit == . // alle mit Inkonsistenzem werden als Nicht Mit Dt. SBS geboren gezaehlt
+keep persnr deu_seit
 
 save ${tmp}germnatbirth ,replace
 
@@ -740,7 +693,7 @@ save ${AVZ}germ_sbs, replace
 *** $PAGE17: Informationen zur Bestimmung Generationenstatus Jugendlicher (seit 2006) ***
 *****************************************************************************************
 
-* FRAGE: Müssen hier jetzt tatsächlich wieder alle Datensätze (BIOIMMIG, etc.) berücksichtigt werden?
+* FRAGE: Muessen hier jetzt tatsächlich wieder alle Datensätze (BIOIMMIG, etc.) berücksichtigt werden?
 	
 
 	cd ${dir}
@@ -823,21 +776,21 @@ save ${AVZ}germ_sbs, replace
 *** BILDUNG MASTERDATENSATZ Jugendliche ***
 *******************************************
 
-* Öffnen des Masterdatensatzes 
+* Oeffnen des Masterdatensatzes 
 	use ${dir}/bioage17.dta, clear
 
 **************************************************
-*** FRAGE:Wird das später eh gemacht? Dann kann das hier weg
+*** FRAGE:Wird das spaeter eh gemacht? Dann kann das hier weg
 
 
-*** Ranspielen der Infos für die MUTTER
+*** Ranspielen der Infos fuer die MUTTER
 * Umbenennung der persnr
 	rename hhnr kindhhnr
 	rename persnr kindpersnr
 	rename bymnr persnr
 	sort persnr
 
-* Ranspielen Infos für die Mutter aus ppfad_mig1
+* Ranspielen Infos fuer die Mutter aus ppfad_mig1
 	merge m:1 persnr using ${AVZ}ppfad_mig1.dta
 	tab _merge
 
@@ -854,13 +807,13 @@ save ${AVZ}germ_sbs, replace
 
 
 ***************************************************
-*** Ranspielen der Infos für den VATER
+*** Ranspielen der Infos fuer den VATER
 * Umbenennung der persnr
 	rename persnr bymnr
 	rename byvnr persnr
 	sort persnr
 
-* Ranspielen Infos für den Vater aus PPFAD
+* Ranspielen Infos fuer den Vater aus PPFAD
 	merge m:1 persnr using ${AVZ}ppfad_mig1.dta
 
 	rename hhnr hhnr_f
@@ -876,18 +829,18 @@ save ${AVZ}germ_sbs, replace
 	drop _merge
 
 ************************************************************
-*** Ranspielen der Infos für den befragten JUGENDLICHEN/KIND
+*** Ranspielen der Infos fuer den befragten JUGENDLICHEN/KIND
 * Umbenennung der persnr
 	rename persnr byvnr
 	rename kindpersnr persnr
 	sort persnr
 
-* Ranspielen Infos für Kind aus $PAGE17
+* Ranspielen Infos fuer Kind aus $PAGE17
 	merge m:1 persnr using ${AVZ}page17_mig1.dta
 	tab _merge
 	drop _merge
 
-* Ranspielen Infos für Kind aus dem Datensatz von Elisabeth
+* Ranspielen Infos fuer Kind aus dem Datensatz von Elisabeth
 	sort persnr
 	merge m:1 persnr using ${AVZ}wjugend.dta // WICHTIG: Der Datensatz von Elisabeth muss im AVZ liegen!
 	tab _merge
@@ -896,7 +849,7 @@ save ${AVZ}germ_sbs, replace
 	rename wj7901 germborn_f_j
 	rename wj7902 germborn_m_j
 
-* Ranspielen Infos für Kind aus PPFAD
+* Ranspielen Infos fuer Kind aus PPFAD
 	sort persnr
 	merge m:1 persnr using ${AVZ}ppfad_mig1.dta
 
@@ -904,7 +857,7 @@ save ${AVZ}germ_sbs, replace
 	drop if _merge==2
 	drop _merge
 
-* Ranspielen Infos für Kind aus BIOPAREN --> FRAGE: Hier gibt es eine mnr und vnr --> Sind das dieselben wie bymnr und byvnr? 
+* Ranspielen Infos fuer Kind aus BIOPAREN --> FRAGE: Hier gibt es eine mnr und vnr --> Sind das dieselben wie bymnr und byvnr? 
 	sort persnr
 	merge m:1 persnr using ${AVZ}bioparen_mig1.dta
 
@@ -920,7 +873,7 @@ save ${AVZ}Melanie_jugendliche.dta, replace
 
 
 
-* Prüfen, ob Zusammenfassung verteilter Infos notwendig
+* Pruefen, ob Zusammenfassung verteilter Infos notwendig
 *******************************************************
 
 *** bei den JUGENDLICHEN (Mögliche Quellen - Jetzige Annahme: page17 (seit 2006); ppfad (bis 2005))
