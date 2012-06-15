@@ -51,11 +51,11 @@ global LoFi="\\Ug-uszu-s1\ussz100_all$\Projekte\SOEPlong\Migrationsvariable\LogF
 global DoFi="\\Ug-uszu-s1\ussz100_all$\Projekte\SOEPlong\Migrationsvariable\DoFile/" // Ordner fuer Do-Files 
 */
 // Globals Melanie
-	global dir= "L:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/" // Arbeitsverzeichnis der relginaldatensaetze 
-	global AVZ= "L:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Mig/" // Arbeitsverzeichnis der neu generierten Datensaetze und anderer Ordner
-	global temp="L:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Mig/" //Temporaerer Arbeitsspeicher
-	global LoFi="L:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Mig/" // Ordner fuer Log-Files
-	global DoFi="L:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Mig/" // Ordner fuer Do-Files 
+	global dir= "L:/_Arbeit/_Diss/_Datensaetze/SOEP/SOEP27/" // Arbeitsverzeichnis der relginaldatensaetze 
+	global AVZ= "L:/_Arbeit/_Diss/_Datensaetze/SOEP/SOEP27/Datensaetze_Mig/" // Arbeitsverzeichnis der neu generierten Datensaetze und anderer Ordner
+	global temp="L:/_Arbeit/_Diss/_Datensaetze/SOEP/SOEP27/Datensaetze_Mig/" //Temporaerer Arbeitsspeicher
+	global LoFi="L:/_Arbeit/_Diss/_Datensaetze/SOEP/SOEP27/Datensaetze_Mig/" // Ordner fuer Log-Files
+	global DoFi="L:/_Arbeit/_Diss/_Datensaetze/SOEP/SOEP27/Datensaetze_Mig/" // Ordner fuer Do-Files 
 
 // Globals Joerg
 global dir= "/home/Knut/Documents/UniGoettingen/SOEP2010/" // Arbeitsverzeichnis der Originaldatensaetze 
@@ -693,7 +693,7 @@ save ${AVZ}germ_sbs, replace
 *** $PAGE17: Informationen zur Bestimmung Generationenstatus Jugendlicher (seit 2006) ***
 *****************************************************************************************
 
-* FRAGE: Muessen hier jetzt tatsächlich wieder alle Datensätze (BIOIMMIG, etc.) berücksichtigt werden?
+* FRAGE: Muessen hier jetzt tatsaechlich wieder alle Datensaetze (BIOIMMIG, etc.) beruecksichtigt werden?
 	
 
 	cd ${dir}
@@ -735,7 +735,7 @@ save ${AVZ}germ_sbs, replace
 
 
 ************************************************************************************************************
-*** PPFAD: Weitere Hintergrundinformationen zum Jugendlichen (bis einschließlich 2005) und dessen Eltern ***
+*** PPFAD: Weitere Hintergrundinformationen zum Jugendlichen (bis einschliesslich 2005) und dessen Eltern ***
 ************************************************************************************************************
 
 	use ${dir}ppfad.dta, clear
@@ -753,7 +753,7 @@ save ${AVZ}germ_sbs, replace
 *** BIOIMMIG ***
 ****************
 
-* Erst einmal unberücksichtigt
+* Erst einmal unberuecksichtigt
 
 
 ****************
@@ -765,7 +765,7 @@ save ${AVZ}germ_sbs, replace
 * Beibehaltung ausgewaehlter Variablen***
 	keep persnr hhnr vnr mnr vnat mnat vorigin morigin vgebj mgebj vaortakt maortakt vaortup maortup living* 
 
-	*** FRAGE: Benötigt man hier die vnr bzw. mnr? Ich habe jetzt die persnr des Jugendlichen zum mergen genommen ...
+	*** FRAGE: Benoetigt man hier die vnr bzw. mnr? Ich habe jetzt die persnr des Jugendlichen zum mergen genommen ...
 
 * Reduzierten Datensatz speichern***
 	isid persnr // persnr ist eindeutige Identifikationsvariable
@@ -876,9 +876,9 @@ save ${AVZ}Melanie_jugendliche.dta, replace
 * Pruefen, ob Zusammenfassung verteilter Infos notwendig
 *******************************************************
 
-*** bei den JUGENDLICHEN (Mögliche Quellen - Jetzige Annahme: page17 (seit 2006); ppfad (bis 2005))
+*** bei den JUGENDLICHEN (Moegliche Quellen - Jetzige Annahme: page17 (seit 2006); ppfad (bis 2005))
 
-* Prüfen, ob Geburtslandinfos aus $PAGE in der PPFAD-Info enthalten ist
+* Pruefen, ob Geburtslandinfos aus $PAGE in der PPFAD-Info enthalten ist
 
 	tab germborn, m
 	tab germborn germborn_j23
@@ -888,10 +888,10 @@ save ${AVZ}Melanie_jugendliche.dta, replace
 	tab germborn germborn_j27
 
 *** Ja, Infos sind in PPFAD-Daten enthalten, wobei Abweichungen (25; 26; 27) --> Warum?
-*** --> Germborn kann grundsätzlich für Jugendliche genutzt werden
+*** --> Germborn kann grundsaetzlich fuer Jugendliche genutzt werden
 
 
-* Prüfen, ob corigin-Infos aus $PAGE in PPFAD-corigin enthalten sind
+* Pruefen, ob corigin-Infos aus $PAGE in PPFAD-corigin enthalten sind
 
 	tab corigin, m
 	tab corigin corigin_j23
@@ -901,10 +901,10 @@ save ${AVZ}Melanie_jugendliche.dta, replace
 	tab corigin corigin_j27
 
 *** Ja, Infos sind enthalten 
-*** --> corigin aus PPFAD kann grundsätzlich genutzt werden
+*** --> corigin aus PPFAD kann grundsaetzlich genutzt werden
 
 
-* Prüfen, ob immiyearinfos aus $PAGE auch bei PPFAD enthalten
+* Pruefen, ob immiyearinfos aus $PAGE auch bei PPFAD enthalten
 	tab immiyear, m
 	tab immiyear immiyear_j23
 	tab immiyear immiyear_j24
@@ -912,13 +912,13 @@ save ${AVZ}Melanie_jugendliche.dta, replace
 	tab immiyear immiyear_j26
 	tab immiyear immiyear_j27
 
-*** Ja, Info ist enthalten, wobei teilweise Abweichungen (23; 24; 25; 26) --> Warum?
-*** --> immiyear aus PPFAD kann grundsätzlich genutzt werden 
+*** Ja, Info ist enthalten, wobei teilweise Abweichungen (23; 24; 25; 26) --> Warum? -> Jugendliche nehmen
+*** --> immiyear aus PPFAD kann grundsaetzlich genutzt werden 
 
 
 
 *****************************************************************************************************************
-*** bei den ELTERN (Mögliche Quellen: bioparen, ppfad, wjugend für 2006 von Elisabeth)
+*** bei den ELTERN (Moegliche Quellen: bioparen, ppfad, wjugend fuer 2006 von Elisabeth)
 
 * Kongruente Infos aus PPFAD bei Germborn und Corigin?
 	tab corigin_f germborn_f, m
@@ -930,13 +930,13 @@ save ${AVZ}Melanie_jugendliche.dta, replace
 
 
 *****************************************************************
-* WJUGEND: Benötigt man die Dummy-Info von den Jugendlichen zu dem Geburtsland ihrer Eltern aus dem DS von Elisabeth für 2006?
+* WJUGEND: Benoetigt man die Dummy-Info von den Jugendlichen zu dem Geburtsland ihrer Eltern aus dem DS von Elisabeth fuer 2006?
 
 * VATER
 	tab germborn_f_j
 	tab germborn_f germborn_f_j if erhebj==2006, m
-*** 39 "." bei germborn_f; Wenn Nutzung Info von Elisabeth für 2006, dann könnten 35 Fälle deutsch und 3 Fälle den Immigranten zugeordnet werden
-*** Folglich: Diese Fälle würde ich noch zuordnen + Vermerk in Hilfsvariable, dass diese Info vom Jugendlichen kommt
+*** 39 "." bei germborn_f; Wenn Nutzung Info von Elisabeth fuer 2006, dann koennten 35 Faelle deutsch und 3 Faelle den Immigranten zugeordnet werden
+*** Folglich: Diese Faelle wuerde ich noch zuordnen + Vermerk in Hilfsvariable, dass diese Info vom Jugendlichen kommt
 
 * Ist die Info bei vorigin enthalten?
 	tab vorigin germborn_f_j if erhebj==2006, m //--> Nein; hier -1
@@ -955,7 +955,7 @@ save ${AVZ}Melanie_jugendliche.dta, replace
 
 * Vorigin und Morigin aus BIOPAREN (auch Infos von Jugendlichen zu den Eltern seit 2007 enthalten)
 	tab vorigin, m
-*** 2640 x keine Angabe (-1) - Was ist da los? Eventuell doch nicht zusätzlich die Infos aus PPFAD zugespielt, sondern nur Angaben der Jugendlichen?
+*** 2640 x keine Angabe (-1) - Was ist da los? Eventuell doch nicht zusaetzlich die Infos aus PPFAD zugespielt, sondern nur Angaben der Jugendlichen?
 *** Dennoch FRAGE: Wie kann es sein, dass es hier weniger Infos gibt als bei den aus PPFAD zugespielten Infos???
 *** Verstehe ich nicht ... Sind das andere Personen?  
 
@@ -966,12 +966,12 @@ save ${AVZ}Melanie_jugendliche.dta, replace
 
 * Sind bei den PPFAD-Infos zu den Eltern mehr Informationen enthalten als bei der VORIGIN und MORGIN aus Bioparen oder umgekehrt?
 	tab vorigin germborn_f, m
-*** vorigin -1=2261 Fälle; in germborn_f sind davon 1821 in Deutschland geboren, 418 migriert und 20 haben anderen Missing-Wert
-*** + Eine Reihe von Fällen, hat in vorigin ein anderes Geburtsland und ist gemäß der germborn aber in D geboren --> Sehr suspekt, welche Info nun wahr ...
-*** + 503 Fälle, die in germborn "." haben: sind in der vorigin: 103 x 1; 20 x 2; 1 x -3; 379 x -1
+*** vorigin -1=2261 Faelle; in germborn_f sind davon 1821 in Deutschland geboren, 418 migriert und 20 haben anderen Missing-Wert
+*** + Eine Reihe von Faellen, hat in vorigin ein anderes Geburtsland und ist gemaess der germborn aber in D geboren --> Sehr suspekt, welche Info nun wahr ...
+*** + 503 Faelle, die in germborn "." haben: sind in der vorigin: 103 x 1; 20 x 2; 1 x -3; 379 x -1
 
 	tab morigin germborn_m, m
-* 1 von den fehlenden 74 Fällen kann zugeordnet werden (Migrant)
+* 1 von den fehlenden 74 Faellen kann zugeordnet werden (Migrant)
 
 
 *** HINWEIS: Wenn Verwendung der Informationen von vorigin und morigin, dann muss diese Info sowohl Origin als auch germborn zugespielt werden
@@ -981,10 +981,10 @@ save ${AVZ}Melanie_jugendliche.dta, replace
 * 2. Schritt: Zuspielen weiterer Infos zu den Eltern-Variablen
 **************************************************************
 
-* Für die ELTERN
+* Fuer die ELTERN
 
 * Aus wjugend
-*** Zuspielen der Infos für VATER (zu der germborn_f)
+*** Zuspielen der Infos fuer VATER (zu der germborn_f)
 	replace germborn_f=2 if germborn_f==. & germborn_f_j==2
 	replace germborn_f=1 if germborn_f==. & germborn_f_j==1
 	replace germborn_f=-2 if germborn_f==. & germborn_f_j==-2
@@ -992,7 +992,7 @@ save ${AVZ}Melanie_jugendliche.dta, replace
 	tab germborn_f, m
 
 
-*** Zuspielen der Infos für MUTTER (zu der germborn_m)
+*** Zuspielen der Infos fuer MUTTER (zu der germborn_m)
 	replace germborn_m=1 if germborn_m==. & germborn_m_j==1
 	replace germborn_m=-2 if germborn_m==. & germborn_m_j==-2
 
@@ -1008,12 +1008,12 @@ save ${AVZ}Melanie_jugendliche.dta, replace
 
 *** Zuspielen Infos aus vorigin/BIOPAREN zu germborn_f
 	tab vorigin germborn_f, m
-* 464 Sysmis könnten so eliminiert werden
+* 464 Sysmis koennten so eliminiert werden
 
-* Was haben die aus Wjugend zugespielten Fälle bei Vorigin?
+* Was haben die aus Wjugend zugespielten Faelle bei Vorigin?
 	tab corigin_f germborn_f_j if erhebj==2006, m
 	tab vorigin germborn_f_j if erhebj==2006, m
-* Die aus Wjugend der germborn_f zugespielten Fälle bekommen folglich -1
+* Die aus Wjugend der germborn_f zugespielten Faelle bekommen folglich -1
 
 * Zuspielen
 	replace germborn_f=2 if germborn_f==. & vorigin>=2
@@ -1036,12 +1036,12 @@ save ${AVZ}Melanie_jugendliche.dta, replace
 *******************************************************
 
 	tab morigin germborn_m, m
-* 68 Sysmis könnten so eliminiert werden, wobei 67 x -1
+* 68 Sysmis koennten so eliminiert werden, wobei 67 x -1
 
-* Was haben aber die aus Wjugend zugespielten Fälle bei Morigin?
+* Was haben aber die aus Wjugend zugespielten Faelle bei Morigin?
 	tab corigin_m germborn_m_j if erhebj==2006, m
 	tab morigin germborn_m_j if erhebj==2006, m
-* Die aus Wjugend der germborn_m zugespielten Fälle bekommen folglich -1
+* Die aus Wjugend der germborn_m zugespielten Faelle bekommen folglich -1
 
 * Zuspielen
 	replace germborn_m=2 if germborn_m==. & morigin>=2
@@ -1059,11 +1059,11 @@ save ${AVZ}Melanie_jugendliche.dta, replace
 
 **************************************************************************
 
-* Vermerk zugewiesener Fälle in einer Hilfsvariable (sind höchstwahrscheinlich Infos von den Jugendlichen zu ihren Eltern).
+* Vermerk zugewiesener Faelle in einer Hilfsvariable (sind hoechstwahrscheinlich Infos von den Jugendlichen zu ihren Eltern).
 
 *** Vermerk in Hilfsvariable "quelle_germborn_f"
 	gen quelle_germborn_f=.
-	replace quelle_germborn_f=0 if germborn_f!=. & erhebj==2006 // Bezug auf Wjugend hätte man sich sparen können. Naja ...
+	replace quelle_germborn_f=0 if germborn_f!=. & erhebj==2006 // Bezug auf Wjugend haette man sich sparen koennen. Naja ...
 	replace quelle_germborn_f=1 if germborn_f==. & (germborn_f_j==2 | germborn_f_j==1 | germborn_f_j==-2) & erhebj==2006
 
 	replace quelle_germborn_f=0 if corigin_f!=. 
@@ -1086,15 +1086,15 @@ save ${AVZ}Melanie_jugendliche.dta, replace
 	tab quelle_germborn_m germborn_m_j if erhebj==2006, m
 
 
-*** Bildung Summenscore: Anzahl Fälle bei denen Elterninfo von den Jugendlichen
+*** Bildung Summenscore: Anzahl Faelle bei denen Elterninfo von den Jugendlichen
 
 	egen sum_quelle_gp = anycount(quelle_germborn_m quelle_germborn_f), values(1)
 	tab sum_quelle_gp
 
 
 
-*** HIER UNBEDINGT NOCH MAL PRÜFEN --> EVENTUELL AUCH GLEICH DIE ELTERN-INFOS beibehalten (unberücksichtigt sind dann aber die NATION-Sachen)?????????
-* Nehme nur die Variablen für die Jugendlichen, nicht die aus ppfad
+*** HIER UNBEDINGT NOCH MAL PRUEFEN --> EVENTUELL AUCH GLEICH DIE ELTERN-INFOS beibehalten (unberuecksichtigt sind dann aber die NATION-Sachen)?????????
+* Nehme nur die Variablen fuer die Jugendlichen, nicht die aus ppfad
 * deu_seit_j25 -> deu_seit
 * staatsang`x', biimgrp`x', nation`x', corigin[_n-`x'], germborn[_n-`x'], immiyear[_n-`x'], gebjahr[_n-`x'], germnatbirth[_n-`x']
 
@@ -1104,7 +1104,7 @@ use ${AVZ}melanie_jugendliche.dta, clear
 recode biimgrp_j2* (1 = 1) (2 = 3) (3 = 4) (4 = 6) (5 = 7)
 soepren biimgrp_j23 biimgrp_j24 biimgrp_j25 biimgrp_j26 biimgrp_j27, newstub(biimgrp) waves (23/27)  
 
-* nation_j 'Nationality code' -> nation, Laendercodes stimmen überein
+* nation_j 'Nationality code' -> nation, Laendercodes stimmen ueberein
 soepren nation_j23 nation_j24 nation_j25 nation_j26 nation_j27, newstub(nation) waves(23/27)
 
 * corigin -> corigin, nichts zu tun
@@ -1151,6 +1151,9 @@ keep persnr hhnr biimgrp nation corigin germborn immiyear gebjahr germnatbirth
 
 save ${AVZ}melanie_jugendliche_recoded, replace
 
+
+
+
 *************************************************************
 ***** 1.11 Mergen aller Datensaetze - Output: miggen.dta ****
 *************************************************************
@@ -1183,11 +1186,6 @@ drop _merge
 sort persnr
 merge persnr using elternzeiger2.dta
 drop _merge
-
-* Melanies Do-File stattdessen!
-* sort persnr
-* merge persnr using page17_mig.dta
-* drop _merge
 
 sort persnr
 merge persnr using melanie_jugendliche_recoded.dta 
@@ -1525,7 +1523,7 @@ save ${AVZ}miggen_helpers.dta, replace
 ****************************************************************************************************
 
 *** Variablenliste Bildung Mig
-*** Germborn (wie germborn) --> hier werden später noch Dummies gebildet/Rekodierungen vorgenommen 
+*** Germborn (wie germborn) --> hier werden spaeter noch Dummies gebildet/Rekodierungen vorgenommen 
 * germborn
 * germborn_m
 * germborn_f
@@ -1535,7 +1533,7 @@ save ${AVZ}miggen_helpers.dta, replace
 * germborn_f_f
 
 
-* migage // Muss zuvor aus Geburts- und Zuwanderungsalter (gebjahr und immiyear) für alle gebildet werden
+* migage // Muss zuvor aus Geburts- und Zuwanderungsalter (gebjahr und immiyear) fuer alle gebildet werden
 ** FRAGE: Ist das schon gebildet?
 
 *** Corigin (wie corigin)
@@ -1707,20 +1705,20 @@ use ${AVZ}miggen_helpers.dta, clear
 
 
 
-*** Bildung von "eltern": Hilfsvariable über Vorhandensein Geburtslandinfo für Eltern
+*** Bildung von "eltern": Hilfsvariable ueber Vorhandensein Geburtslandinfo fuer Eltern
 
 	gen eltern=.
-	replace eltern=1 if germborn_f==germborn_m & (germborn_f==1 | germborn_f==2) // 1: Info liegt für beide Eltern vor
-	replace eltern=2 if ((germborn_m==1 | germborn_m==2) & germborn_f<=0)  // 2: Info liegt nur für Mutter vor, Vater Missing
-	replace eltern=3 if ((germborn_f==1 | germborn_f==2) & germborn_m<=0)  // 3: Info liegt nur für den Vater vor; Mutter Missing
-	replace eltern=4 if germborn_f==germborn_m & germborn_f<=0 // 3: Info liegt für gar kein Elternteil vor
+	replace eltern=1 if germborn_f==germborn_m & (germborn_f==1 | germborn_f==2) // 1: Info liegt fuer beide Eltern vor
+	replace eltern=2 if ((germborn_m==1 | germborn_m==2) & germborn_f<=0)  // 2: Info liegt nur fuer Mutter vor, Vater Missing
+	replace eltern=3 if ((germborn_f==1 | germborn_f==2) & germborn_m<=0)  // 3: Info liegt nur fuer den Vater vor; Mutter Missing
+	replace eltern=4 if germborn_f==germborn_m & germborn_f<=0 // 3: Info liegt fuer gar kein Elternteil vor
 
 
 	lab var eltern "Geburtslandinfos fuer Eltern vorhanden"
 	lab def eltern 1 "fuer beide Elternteile" ///
  	2 "Vater Missing; Mutter vorhanden" ///
  	3 "Mutter Missing; Vater vorhanden" ///
- 	4 "fehlend für beide Elternteile" 
+ 	4 "fehlend fuer beide Elternteile" 
 	lab val eltern eltern
 
 
@@ -2084,7 +2082,7 @@ use ${AVZ}miggen_mig_gen_c.dta, clear
 ***************************************************************************************************
 * TODO
 
-*** HINWEIS MO: JETZIGE BILDUNG SOEPINFO BEZIEHT SICH NUR AUF ZP! WIR HABEN ABER AUCH DIE ELTERN- UND GROßELTERNINFO!
+*** HINWEIS MO: JETZIGE BILDUNG SOEPINFO BEZIEHT SICH NUR AUF ZP! WIR HABEN ABER AUCH DIE ELTERN- UND GROssELTERNINFO!
 
 * Vorbereitung
 	gen soep_info=.
@@ -2434,7 +2432,7 @@ foreach var of varlist nr_corigin_zp2 nr_corigin_f2 nr_corigin_m2 nr_corigin_m_m
 	replace `var' = 555 if `var' == 117 // Rekodiere Belgien
 	replace `var' = 555 if `var' == 118 // Rekodiere Holland
 
-	// Sonstige Länder
+	// Sonstige Laender
 	replace `var' =   2222 if `var' == 16
 	replace `var' =   2222 if `var' >= 18 & `var'<=21 
 	replace `var' =   2222 if `var' >= 23 & `var'<=82 
@@ -2444,7 +2442,7 @@ foreach var of varlist nr_corigin_zp2 nr_corigin_f2 nr_corigin_m2 nr_corigin_m_m
 
 
 ***************************************************************************************************
-*** 2. SCHRITT: Bildung neuer Eltern- und Großeltern-HVs
+*** 2. SCHRITT: Bildung neuer Eltern- und Grosseltern-HVs
 ***************************************************************************************************
 
 * Eltern aus demselben Land?: "eltern_geb_hv"
@@ -2691,7 +2689,7 @@ gen grosseltern_geb_hv1=.
 	replace origin_short=-1 if mig_gen_cn==.
 
 
-*** Werte rekodieren (Kann man das auch einfach innerhalb der origin_short machen (also keine neue Variable bilden), ohne Gefahr zu laufen, dass etwas überschrieben wird?)
+*** Werte rekodieren (Kann man das auch einfach innerhalb der origin_short machen (also keine neue Variable bilden), ohne Gefahr zu laufen, dass etwas ueberschrieben wird?)
 	
 	gen origin_short1=.
 	replace origin_short1=1 if origin_short==1 // Deutschland
@@ -2701,7 +2699,7 @@ gen grosseltern_geb_hv1=.
 	replace origin_short1=5 if origin_short==5 // Italien
 	replace origin_short1=6 if origin_short==22 // Polen
 	replace origin_short1=7 if origin_short==6 // Spanien
-	replace origin_short1=8 if origin_short==2 // Türkei
+	replace origin_short1=8 if origin_short==2 // Tuerkei
 	replace origin_short1=9 if origin_short==83 // Vietnam
 	replace origin_short1=10 if origin_short==555 // West-EU
 	replace origin_short1=11 if origin_short==2222 // Sonstige
