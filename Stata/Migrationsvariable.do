@@ -173,8 +173,8 @@ save ${AVZ}pgen_mig.dta, replace
 ************************************************
 ***** 1.3 $kind.dta - Output: kind_mig.dta ***** 
 ************************************************
-
-/* WARUM NUR akind UND EKIND???? */
+* Nationalitaet Kind, nur in A und E, Angabe des HH-Vorstands
+* bisher nicht verwendet
 
 cd ${dir}
 use ekind.dta, clear
@@ -195,8 +195,8 @@ drop _merge
 * quietly: mvdecode _all, mv(-1=.k\-2=.t\-3=.v) // deprecated 14.12.11
 
 ***Umbennenung ausgewaehlter Variablen***
-soepren ak07a ek03a, newstub(nationkind) waves (1, 5)  
-soepren ahhnr  ehhnr , newstub(hhnr) waves (1,5)   
+soepren ak07a ek03a, newstub(nationkind) waves (1984, 1989)  
+soepren ahhnr  ehhnr , newstub(hhnr) waves (1984,1989)   
 
 ***Reduzierten Datensatz speichern***
 isid persnr // persnr ist eindeutige Identifikationsvariable
@@ -207,7 +207,7 @@ save ${AVZ}kind_mig.dta, replace
 ****************************************************
 ***** 1.4 hbrutt$.dta - Output: hbrutt_mig.dta ***** 
 ****************************************************
-
+* bisher auch noch nicht verwendet!
 
 // hbrutt98.dta und hbrutt00.dta koennen erst spaeter zusammengefuehrt werden, da es sich um Haushaltsdaten handelt, die keine 'persnr' besitzen
 
@@ -250,7 +250,7 @@ save ${AVZ}hbrutt00_mig.dta, replace
 ******************************************
 ***** 1.5 $p.dta - Output: p_mig.dta ***** 
 ******************************************
-
+* Seit wann dt. Staatsangehörigkeit?
 	
 cd ${dir}
 use sp.dta, clear
@@ -285,8 +285,8 @@ merge persnr using ${dir}bap.dta, sort keep (hhnr persnr *hhnr bap137)
 drop _merge
 
 ***Umbennenung ausgewaehlter Variablen***
-soepren sp116 tp124 up128 vp137 wp129 xp141 yp139 zp139 bap137, newstub(staatsang) waves (19/27)  
-soepren shhnr thhnr uhhnr vhhnr whhnr xhhnr yhhnr zhhnr bahhnr, newstub(hhnr) waves (19/27)   
+soepren sp116 tp124 up128 vp137 wp129 xp141 yp139 zp139 bap137, newstub(deu_seit) waves (2002/2010)  
+soepren shhnr thhnr uhhnr vhhnr whhnr xhhnr yhhnr zhhnr bahhnr, newstub(hhnr) waves (2002/2010)   
 
 ***Zahlen als Missings kodieren***
 * quietly: mvdecode _all, mv(-1=.k\-2=.t\-3=.v) // deprecated 14.12.11
@@ -467,8 +467,14 @@ save ${temp}Eltern, replace // im AVZ im TEMPoraeren Ordner Sortierung und Reduz
 cd ${dir}
 use akind, clear
 sort persnr
-merge 1:1 persnr using bkind ckind dkind ekind fkind gkind hkind ikind jkind kkind lkind mkind nkind okind pkind qkind rkind skind tkind ukind vkind wkind xkind ykind zkind bakind, sort
-drop _merge*
+
+foreach file in bkind.dta ckind.dta dkind.dta ekind.dta fkind.dta gkind.dta hkind.dta ikind.dta jkind.dta kkind.dta lkind.dta mkind.dta nkind.dta okind.dta pkind.dta qkind.dta rkind.dta skind.dta tkind.dta ukind.dta vkind.dta wkind.dta xkind.dta ykind.dta zkind.dta bakind.dta{
+	merge 1:1 persnr using "`file'"
+  	drop _merge
+	quietly: compress
+}
+
+
 keep persnr *kmutti *kmup // nur die Elterninfos beibehalten
 quietly: mvdecode _all, mv(-1=.k\-2=.t\-3=.v)
 compress
@@ -1798,13 +1804,14 @@ use ${AVZ}miggen_helpers.dta, clear
 
 *2. Generation: beide Elternteile zugewandert (ZP in Deutschland geboren oder Missing)
 **************************************************************************************
-	replace mig_gen_c = 3 if (germborn==1 | germborn<=0) & (germborn_f==2) & (germborn_m==2) 
+	replace mig_gen_c = 3 if (germborn==1 | germborn<=0) &                             // Befragter ///
+	                         (germborn_f==2) & (germborn_m==2)                         // Eltern, . nicht kleiner 0 !!!
 
 
 *2,5. Generation: ein Elternteil zugewandert, anderes 2. oder 2,5. (ZP in Deutschland geboren oder Missing)
 ***********************************************************************************************************
-	replace mig_gen_c = 4 if (germborn==1 | germborn<=0) & ///
-	((((germborn_f==1 | germborn_f<=0) & (germborn_f_m==2 | germborn_f_f==2)) & germborn_m==2) | ///
+	replace mig_gen_c = 4 if (germborn==1 | germborn<=0) & ///                
+	((((germborn_f==1 | germborn_f<=0) & (germborn_f_m==2 | germborn_f_f==2)) & germborn_m==2) | ///     
 	(germborn_f==2 & ((germborn_m==1 | germborn_m<=0) & (germborn_m_m==2 | germborn_m_f==2)))) 
 
 
