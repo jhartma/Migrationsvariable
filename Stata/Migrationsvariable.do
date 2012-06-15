@@ -5,7 +5,7 @@
 *****	*Bei elternzeiger.dta wurden nicht die Datensaetze $PBRUTTO rangespielt. 		*****
 *****   Diesen Schritt wird Sabine noch machen. - hat sie gemacht?				*****
 ***** 												*****
-*****	*Hilfsvariable Deu_seit muss noch bearbeitet werden					*****
+*****	*Hilfsvariable deu_seit muss noch bearbeitet werden					*****
 *****	*Hilfsvariable BIIMGRP richtig?								*****
 *****	*Wenn die Hilfsvariablen generiert werden, dauert es sehr lange, bis alles		*****	
 *****	durchgelaufen ist (quietly richtig anwenden!)						*****
@@ -91,7 +91,7 @@ log using "${LoFi}miggen.log", replace
 		1.11 	Aufbereitung Jugenddatensatz Melanie
 		1.12	Mergen aller Datensaetze - Output: miggen.dta	
 		2. 	Bildung von Hilfsvariablen
-		2.1 Eltern und Grosseltern (gebjahr, germborn, corigin, nation immiyear, BIIGRP, Deu_seit, biimgrp, staatsang)			
+		2.1 Eltern und Grosseltern (gebjahr, germborn, corigin, nation immiyear, BIIGRP, deu_seit, biimgrp, staatsang)			
 		2.2 Weitere Hilfsvariablen 
 		
 		3.	Bildung Migrantenvariablen
@@ -300,8 +300,6 @@ save ${AVZ}p_mig.dta, replace
 *******************************************************
 ***** 1.6 bioimmig.dta - Output: bioimmig_mig.dta ***** 
 *******************************************************
-
-
 use ${dir}/bioimmig.dta, clear
 
 ***Beibehaltung ausgewaehlter Variablen***
@@ -1144,7 +1142,7 @@ save ${AVZ}Melanie_jugendliche.dta, replace
 
 *** HIER UNBEDINGT NOCH MAL PRÜFEN --> EVENTUELL AUCH GLEICH DIE ELTERN-INFOS beibehalten (unberücksichtigt sind dann aber die NATION-Sachen)?????????
 * Nehme nur die Variablen für die Jugendlichen, nicht die aus ppfad
-* deu_seit_j25 -> Deu_seit
+* deu_seit_j25 -> deu_seit
 * staatsang`x', biimgrp`x', nation`x', corigin[_n-`x'], germborn[_n-`x'], immiyear[_n-`x'], gebjahr[_n-`x'], germnatbirth[_n-`x']
 
 use ${AVZ}melanie_jugendliche.dta, clear
@@ -1270,7 +1268,7 @@ cd ${AVZ}
 use miggen_merged.dta, clear
 
 ***************************************************************************************************************************
-***** 2.1 Eltern und Grosseltern (gebjahr, germborn, corigin, nation, immiyear, BIIGRP, Deu_seit, biimgrp, staatsang) *****
+***** 2.1 Eltern und Grosseltern (gebjahr, germborn, corigin, nation, immiyear, BIIGRP, deu_seit, biimgrp, staatsang) *****
 ***************************************************************************************************************************
 
 
@@ -1446,27 +1444,27 @@ forvalues x=1/36 {
 	replace BIIMGRP_m_m=biimgrp[_n-`x'] if gm_m==persnr[_n-`x']
 	replace BIIMGRP_m_m=biimgrp[_n+`x'] if gm_m==persnr[_n+`x']
 
-	capture gen Deu_seit_m=.							// DEU_seit_m
-	replace Deu_seit_m=germnatbirth[_n-`x'] if m_persnr==persnr[_n-`x'] 
-	replace Deu_seit_m=germnatbirth[_n+`x'] if m_persnr==persnr[_n+`x']
-	capture gen Deu_seit_f=.							// DEU_seit_f
-	replace Deu_seit_f=germnatbirth[_n-`x'] if v_persnr==persnr[_n-`x']
-	replace Deu_seit_f=germnatbirth[_n+`x'] if v_persnr==persnr[_n+`x']
-	capture gen Deu_seit_f_f=.							// DEU_seit_f_f
-	replace Deu_seit_f_f=germnatbirth[_n-`x'] if gv_v==persnr[_n-`x']
-	replace Deu_seit_f_f=germnatbirth[_n+`x'] if gv_v==persnr[_n+`x']
-	capture gen Deu_seit_m_f=.							// DEU_seit_m_f
-	replace Deu_seit_m_f=germnatbirth[_n-`x'] if gv_m==persnr[_n-`x']
-	replace Deu_seit_m_f=germnatbirth[_n+`x'] if gv_m==persnr[_n+`x']
-	capture gen Deu_seit_f_m=.							// DEU_seit_f_m
-	replace Deu_seit_f_m=germnatbirth[_n-`x'] if gm_v==persnr[_n-`x']
-	replace Deu_seit_f_m=germnatbirth[_n+`x'] if gm_v==persnr[_n+`x']
-	capture gen Deu_seit_m_m=.							// DEU_seit_m_m
-	replace Deu_seit_m_m=germnatbirth[_n-`x'] if gm_m==persnr[_n-`x']
-	replace Deu_seit_m_m=germnatbirth[_n+`x'] if gm_m==persnr[_n+`x']
+	capture gen deu_seit_m=.							// deu_seit_m
+	replace deu_seit_m=germnatbirth[_n-`x'] if m_persnr==persnr[_n-`x'] 
+	replace deu_seit_m=germnatbirth[_n+`x'] if m_persnr==persnr[_n+`x']
+	capture gen deu_seit_f=.							// deu_seit_f
+	replace deu_seit_f=germnatbirth[_n-`x'] if v_persnr==persnr[_n-`x']
+	replace deu_seit_f=germnatbirth[_n+`x'] if v_persnr==persnr[_n+`x']
+	capture gen deu_seit_f_f=.							// deu_seit_f_f
+	replace deu_seit_f_f=germnatbirth[_n-`x'] if gv_v==persnr[_n-`x']
+	replace deu_seit_f_f=germnatbirth[_n+`x'] if gv_v==persnr[_n+`x']
+	capture gen deu_seit_m_f=.							// deu_seit_m_f
+	replace deu_seit_m_f=germnatbirth[_n-`x'] if gv_m==persnr[_n-`x']
+	replace deu_seit_m_f=germnatbirth[_n+`x'] if gv_m==persnr[_n+`x']
+	capture gen deu_seit_f_m=.							// deu_seit_f_m
+	replace deu_seit_f_m=germnatbirth[_n-`x'] if gm_v==persnr[_n-`x']
+	replace deu_seit_f_m=germnatbirth[_n+`x'] if gm_v==persnr[_n+`x']
+	capture gen deu_seit_m_m=.							// deu_seit_m_m
+	replace deu_seit_m_m=germnatbirth[_n-`x'] if gm_m==persnr[_n-`x']
+	replace deu_seit_m_m=germnatbirth[_n+`x'] if gm_m==persnr[_n+`x']
 }
 
-gen Deu_seit_zp = germnatbirth
+gen deu_seit_zp = germnatbirth
 compress
 
 save ${AVZ}miggen.dta, replace
@@ -1641,14 +1639,14 @@ save ${AVZ}miggen_helpers.dta, replace
 * BIIMGRP_m_f
 * BIIMGRP_m_m
 
-*** DEU_seit 
-* Deu_seit_zp
-* Deu_seit_f
-* Deu_seit_m
-* Deu_seit_f_f
-* Deu_seit_f_m
-* Deu_seit_m_f
-* Deu_seit_m_m
+*** deu_seit 
+* deu_seit_zp
+* deu_seit_f
+* deu_seit_m
+* deu_seit_f_f
+* deu_seit_f_m
+* deu_seit_m_f
+* deu_seit_m_m
 
 ****************************************************************************************************
 *** 3.1. Generationenstatus ************************************************************************
@@ -1965,28 +1963,28 @@ use ${AVZ}miggen_mig_gen_c.dta, clear
 	replace mig_gen_cn=0 if mig_gen_c_hv==-1 & r_nation_zp>=2 & germborn_m==1 & germborn_f==1 
 
 * ... und die DEUTSCHE Nationalitaet NICHT seit der Geburt vorliegt und Angabe beim Einreisestatus: 1 oder 3 --> Kein Migrationshintergrund
-	replace mig_gen_cn=0 if mig_gen_c_hv==-1 & r_nation_zp==1 & Deu_seit_zp==2 ///
+	replace mig_gen_cn=0 if mig_gen_c_hv==-1 & r_nation_zp==1 & deu_seit_zp==2 ///
 	& (biimgrp==1 | biimgrp==3)
 
 * ... und die DEUTSCHE Nationalitaet NICHT seit der Geburt vorliegt und Einreisestatus !=1 und !=3 sowie zugewandert nach dem 6. LJ oder Missing--> 1. Generation
 *** HINWEIS: Es wird jetzt darauf verzichtet ueber Living zu gehen, wenn Einreisealter Missing --> i.O.? Es wuerde sonst zu komplex werden und ich sehe nicht wirklich einen Mehrwert
-	replace mig_gen_cn=1 if mig_gen_c_hv==-1 & r_nation_zp==1 & Deu_seit_zp==2 ///
+	replace mig_gen_cn=1 if mig_gen_c_hv==-1 & r_nation_zp==1 & deu_seit_zp==2 ///
 	& (biimgrp==2 | (biimgrp>=4 & biimgrp<=7)) & (migage >=7 | migage == .) // Wenn migage anders gebildet, so dass keine sysmis, muessten die Missing-Werte auch anders bestimmt werden
 
 * ... und die DEUTSCHE Nationalitaet NICHT seit der Geburt vorliegt und Einreisestatus !=1 und !=3 sowie zugewandert vor dem 7. LJ oder Missing--> 1,5. Generation
-	replace mig_gen_cn=2 if mig_gen_c_hv==-1 & r_nation_zp==1 & Deu_seit_zp==2 ///
+	replace mig_gen_cn=2 if mig_gen_c_hv==-1 & r_nation_zp==1 & deu_seit_zp==2 ///
 	& (biimgrp==2 | (biimgrp>=4 & biimgrp<=7)) & migage <=6 
 
 * ... und die DEUTSCHE Nationalitaet vorliegt, aber KEINE Info, ob seit Geburt und beim Einreisestatus 1 oder 3 --> Kein Migrationshintergrund
-	replace mig_gen_cn=0 if mig_gen_c_hv==-1 & r_nation_zp==1 & Deu_seit_zp<=0 ///
+	replace mig_gen_cn=0 if mig_gen_c_hv==-1 & r_nation_zp==1 & deu_seit_zp<=0 ///
 	& (biimgrp==1 | biimgrp==3)
 
 * ... und die DEUTSCHE Nationalitaet vorliegt, aber KEINE Info, ob seit Geburt und Einreisestatus !=1 oder != 3 sowie zugewandert nach dem 6. LJ oder Missing--> 1. Generation
-	replace mig_gen_cn=1 if mig_gen_c_hv==-1 & r_nation_zp==1 & Deu_seit_zp<=0 ///
+	replace mig_gen_cn=1 if mig_gen_c_hv==-1 & r_nation_zp==1 & deu_seit_zp<=0 ///
 	& (biimgrp==2 | (biimgrp>=4 & biimgrp<=7)) & (migage >=7 | migage == .) // Wenn migage anders gebildet, so dass keine sysmis, muessten die Missing-Werte auch anders bestimmt werden
 
 * ... und die DEUTSCHE Nationalitaet vorliegt, aber KEINE Info, ob seit Geburt und Einreisestatus !=1 oder != 3 sowie zugewandert vor dem 7. LJ --> 1,5. Generation
-	replace mig_gen_cn=2 if mig_gen_c_hv==-1 & r_nation_zp==1 & Deu_seit_zp<=0 ///
+	replace mig_gen_cn=2 if mig_gen_c_hv==-1 & r_nation_zp==1 & deu_seit_zp<=0 ///
 	& (biimgrp==2 | (biimgrp>=4 & biimgrp<=7)) & migage <=6 
 
 
@@ -1998,25 +1996,25 @@ use ${AVZ}miggen_mig_gen_c.dta, clear
 * !!!@MO: ab hier komme ich nicht mehr weiter. Was bedeutet Deut_seit==1? Es steht auch mig_gen_hv, heisst es nicht eigentlich mig_gen_c_hv?
 
 * DEUTSCHE Nationalitaet seit der Geburt hat und beide Eltern im Ausland geboren sind --> 2. Generation
-	replace mig_gen_cn=3 if mig_gen_c_hv==-1 & r_nation_zp==1 & Deu_seit_zp==1 & (germborn_f==2) & (germborn_m==2)
+	replace mig_gen_cn=3 if mig_gen_c_hv==-1 & r_nation_zp==1 & deu_seit_zp==1 & (germborn_f==2) & (germborn_m==2)
 
 
 * Mutter im Ausland und Vater Missing, aber auslaendische SBS und vice versa --> 2. Generation						
-	replace mig_gen_cn=3 if (germborn==1 | (mig_gen_c_hv==-1 & r_nation_zp <=0) | (mig_gen_c_hv==-1 & r_nation_zp==1 & Deu_seit_zp==1)) ///
+	replace mig_gen_cn=3 if (germborn==1 | (mig_gen_c_hv==-1 & r_nation_zp <=0) | (mig_gen_c_hv==-1 & r_nation_zp==1 & deu_seit_zp==1)) ///
 	& ((germborn_m==2 & (germborn_f<=0 & r_nation_f>=2)) | ((germborn_m<=0 & r_nation_m>=2) & germborn_f==2))
 
 
 * Mutter und Vater Missing beim Gebland, aber beide auslaendische SBS --> 2. Generation
-	replace mig_gen_cn=3 if (germborn==1 | (mig_gen_c_hv==-1 & r_nation_zp <=0) | (mig_gen_c_hv==-1 & r_nation_zp==1 & Deu_seit_zp==1)) ///
+	replace mig_gen_cn=3 if (germborn==1 | (mig_gen_c_hv==-1 & r_nation_zp <=0) | (mig_gen_c_hv==-1 & r_nation_zp==1 & deu_seit_zp==1)) ///
 	& ((germborn_f<=0 & r_nation_f>=2) & (germborn_m<=0 & r_nation_m>=2))
 
 * Mutter und Vater Missing beim Gebland, aber ein Elternteil hat auslaendische SBS und dessen Grosseltern aus Deutschland oder Missing --> 5: 2,5. Generation
-	replace mig_gen_cn=5 if (germborn==1 | (mig_gen_c_hv==-1 & r_nation_zp <=0) | (mig_gen_c_hv==-1 & r_nation_zp==1 & Deu_seit_zp==1)) ///
+	replace mig_gen_cn=5 if (germborn==1 | (mig_gen_c_hv==-1 & r_nation_zp <=0) | (mig_gen_c_hv==-1 & r_nation_zp==1 & deu_seit_zp==1)) ///
 	& (((germborn_f<=0 & germborn_m<=0) & (r_nation_f>=2 & r_nation_m<=1) & ((germborn_m_f==1 | germborn_m_f<=0) & (germborn_m_m==1 | germborn_m_m<=0))) ///
 	| ((germborn_f<=0 & germborn_m<=0) & (r_nation_m>=2 & r_nation_f<=1) & ((germborn_f_f==1 | germborn_f_f<=0) & (germborn_f_m==1 | germborn_f_m<=0))))
 
 * Mutter und Vater Missing beim Gebland, aber ein Elternteil hat auslaendische SBS und mindestens ein Grosselternteil vom deutschen Elternteil im Ausland geboren --> 4: 2,5. Generation
-	replace mig_gen_cn=4 if (germborn==1 | (mig_gen_c_hv==-1 & r_nation_zp <=0) | (mig_gen_c_hv==-1 & r_nation_zp==1 & Deu_seit_zp==1)) ///
+	replace mig_gen_cn=4 if (germborn==1 | (mig_gen_c_hv==-1 & r_nation_zp <=0) | (mig_gen_c_hv==-1 & r_nation_zp==1 & deu_seit_zp==1)) ///
 	& (((germborn_f<=0 & germborn_m<=0) & (r_nation_f>=2 & r_nation_m<=1) & (germborn_m_f==2 | germborn_m_m==2)) ///
 	| ((germborn_f<=0 & germborn_m<=0) & (r_nation_m>=2 & r_nation_f<=1) & (germborn_f_f==2 | germborn_f_m==2)))
 
@@ -2032,66 +2030,66 @@ use ${AVZ}miggen_mig_gen_c.dta, clear
 
 
 * Wenn VIER Grosselternteile Missing beim Gebland und EIN Grosselternteil AUSLAENDISCHE SBS hat --> 3,75. Generation
-	replace mig_gen_cn=9 if (germborn==1 | (mig_gen_c_hv==-1 & r_nation_zp <=0) | (mig_gen_c_hv==-1 & r_nation_zp==1 & Deu_seit_zp==1)) ///
-	& (germborn_m==1 | (germborn_m<=0 & r_nation_m <=0) | (germborn_m<=0 & r_nation_m==1 & Deu_seit_m==1)) ///
-	& (germborn_f==1 | (germborn_f<=0 & r_nation_f <=0) | (germborn_f<=0 & r_nation_f==1 & Deu_seit_f==1)) ///
+	replace mig_gen_cn=9 if (germborn==1 | (mig_gen_c_hv==-1 & r_nation_zp <=0) | (mig_gen_c_hv==-1 & r_nation_zp==1 & deu_seit_zp==1)) ///
+	& (germborn_m==1 | (germborn_m<=0 & r_nation_m <=0) | (germborn_m<=0 & r_nation_m==1 & deu_seit_m==1)) ///
+	& (germborn_f==1 | (germborn_f<=0 & r_nation_f <=0) | (germborn_f<=0 & r_nation_f==1 & deu_seit_f==1)) ///
 	& sum_germborn_gp_mis==4 & sum_r_nation_gp==1
 
 * Wenn VIER Grosselternteile Missing beim Gebland und ZWEI Grosselternteile AUSLAENDISCHE SBS haben --> 3,5. Generation
-	replace mig_gen_cn=8 if (germborn==1 | (mig_gen_c_hv==-1 & r_nation_zp <=0) | (mig_gen_c_hv==-1 & r_nation_zp==1 & Deu_seit_zp==1)) ///
-	& (germborn_m==1 | (germborn_m<=0 & r_nation_m <=0) | (germborn_m<=0 & r_nation_m==1 & Deu_seit_m==1)) ///
-	& (germborn_f==1 | (germborn_f<=0 & r_nation_f <=0) | (germborn_f<=0 & r_nation_f==1 & Deu_seit_f==1)) ///
+	replace mig_gen_cn=8 if (germborn==1 | (mig_gen_c_hv==-1 & r_nation_zp <=0) | (mig_gen_c_hv==-1 & r_nation_zp==1 & deu_seit_zp==1)) ///
+	& (germborn_m==1 | (germborn_m<=0 & r_nation_m <=0) | (germborn_m<=0 & r_nation_m==1 & deu_seit_m==1)) ///
+	& (germborn_f==1 | (germborn_f<=0 & r_nation_f <=0) | (germborn_f<=0 & r_nation_f==1 & deu_seit_f==1)) ///
 	& sum_germborn_gp_mis==4 & sum_r_nation_gp==2
 
 * Wenn VIER Grosselternteile Missing beim Gebland und DREI Grosselternteile AUSLAENDISCHE SBS haben --> 3,25. Generation
-	replace mig_gen_cn=7 if (germborn==1 | (mig_gen_c_hv==-1 & r_nation_zp <=0) | (mig_gen_c_hv==-1 & r_nation_zp==1 & Deu_seit_zp==1)) ///
-	& (germborn_m==1 | (germborn_m<=0 & r_nation_m <=0) | (germborn_m<=0 & r_nation_m==1 & Deu_seit_m==1)) ///
-	& (germborn_f==1 | (germborn_f<=0 & r_nation_f <=0) | (germborn_f<=0 & r_nation_f==1 & Deu_seit_f==1)) ///
+	replace mig_gen_cn=7 if (germborn==1 | (mig_gen_c_hv==-1 & r_nation_zp <=0) | (mig_gen_c_hv==-1 & r_nation_zp==1 & deu_seit_zp==1)) ///
+	& (germborn_m==1 | (germborn_m<=0 & r_nation_m <=0) | (germborn_m<=0 & r_nation_m==1 & deu_seit_m==1)) ///
+	& (germborn_f==1 | (germborn_f<=0 & r_nation_f <=0) | (germborn_f<=0 & r_nation_f==1 & deu_seit_f==1)) ///
 	& sum_germborn_gp_mis==4 & sum_r_nation_gp==3
 
 * Wenn VIER Grosselternteile Missing beim Gebland und VIER Grosselternteile AUSLAENDISCHE SBS haben --> 3. Generation
-	replace mig_gen_cn=6 if (germborn==1 | (mig_gen_c_hv==-1 & r_nation_zp <=0) | (mig_gen_c_hv==-1 & r_nation_zp==1 & Deu_seit_zp==1)) ///
-	& (germborn_m==1 | (germborn_m<=0 & r_nation_m <=0) | (germborn_m<=0 & r_nation_m==1 & Deu_seit_m==1)) ///
-	& (germborn_f==1 | (germborn_f<=0 & r_nation_f <=0) | (germborn_f<=0 & r_nation_f==1 & Deu_seit_f==1)) ///
+	replace mig_gen_cn=6 if (germborn==1 | (mig_gen_c_hv==-1 & r_nation_zp <=0) | (mig_gen_c_hv==-1 & r_nation_zp==1 & deu_seit_zp==1)) ///
+	& (germborn_m==1 | (germborn_m<=0 & r_nation_m <=0) | (germborn_m<=0 & r_nation_m==1 & deu_seit_m==1)) ///
+	& (germborn_f==1 | (germborn_f<=0 & r_nation_f <=0) | (germborn_f<=0 & r_nation_f==1 & deu_seit_f==1)) ///
 	& sum_germborn_gp_mis==4 & sum_r_nation_gp==4
 
 
 * Wenn EIN Grosselternteil im Ausland geboren, DREI Missing beim Gebland und EIN Grosselternteil AUSLAENDISCHE SBS hat --> 3,5. Generation
-	replace mig_gen_cn=8 if (germborn==1 | (mig_gen_c_hv==-1 & r_nation_zp <=0) | (mig_gen_c_hv==-1 & r_nation_zp==1 & Deu_seit_zp==1)) ///
-	& (germborn_m==1 | (germborn_m<=0 & r_nation_m <=0) | (germborn_m<=0 & r_nation_m==1 & Deu_seit_m==1)) ///
-	& (germborn_f==1 | (germborn_f<=0 & r_nation_f <=0) | (germborn_f<=0 & r_nation_f==1 & Deu_seit_f==1)) ///
+	replace mig_gen_cn=8 if (germborn==1 | (mig_gen_c_hv==-1 & r_nation_zp <=0) | (mig_gen_c_hv==-1 & r_nation_zp==1 & deu_seit_zp==1)) ///
+	& (germborn_m==1 | (germborn_m<=0 & r_nation_m <=0) | (germborn_m<=0 & r_nation_m==1 & deu_seit_m==1)) ///
+	& (germborn_f==1 | (germborn_f<=0 & r_nation_f <=0) | (germborn_f<=0 & r_nation_f==1 & deu_seit_f==1)) ///
 	& sum_germborn_gp==1 & sum_germborn_gp_mis==3 & sum_r_nation_gp==1
 
 * Wenn EIN Grosselternteil im Ausland geboren, DREI Missing beim Gebland und ZWEI Grosselternteile AUSLAENDISCHE SBS haben --> 3,25. Generation
-	replace mig_gen_cn=7 if (germborn==1 | (mig_gen_c_hv==-1 & r_nation_zp <=0) | (mig_gen_c_hv==-1 & r_nation_zp==1 & Deu_seit_zp==1)) ///
-	& (germborn_m==1 | (germborn_m<=0 & r_nation_m <=0) | (germborn_m<=0 & r_nation_m==1 & Deu_seit_m==1)) ///
-	& (germborn_f==1 | (germborn_f<=0 & r_nation_f <=0) | (germborn_f<=0 & r_nation_f==1 & Deu_seit_f==1)) ///
+	replace mig_gen_cn=7 if (germborn==1 | (mig_gen_c_hv==-1 & r_nation_zp <=0) | (mig_gen_c_hv==-1 & r_nation_zp==1 & deu_seit_zp==1)) ///
+	& (germborn_m==1 | (germborn_m<=0 & r_nation_m <=0) | (germborn_m<=0 & r_nation_m==1 & deu_seit_m==1)) ///
+	& (germborn_f==1 | (germborn_f<=0 & r_nation_f <=0) | (germborn_f<=0 & r_nation_f==1 & deu_seit_f==1)) ///
 	& sum_germborn_gp==1 & sum_germborn_gp_mis==3 & sum_r_nation_gp==2
 
 * Wenn EIN Grosselternteil im Ausland geboren, DREI Missing beim Gebland und DREI Grosselternteile AUSLAENDISCHE SBS haben --> 3. Generation
-	replace mig_gen_cn=6 if (germborn==1 | (mig_gen_c_hv==-1 & r_nation_zp <=0) | (mig_gen_c_hv==-1 & r_nation_zp==1 & Deu_seit_zp==1)) ///
-	& (germborn_m==1 | (germborn_m<=0 & r_nation_m <=0) | (germborn_m<=0 & r_nation_m==1 & Deu_seit_m==1)) ///
-	& (germborn_f==1 | (germborn_f<=0 & r_nation_f <=0) | (germborn_f<=0 & r_nation_f==1 & Deu_seit_f==1)) ///
+	replace mig_gen_cn=6 if (germborn==1 | (mig_gen_c_hv==-1 & r_nation_zp <=0) | (mig_gen_c_hv==-1 & r_nation_zp==1 & deu_seit_zp==1)) ///
+	& (germborn_m==1 | (germborn_m<=0 & r_nation_m <=0) | (germborn_m<=0 & r_nation_m==1 & deu_seit_m==1)) ///
+	& (germborn_f==1 | (germborn_f<=0 & r_nation_f <=0) | (germborn_f<=0 & r_nation_f==1 & deu_seit_f==1)) ///
 	& sum_germborn_gp==1 & sum_germborn_gp_mis==3 & sum_r_nation_gp==3
 
 
 * Wenn ZWEI Grosselternteile im Ausland geboren, ZWEI Missing beim Gebland und EIN Grosselternteil AUSLAENDISCHE SBS hat --> 3,25. Generation
-	replace mig_gen_cn=7 if (germborn==1 | (mig_gen_c_hv==-1 & r_nation_zp <=0) | (mig_gen_c_hv==-1 & r_nation_zp==1 & Deu_seit_zp==1)) ///
-	& (germborn_m==1 | (germborn_m<=0 & r_nation_m <=0) | (germborn_m<=0 & r_nation_m==1 & Deu_seit_m==1)) ///
-	& (germborn_f==1 | (germborn_f<=0 & r_nation_f <=0) | (germborn_f<=0 & r_nation_f==1 & Deu_seit_f==1)) ///
+	replace mig_gen_cn=7 if (germborn==1 | (mig_gen_c_hv==-1 & r_nation_zp <=0) | (mig_gen_c_hv==-1 & r_nation_zp==1 & deu_seit_zp==1)) ///
+	& (germborn_m==1 | (germborn_m<=0 & r_nation_m <=0) | (germborn_m<=0 & r_nation_m==1 & deu_seit_m==1)) ///
+	& (germborn_f==1 | (germborn_f<=0 & r_nation_f <=0) | (germborn_f<=0 & r_nation_f==1 & deu_seit_f==1)) ///
 	& sum_germborn_gp==2 & sum_germborn_gp_mis==2 & sum_r_nation_gp==1
 
 * Wenn ZWEI Grosselternteile im Ausland geboren, ZWEI Missing beim Gebland und 2 Grosselternteile AUSLAENDISCHE SBS hat --> 3. Generation
-	replace mig_gen_cn=6 if (germborn==1 | (mig_gen_c_hv==-1 & r_nation_zp <=0) | (mig_gen_c_hv==-1 & r_nation_zp==1 & Deu_seit_zp==1)) ///
-	& (germborn_m==1 | (germborn_m<=0 & r_nation_m <=0) | (germborn_m<=0 & r_nation_m==1 & Deu_seit_m==1)) ///
-	& (germborn_f==1 | (germborn_f<=0 & r_nation_f <=0) | (germborn_f<=0 & r_nation_f==1 & Deu_seit_f==1)) ///
+	replace mig_gen_cn=6 if (germborn==1 | (mig_gen_c_hv==-1 & r_nation_zp <=0) | (mig_gen_c_hv==-1 & r_nation_zp==1 & deu_seit_zp==1)) ///
+	& (germborn_m==1 | (germborn_m<=0 & r_nation_m <=0) | (germborn_m<=0 & r_nation_m==1 & deu_seit_m==1)) ///
+	& (germborn_f==1 | (germborn_f<=0 & r_nation_f <=0) | (germborn_f<=0 & r_nation_f==1 & deu_seit_f==1)) ///
 	& sum_germborn_gp==2 & sum_germborn_gp_mis==2 & sum_r_nation_gp==2
 
 
 * Wenn DREI Grosselternteile im Ausland geboren, EIN Missing beim Gebland und 1 Grosselternteil AUSLAENDISCHE SBS hat --> 3. Generation
-	replace mig_gen_cn=6 if (germborn==1 | (mig_gen_c_hv==-1 & r_nation_zp <=0) | (mig_gen_c_hv==-1 & r_nation_zp==1 & Deu_seit_zp==1)) ///
-	& (germborn_m==1 | (germborn_m<=0 & r_nation_m <=0) | (germborn_m<=0 & r_nation_m==1 & Deu_seit_m==1)) ///
-	& (germborn_f==1 | (germborn_f<=0 & r_nation_f <=0) | (germborn_f<=0 & r_nation_f==1 & Deu_seit_f==1)) ///
+	replace mig_gen_cn=6 if (germborn==1 | (mig_gen_c_hv==-1 & r_nation_zp <=0) | (mig_gen_c_hv==-1 & r_nation_zp==1 & deu_seit_zp==1)) ///
+	& (germborn_m==1 | (germborn_m<=0 & r_nation_m <=0) | (germborn_m<=0 & r_nation_m==1 & deu_seit_m==1)) ///
+	& (germborn_f==1 | (germborn_f<=0 & r_nation_f <=0) | (germborn_f<=0 & r_nation_f==1 & deu_seit_f==1)) ///
 	& sum_germborn_gp==3 & sum_germborn_gp_mis==1 & sum_r_nation_gp==1
 
 
