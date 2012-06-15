@@ -58,7 +58,7 @@ global DoFi="\\Ug-uszu-s1\ussz100_all$\Projekte\SOEPlong\Migrationsvariable\DoFi
 	global DoFi="F:/_Arbeit/_Diss/_DatensÃ¤tze/SOEP/SOEP27/DatensÃ¤tze_Mig/" // Ordner fuer Do-Files 
 
 // Globals Joerg
-global dir= "/home/Knut/Documents/UniGoettingen/SOEP/" // Arbeitsverzeichnis der Originaldatensaetze 
+global dir= "/home/Knut/Documents/UniGoettingen/SOEP2010/" // Arbeitsverzeichnis der Originaldatensaetze 
 global AVZ= "/home/Knut/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/" // Arbeitsverzeichnis der neu generierten Datensaetze und anderer Ordner
 global temp="/home/Knut/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/temp/" //Temporaerer Arbeitsspeicher
 global LoFi="/home/Knut/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/logs/" // Ordner fuer Log-Files
@@ -148,19 +148,19 @@ keep persnr ?hhnr nation*
 sort persnr
 
 ***Datensatzzusammenfuehrung und Beibehaltung ausgewaehlter Variablen***
-foreach file in bpgen.dta cpgen.dta dpgen.dta epgen.dta fpgen.dta gpgen.dta hpgen.dta ipgen.dta jpgen.dta kpgen.dta lpgen.dta mpgen.dta npgen.dta opgen.dta ppgen.dta qpgen.dta rpgen.dta spgen.dta tpgen.dta upgen.dta vpgen.dta wpgen.dta xpgen.dta ypgen.dta zpgen.dta{
-	merge persnr using "`file'", sort keep (?hhnr nation*)
+foreach file in bpgen.dta cpgen.dta dpgen.dta epgen.dta fpgen.dta gpgen.dta hpgen.dta ipgen.dta jpgen.dta kpgen.dta lpgen.dta mpgen.dta npgen.dta opgen.dta ppgen.dta qpgen.dta rpgen.dta spgen.dta tpgen.dta upgen.dta vpgen.dta wpgen.dta xpgen.dta ypgen.dta zpgen.dta bapgen.dta {
+	merge persnr using "`file'", sort keep (*hhnr nation*)
   	drop _merge
 	quietly: compress
 }
 
 ***Umbennenung ausgewaehlter Variablen***
-soepren nation84 nation85 nation86 nation87 nation88 nation89 nation90 nation91 nation92 nation93 nation94 nation95 nation96 nation97 nation98 nation99 nation00 nation01 nation02 nation03 nation04 nation05 nation06 nation07 nation08 nation09, newstub(nation) waves (1/26)  
+soepren nation84 nation85 nation86 nation87 nation88 nation89 nation90 nation91 nation92 nation93 nation94 nation95 nation96 nation97 nation98 nation99 nation00 nation01 nation02 nation03 nation04 nation05 nation06 nation07 nation08 nation09 nation10, newstub(nation) waves (1984/2010)  
 
 ***Zahlen als Missings kodieren***
 * quietly: mvdecode _all, mv(-1=.k\-2=.t\-3=.v) // deprecated 14.12.11
 
-soepren ahhnr bhhnr chhnr dhhnr ehhnr fhhnr ghhnr hhhnr ihhnr jhhnr khhnr lhhnr mhhnr nhhnr ohhnr phhnr qhhnr rhhnr shhnr thhnr uhhnr vhhnr whhnr xhhnr yhhnr zhhnr, newstub(hhnr) waves (1/26)   
+soepren ahhnr bhhnr chhnr dhhnr ehhnr fhhnr ghhnr hhhnr ihhnr jhhnr khhnr lhhnr mhhnr nhhnr ohhnr phhnr qhhnr rhhnr shhnr thhnr uhhnr vhhnr whhnr xhhnr yhhnr zhhnr bahhnr, newstub(hhnr) waves (1984/2010)   
 
 ***Reduzierten Datensatz speichern***
 isid persnr // persnr ist eindeutige Identifikationsvariable
@@ -175,6 +175,10 @@ save ${AVZ}pgen_mig.dta, replace
 /* WARUM NUR akind UND EKIND???? */
 
 cd ${dir}
+use ekind.dta, clear
+sort persnr
+save ${temp}ekind.dta, replace
+
 use akind.dta, clear
 
 ***Beibehaltung ausgewaehlter Variablen***
@@ -182,7 +186,7 @@ keep hhnr ?hhnr persnr ak07a
 sort persnr
 
 ***Datensatzzusammenfuehrung und Beibehaltung ausgewaehlter Variablen***
-merge persnr using ekind.dta, sort keep (hhnr ?hhnr persnr ek03a)
+merge persnr using ${temp}ekind.dta, sort keep (hhnr *hhnr persnr ek03a)
 drop _merge
 
 ***Zahlen als Missings kodieren***
@@ -275,9 +279,12 @@ drop _merge
 merge persnr using ${dir}zp.dta, sort keep (hhnr persnr ?hhnr zp139)
 drop _merge
 
+merge persnr using ${dir}bap.dta, sort keep (hhnr persnr *hhnr bap137)
+drop _merge
+
 ***Umbennenung ausgewaehlter Variablen***
-soepren sp116 tp124 up128 vp137 wp129 xp141 yp139 zp139, newstub(staatsang) waves (19/26)  
-soepren shhnr thhnr uhhnr vhhnr whhnr xhhnr yhhnr zhhnr, newstub(hhnr) waves (19/26)   
+soepren sp116 tp124 up128 vp137 wp129 xp141 yp139 zp139 bap137, newstub(staatsang) waves (19/27)  
+soepren shhnr thhnr uhhnr vhhnr whhnr xhhnr yhhnr zhhnr bahhnr, newstub(hhnr) waves (19/27)   
 
 ***Zahlen als Missings kodieren***
 * quietly: mvdecode _all, mv(-1=.k\-2=.t\-3=.v) // deprecated 14.12.11
@@ -305,9 +312,9 @@ keep biimgrp biresper persnr hhnr erhebj
 reshape wide biimgrp biresper hhnr, i(persnr) j(erhebj)
 isid persnr // Ueberpruefung, persnr ist jetzt die eindeutige Identifikationsvariable
 
-soepren hhnr1984 hhnr1985 hhnr1986 hhnr1987 hhnr1988 hhnr1989 hhnr1990 hhnr1991 hhnr1992 hhnr1993 hhnr1994 hhnr1995 hhnr1996 hhnr1997 hhnr1998 hhnr1999 hhnr2000 hhnr2001 hhnr2002 hhnr2003 hhnr2004 hhnr2005 hhnr2006 hhnr2007 hhnr2008 hhnr2009, newstub(hhnr) waves (1/26)   
-soepren biresper1984 biresper1985 biresper1986 biresper1987 biresper1988 biresper1989 biresper1990 biresper1991 biresper1992 biresper1993 biresper1994 biresper1995 biresper1996 biresper1997 biresper1998 biresper1999 biresper2000 biresper2001 biresper2002 biresper2003 biresper2004 biresper2005 biresper2006 biresper2007 biresper2008 biresper2009, newstub(biresper) waves (1/26)  
-soepren biimgrp1984 biimgrp1985 biimgrp1986 biimgrp1987 biimgrp1988 biimgrp1989 biimgrp1990 biimgrp1991 biimgrp1992 biimgrp1993 biimgrp1994 biimgrp1995 biimgrp1996 biimgrp1997 biimgrp1998 biimgrp1999 biimgrp2000 biimgrp2001 biimgrp2002 biimgrp2003 biimgrp2004 biimgrp2005 biimgrp2006 biimgrp2007 biimgrp2008 biimgrp2009, newstub(biimgrp) waves (1/26)  
+*soepren hhnr1984 hhnr1985 hhnr1986 hhnr1987 hhnr1988 hhnr1989 hhnr1990 hhnr1991 hhnr1992 hhnr1993 hhnr1994 hhnr1995 hhnr1996 hhnr1997 hhnr1998 hhnr1999 hhnr2000 hhnr2001 hhnr2002 hhnr2003 hhnr2004 hhnr2005 hhnr2006 hhnr2007 hhnr2008 hhnr2009 hhnr2010, newstub(hhnr) waves (1984/2010)   
+*soepren biresper1984 biresper1985 biresper1986 biresper1987 biresper1988 biresper1989 biresper1990 biresper1991 biresper1992 biresper1993 biresper1994 biresper1995 biresper1996 biresper1997 biresper1998 biresper1999 biresper2000 biresper2001 biresper2002 biresper2003 biresper2004 biresper2005 biresper2006 biresper2007 biresper2008 biresper2009 biresper2010, newstub(biresper) waves (1984/2010)  
+*soepren biimgrp1984 biimgrp1985 biimgrp1986 biimgrp1987 biimgrp1988 biimgrp1989 biimgrp1990 biimgrp1991 biimgrp1992 biimgrp1993 biimgrp1994 biimgrp1995 biimgrp1996 biimgrp1997 biimgrp1998 biimgrp1999 biimgrp2000 biimgrp2001 biimgrp2002 biimgrp2003 biimgrp2004 biimgrp2005 biimgrp2006 biimgrp2007 biimgrp2008 biimgrp2009 biimgrp2010, newstub(biimgrp) waves (1984/2010)  
 
 ***Reduzierten Datensatz speichern***
 isid persnr // persnr ist eindeutige Identifikationsvariable
@@ -344,7 +351,7 @@ keep wj6001 wj6002 wj61 wj6201 wj63 wj64 wj65 wj67 wj6601 wj6602 wj6801 wj69 per
 sort persnr
 
 ***Datensatzzusammenfuehrung und Beibehaltung ausgewaehlter Variablen***
-foreach file in xpage17.dta ypage17.dta zpage17.dta{
+foreach file in xpage17.dta ypage17.dta zpage17.dta bapage17.dta{
 	merge persnr using "`file'", sort keep (hhnr ?hhnr ?j6001 ?j6002 ?j61 ?j62 ?j63 ?j64 ?j65 ?j67 ?j6601 ?j6602 ?j68 ?j69)
   	drop _merge
 	quietly: compress
