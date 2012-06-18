@@ -1,6 +1,6 @@
-// Ausgangsdatensatz: ???
-// Enddatensatz:      melanie_jugendliche_recoded.dta
-// Variablen:         ???
+// Ausgangsdatensatz: $PAGE17; PPFAD; BIOIMMIG - Was genau soll hier stehen?
+// Enddatensatz:      Melanie_jugendliche.dta und melanie_jugendliche_recoded.dta
+// Variablen:         Germborn; Corigin; immiyear; gebjahr; erste und zweite Nation zum Befragrungszeitpunkt (ab einschließlich 2006); Deu_seit; biresper; biimgrp
 
 ******************************
 ***** Grundeinstellungen *****
@@ -23,11 +23,11 @@ capture ssc install soepren
 ***** Verzeichnisse festlegen *****
 ***********************************
 // Globals Melanie
-	global dir= "L:/_Arbeit/_Diss/_Datensaetze/SOEP/SOEP27/"                 // Arbeitsverzeichnis der relginaldatensaetze 
-	global AVZ= "L:/_Arbeit/_Diss/_Datensaetze/SOEP/SOEP27/Datensaetze_Mig/" // Arbeitsverzeichnis der neu generierten Datensaetze und anderer Ordner
-	global temp="L:/_Arbeit/_Diss/_Datensaetze/SOEP/SOEP27/Datensaetze_Mig/" //Temporaerer Arbeitsspeicher
-	global LoFi="L:/_Arbeit/_Diss/_Datensaetze/SOEP/SOEP27/Datensaetze_Mig/" // Ordner fuer Log-Files
-	global DoFi="L:/_Arbeit/_Diss/_Datensaetze/SOEP/SOEP27/Datensaetze_Mig/" // Ordner fuer Do-Files 
+	global dir= "L:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/"                 // Arbeitsverzeichnis der relginaldatensaetze 
+	global AVZ= "L:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Mig/" // Arbeitsverzeichnis der neu generierten Datensaetze und anderer Ordner
+	global temp="L:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Mig/" //Temporaerer Arbeitsspeicher
+	global LoFi="L:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Mig/" // Ordner fuer Log-Files
+	global DoFi="L:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Mig/" // Ordner fuer Do-Files 
 
 // Globals Joerg
 	global dir= "/home/Knut/Documents/UniGoettingen/SOEP2010/"                               // Arbeitsverzeichnis der Originaldatensaetze 
@@ -43,11 +43,6 @@ capture ssc install soepren
 ***** 1.11 Aufbereitung Jugenddatensatz Melanie *************
 *************************************************************
 
-*************************************************************
-***** 1.11 Aufbereitung Jugenddatensatz Melanie *************
-*************************************************************
-
-
 *****************************************************************************************************************
 *** 1. Bildung Masterdatensatz: Melanie_jugendliche.dta
 *****************************************************************************************************************
@@ -55,9 +50,6 @@ capture ssc install soepren
 *****************************************************************************************
 *** $PAGE17: Informationen zur Bestimmung Generationenstatus Jugendlicher (seit 2006) ***
 *****************************************************************************************
-
-* FRAGE: Muessen hier jetzt tatsaechlich wieder alle Datensaetze (BIOIMMIG, etc.) beruecksichtigt werden?
-	
 
 	cd ${dir}
 	use ${dir}wpage17.dta, clear
@@ -76,15 +68,15 @@ capture ssc install soepren
 
 
 * Umbennenung ausgewaehlter Variablen***
-	soepren wj6001 xj6001 yj6001 zj6001 baj6001, newstub(gebjahr_j) waves (23/27)  
+	soepren wj6001 xj6001 yj6001 zj6001 baj6001, newstub(gebjahr_j) waves (23/27)  // Eigentlich brauch man doch die Jahresinfo bei den unveränderlichen Sachen nicht, da es Querschnittsdaten sind
 	soepren wj6002 xj6002 yj6002 zj6002 baj6002, newstub(gebmoval_j) waves (23/27)  
 	soepren wj61 xj61 yj61 zj61 baj61, newstub(germborn_j) waves (23/27)  
-	soepren wj6201 xj62 yj62 zj62 baj62, newstub(crelgin_j) waves (23/27)  
+	soepren wj6201 xj62 yj62 zj62 baj62, newstub(corigin_j) waves (23/27)  
 	soepren wj63 xj63 yj63 zj63 baj63, newstub(immiyear_j) waves (23/27)  
 	soepren wj64 xj64 yj64 zj64 baj64, newstub(biimgrp_j) waves (23/27)  
-	soepren wj65 xj65 yj65 zj65 baj65, newstub(nation_deu_j) waves (23/27)  
+	soepren wj65 xj65 yj65 zj65 baj65, newstub(nation_deu_j) waves (23/27)  // Wie kann/soll mit der Nation-Info bei den Jugendlichen umgegangen werden?
 	soepren wj67 xj67 yj67 zj67 baj67, newstub(deu_seit_j) waves (23/27)  
-	soepren wj6601 xj6601 yj6601 zj6601 baj6601, newstub(d_nation2_j) waves (23/27)  
+	soepren wj6601 xj6601 yj6601 zj6601 baj6601, newstub(d_nation2_j) waves (23/27)  // Wie Umgang mit zweiter SBS? Damit zusammenhängend grundsätzliche Frage, wie mit zeitveränderlicher Info umgegangen werden soll?
 	soepren wj6602 xj6602 yj6602 zj6602 baj6602, newstub(nation2_j) waves (23/27)  
 	soepren wj6801 xj68 yj68 zj68 baj68, newstub(nation_j) waves (23/27)  
 	soepren wj69 xj69 yj69 zj69 baj69, newstub(biresper_j) waves (23/27)  
@@ -93,13 +85,13 @@ capture ssc install soepren
 * Reduzierten Datensatz speichern
 	isid persnr // persnr ist eindeutige Identifikationsvariable
 	sort persnr
-	save ${AVZ}page17_mig1.dta, replace
+	save ${AVZ}page17_mig.dta, replace
 
 
 
-************************************************************************************************************
-*** PPFAD: Weitere Hintergrundinformationen zum Jugendlichen (bis einschliesslich 2005) und dessen Eltern ***
-************************************************************************************************************
+***********************************************************************************
+*** PPFAD: Hintergrundinformationen zum Jugendlichen (bis einschliesslich 2005) ***
+***********************************************************************************
 
 	use ${dir}ppfad.dta, clear
 
@@ -109,128 +101,98 @@ capture ssc install soepren
 * Reduzierten Datensatz speichern
 	isid persnr // persnr ist eindeutige Identifikationsvariable
 	sort persnr
-	save ${AVZ}ppfad_mig1.dta, replace
+	save ${AVZ}ppfad_mig_j.dta, replace
 
 
-****************
-*** BIOIMMIG ***
-****************
-
-* Erst einmal unberuecksichtigt
 
 
-****************
-*** BIOPAREN ***
-****************
+****************************************************************************
+*** BIOIMMIG: Infos für die Jahre 2000-2005 enthalten; danach im $PAGE17 ***
+****************************************************************************
 
-	use ${dir}/bioparen.dta, clear
+	use ${dir}bioimmig.dta, clear
 
-* Beibehaltung ausgewaehlter Variablen***
-	keep persnr hhnr vnr mnr vnat mnat vorigin morigin vgebj mgebj vaortakt maortakt vaortup maortup living* 
 
-	*** FRAGE: Benoetigt man hier die vnr bzw. mnr? Ich habe jetzt die persnr des Jugendlichen zum mergen genommen ...
+***Beibehaltung ausgewaehlter Variablen***
+keep biimgrp biresper persnr hhnr erhebj
 
-* Reduzierten Datensatz speichern***
-	isid persnr // persnr ist eindeutige Identifikationsvariable
-	sort persnr
-	save ${AVZ}bioparen_mig1.dta, replace
+***Zahlen als Missings kodieren***
+* quietly: mvdecode _all, mv(-1=.k\-2=.t\-3=.v)  // deprecated 14.12.11
+
+***Formataenderung (vom Long-Format ins Wide-Format); Dieser Schritt ist fuer die nachfolgenden Analysen wichtig***
+reshape wide biimgrp biresper hhnr, i(persnr) j(erhebj)
+isid persnr // Ueberpruefung, persnr ist jetzt die eindeutige Identifikationsvariable
+
+drop hhnr1984 hhnr1985 hhnr1986 hhnr1987 hhnr1988 hhnr1989 hhnr1990 hhnr1991 hhnr1992 hhnr1993 hhnr1994 hhnr1995 hhnr1996 hhnr1997 hhnr1998 hhnr1999 biresper1984 ///
+biresper1985 biresper1986 biresper1987 biresper1988 biresper1989 biresper1990 biresper1991 biresper1992 biresper1993 biresper1994 biresper1995 biresper1996 biresper1997 ///
+biresper1998 biresper1999 biimgrp1984 biimgrp1985 biimgrp1986 biimgrp1987 biimgrp1988 biimgrp1989 biimgrp1990 biimgrp1991 biimgrp1992 biimgrp1993 biimgrp1994 biimgrp1995 ///
+biimgrp1996 biimgrp1997 biimgrp1998 biimgrp1999 
+
+
+soepren hhnr2000 hhnr2001 hhnr2002 hhnr2003 hhnr2004 hhnr2005 hhnr2006 hhnr2007 hhnr2008 hhnr2009 hhnr2010, newstub(hhnr) waves (17/27)   
+soepren biresper2000 biresper2001 biresper2002 biresper2003 biresper2004 biresper2005 biresper2006 biresper2007 biresper2008 biresper2009 biresper2010, newstub(biresper) waves (17/27)  
+soepren biimgrp2000 biimgrp2001 biimgrp2002 biimgrp2003 biimgrp2004 biimgrp2005 biimgrp2006 biimgrp2007 biimgrp2008 biimgrp2009 biimgrp2010, newstub(biimgrp) waves (17/27)  
+
+***Reduzierten Datensatz speichern***
+isid persnr // persnr ist eindeutige Identifikationsvariable
+sort persnr
+save ${AVZ}bioimmig_mig_j.dta, replace
+
+
+
+
+
+**********************************************************************************************************************************
+*** P und PGEN: Hier sind Infos zur Nationalität(bis einschließlich 2005) - Jetzt erst einmal unberücksichtigt, da Absprache zum weiteren Vorgehen nötig ***
+**********************************************************************************************************************************
+* Im Excel-Übersichts-Sheet steht hierzu:
+* "Bis 2005 wurden die Jugendlichen gefragt, ob 
+* a) unbefristete Aufenthaltserlaubnis 
+* b) befristete Aufenthaltserlaubnis 
+* c) deutsche Staatsbürgerschaft vorliegt (Jugendfragebogen 2005 Frage 60) 
+* Hinweis Elisabeth: Eventuell direkt in den P-Daten oder $PGEN-Daten. - Das müßte noch geprüft werden, ob die Info aus dieser Abfrage hier verwurstet wurden ..."
+
+* NATION$$	$PGEN	2000-2005
+* QP123		$$P	2000-2005
+* RP119
+* SP11902
+* TP125
+* UP129
+* VP138	
+
+
 
 *******************************************
 *** BILDUNG MASTERDATENSATZ Jugendliche ***
 *******************************************
 
 * Oeffnen des Masterdatensatzes 
-	use ${dir}/bioage17.dta, clear
-
-**************************************************
-*** FRAGE:Wird das spaeter eh gemacht? Dann kann das hier weg
-
-
-*** Ranspielen der Infos fuer die MUTTER
-* Umbenennung der persnr
-	rename hhnr kindhhnr
-	rename persnr kindpersnr
-	rename bymnr persnr
-	sort persnr
-
-* Ranspielen Infos fuer die Mutter aus ppfad_mig1
-	merge m:1 persnr using ${AVZ}ppfad_mig1.dta
-	tab _merge
-
-	rename hhnr hhnr_m
-	rename gebmoval gebmoval_m
-	rename gebjahr gebjahr_m
-	rename immiyear immiyear_m
-	rename germborn germborn_m
-	rename corigin corigin_m 
-	rename sex sex_m
-
-	drop if _merge==2
-	drop _merge
+	use ${AVZ}bioage17.dta, clear
+	keep hhnr hhnrakt persnr bymnr byvnr
+	save ${AVZ}Melanie_jugendliche_ma.dta, replace
 
 
-***************************************************
-*** Ranspielen der Infos fuer den VATER
-* Umbenennung der persnr
-	rename persnr bymnr
-	rename byvnr persnr
-	sort persnr
-
-* Ranspielen Infos fuer den Vater aus PPFAD
-	merge m:1 persnr using ${AVZ}ppfad_mig1.dta
-
-	rename hhnr hhnr_f
-	rename gebmoval gebmoval_f
-	rename gebjahr gebjahr_f
-	rename immiyear immiyear_f
-	rename germborn germborn_f
-	rename corigin corigin_f
-	rename sex sex_f
-
-	tab _merge
-	drop if _merge==2
-	drop _merge
-
-************************************************************
-*** Ranspielen der Infos fuer den befragten JUGENDLICHEN/KIND
-* Umbenennung der persnr
-	rename persnr byvnr
-	rename kindpersnr persnr
-	sort persnr
-
-* Ranspielen Infos fuer Kind aus $PAGE17
-	merge m:1 persnr using ${AVZ}page17_mig1.dta
+* Ranspielen Infos fuer Kind aus PAGE17
+	merge m:1 persnr using ${AVZ}page17_mig.dta // Merge 1:1, da Kinder nur einmal im Datensatz sein können, allerdings: funktioniert nicht!
 	tab _merge
 	drop _merge
-
-* Ranspielen Infos fuer Kind aus dem Datensatz von Elisabeth
-	sort persnr
-	merge m:1 persnr using ${AVZ}wjugend.dta // WICHTIG: Der Datensatz von Elisabeth muss im AVZ liegen!
-	tab _merge
-	drop _merge
-
-	rename wj7901 germborn_f_j
-	rename wj7902 germborn_m_j
 
 * Ranspielen Infos fuer Kind aus PPFAD
 	sort persnr
-	merge m:1 persnr using ${AVZ}ppfad_mig1.dta
-
+	merge m:1 persnr using ${AVZ}ppfad_mig_j.dta
 	tab _merge
 	drop if _merge==2
 	drop _merge
 
-* Ranspielen Infos fuer Kind aus BIOPAREN --> FRAGE: Hier gibt es eine mnr und vnr --> Sind das dieselben wie bymnr und byvnr? 
+* Ranspielen Infos fuer Kind aus BIOIMMIG
 	sort persnr
-	merge m:1 persnr using ${AVZ}bioparen_mig1.dta
+	merge m:1 persnr using ${AVZ}bioimmig_mig_j.dta
+
 
 	tab _merge
 	drop if _merge==2
 	drop _merge
 
-
-drop hhnr
-rename kindhhnr hhnr
 
 save ${AVZ}Melanie_jugendliche.dta, replace
 
@@ -238,8 +200,6 @@ save ${AVZ}Melanie_jugendliche.dta, replace
 
 * Pruefen, ob Zusammenfassung verteilter Infos notwendig
 *******************************************************
-
-*** bei den JUGENDLICHEN (Moegliche Quellen - Jetzige Annahme: page17 (seit 2006); ppfad (bis 2005))
 
 * Pruefen, ob Geburtslandinfos aus $PAGE in der PPFAD-Info enthalten ist
 
@@ -263,7 +223,7 @@ save ${AVZ}Melanie_jugendliche.dta, replace
 	tab corigin corigin_j26
 	tab corigin corigin_j27
 
-*** Ja, Infos sind enthalten 
+*** Ja, Infos sind enthalten, wobei Abweichungen --> Warum?
 *** --> corigin aus PPFAD kann grundsaetzlich genutzt werden
 
 
@@ -275,13 +235,328 @@ save ${AVZ}Melanie_jugendliche.dta, replace
 	tab immiyear immiyear_j26
 	tab immiyear immiyear_j27
 
-*** Ja, Info ist enthalten, wobei teilweise Abweichungen (23; 24; 25; 26) --> Warum? -> Jugendliche nehmen
+*** Ja, Info ist enthalten, wobei teilweise Abweichungen (23; 24; 25; 26) --> Warum?
 *** --> immiyear aus PPFAD kann grundsaetzlich genutzt werden 
 
 
+* Prüfen, ob biimgrp-Info aus PAGE auch in BIOIMMIG enthalten ist --> Ja, ist enthalten
+
+	tab biimgrp23 biimgrp_j23, m
+	tab biimgrp_j23, m
+	
+	tab biimgrp24 biimgrp_j24, m
+	tab biimgrp_j24, m
+	
+	tab biimgrp25 biimgrp_j25, m
+	tab biimgrp_j25, m
+
+	tab biimgrp26 biimgrp_j26, m
+	tab biimgrp_j26, m
+
+	tab biimgrp27 biimgrp_j27, m
+	tab biimgrp_j27, m
+
+
+* Prüfen, ob biresper-Info aus PAGE auch in BIOIMMIG enthalten ist --> Ja, ist enthalten
+
+	tab biresper23 biresper_j23, m
+	tab biresper_j23, m
+	
+	tab biresper24 biresper_j24, m
+	tab biresper_j24, m
+	
+	tab biresper25 biresper_j25, m
+	tab biresper_j25, m
+
+	tab biresper26 biresper_j26, m
+	tab biresper_j26, m
+
+	tab biresper27 biresper_j27, m
+	tab biresper_j27, m
+
+
+******************************************************************************
+*** REKODIERUNG ZENTRALER INFOS UND ANGLEICHUNG AN ANDERE VARS ***************
+******************************************************************************
+
+
+use ${AVZ}Melanie_jugendliche.dta, clear
+
+
+*** FRAGE: Muss hier noch berücksichtigt werden, dass es die Origin-Var und Origin_j gleichzeitig im DS gibt? Also eine gemeinsame bspw. origin gebildet werden?
+*** ENTSCHEIDUNG NOCH NOTWENDIG: Entweder Origin-Info oder Origin aus PAGE-Daten
+
+
+* biimgrp umkodieren und umbenennen zur Anpassung 
+recode biimgrp_j2* (1 = 1) (2 = 3) (3 = 4) (4 = 6) (5 = 7)   
+soepren biimgrp_j23 biimgrp_j24 biimgrp_j25 biimgrp_j26 biimgrp_j27, newstub(biimgrp) waves (23/27)  
+
+* nation_j 'Nationality code' -> nation, Laendercodes stimmen ueberein
+soepren nation_j23 nation_j24 nation_j25 nation_j26 nation_j27, newstub(nation) waves(23/27)
+
+* corigin -> corigin, nichts zu tun
+
+* germborn_j -> germborn
+recode germborn_j2* (1 2 = 1)(3 = 2)
+soepren germborn_j23 germborn_j24 germborn_j25 germborn_j26 germborn_j27, newstub(germborn) waves (23/27)
+
+* immiyear_j -> immiyear
+soepren immiyear_j23 immiyear_j24 immiyear_j25 immiyear_j26 immiyear_j27, newstub(immiyear) waves(23/27)
+
+* gebjahr_j -> gebjahr
+soepren gebjahr_j23 gebjahr_j24 gebjahr_j25 gebjahr_j26 gebjahr_j27, newstub(gebjahr) waves(23/27)
+
+// Wo ist der Unterschied zwischen germnatbirth und staatsang? Beide aus SP116!
+* deu_seit_j -> germnatbirth (SP116, German nationality since: birth, later)
+soepren deu_seit_j23 deu_seit_j24 deu_seit_j25 deu_seit_j26 deu_seit_j27, newstub(germnatbirth) waves(23/27)
+
+* deu_seit_j -> staatsang (SP116 seit wann dt. staatsangehoerigkeit: geburt, erworben)
+* soepren deu_seit_j23 deu_seit_j24 deu_seit_j25 deu_seit_j26 deu_seit_j27, newstub(staatsang) waves(23/27)
+
+keep persnr hhnr biimgrp* nation* corigin germborn immiyear gebjahr germnatbirth*
+aorder
+order persnr 
+sort persnr
+
+* Select one answer from many years
+recode biimgrp* (-2 -1 = .)
+recode nation*  (-2 -1 = .)
+recode germnatbirth* (-2 -1 = .)
+
+egen bii_count = anymatch(biimgrp*), values(1 2 3 4 5 6 7)  // Pruefe, ob Personen Angaben zu mehreren Jahren haben
+tab bii_count
+egen na_count = anymatch(nation*), values(2 3 4 5 6 12 13 21 75 118 119 165)
+tab na_count
+egen ger_count = anymatch(germnatbirth*), values(1 2)
+tab ger_count
+
+egen biimgrp = rowmax(biimgrp*)
+egen nation  = rowmax(nation*)
+egen germnatbirth = rowmax(germnatbirth*)
+
+keep persnr hhnr biimgrp nation corigin germborn immiyear gebjahr germnatbirth
+
+save ${AVZ}melanie_jugendliche_recoded, replace
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*** ELTERN --> Müßte in Extra-Do-File eingefügt werden (Resultat Besprechung am Freitag) ***
+
+
+
+// Ausgangsdatensatz: $PAGE17; PPFAD; BIOPAREN
+// Enddatensatz:      melanie_jugendliche_eltern.dta
+// Variablen:         ???
+
+******************************
+***** Grundeinstellungen *****
+******************************
+
+display "$S_DATE $S_TIME"
+clear all                                                                        //Arbeitsspeicher reinigen
+macro drop _all                                                                  // alle Makros loeschen
+version 10.1                                                                     // Version einlesen
+capture log close                                                                // falls Log-Files offen sind schliessen, ansonsten Fehlermeldung unterdruecken
+set more off, perm                                                               // Ergebnisse ohne Unterbrechung am Seitenende durchlaufen lassen
+set scrollbufsize 500000                                                         // Rueckschau erweitern
+set memory 500m, perm                                                            // Arbeitsspeicher erweitern
+set dp comma                                                                     // Bei Dezimalzahlen Kommas anstelle von Punkten verwenden
+numlabel, add                                                                    // Kategoriennr. anzeigen
+capture net install st0085_1.pkg
+capture ssc install soepren
+
+***********************************
+***** Verzeichnisse festlegen *****
+***********************************
+// Globals Melanie
+	global dir= "L:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/"                 // Arbeitsverzeichnis der relginaldatensaetze 
+	global AVZ= "L:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Mig/" // Arbeitsverzeichnis der neu generierten Datensaetze und anderer Ordner
+	global temp="L:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Mig/" //Temporaerer Arbeitsspeicher
+	global LoFi="L:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Mig/" // Ordner fuer Log-Files
+	global DoFi="L:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Mig/" // Ordner fuer Do-Files 
+
+// Globals Joerg
+	global dir= "/home/Knut/Documents/UniGoettingen/SOEP2010/"                               // Arbeitsverzeichnis der Originaldatensaetze 
+	global AVZ= "/home/Knut/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/"      // Arbeitsverzeichnis der neu generierten Datensaetze und anderer Ordner
+	global temp="/home/Knut/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/temp/" //Temporaerer Arbeitsspeicher
+	global LoFi="/home/Knut/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/logs/" // Ordner fuer Log-Files
+	global DoFi="/home/Knut/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/temp/" // Ordner fuer Do-Files 
+
+
+
+***********************************************************************************
+***** 1.12 Aufbereitung Datensatz für Eltern von Jugendlichen Melanie *************
+***********************************************************************************
 
 *****************************************************************************************************************
-*** bei den ELTERN (Moegliche Quellen: bioparen, ppfad, wjugend fuer 2006 von Elisabeth)
+*** 1. Bildung Masterdatensatz: Melanie_jugendliche_eltern.dta
+*****************************************************************************************************************
+**************************************************************************
+*** PPFAD: Hintergrundinformationen zu den Eltern, wenn selbst im SOEP ***
+**************************************************************************
+
+	use ${AVZ}ppfad_mig.dta, clear // bereits gebildeter PPFAD_mig Datensatz ausreichend
+	keep hhnr persnr sex gebnoval gebjahr immiyear germborn corigin migback
+	save ${AVZ}ppfad_migj.dta, replace // bereits gebildeter PPFAD_mig Datensatz ausreichend
+
+
+****************************************************************************
+*** BIOIMMIG: Hintergrundinfos zu den Eltern, wenn selbst im SOEP **********
+****************************************************************************
+
+	use ${AVZ}bioimmig_mig.dta, clear
+
+
+****************
+*** BIOPAREN ***
+****************
+
+	use ${AVZ}/bioparen_mig.dta, clear // bereits gebildeter BIOPAREN-DS, da hier VNAT und MNAT schon rekodiert
+	keep persnr vnat mnat vgebj mgebj vaortakt maortakt living 
+	save ${AVZ}/bioparen_migj.dta, replace // bereits gebildeter BIOPAREN-DS, da hier VNAT und MNAT schon rekodiert
+
+**********************************************************************************************************************************
+*** P und PGEN: Hier sind Infos zur Nationalität - Jetzt erst einmal unberücksichtigt, da Absprache zum weiteren Vorgehen nötig ***
+**********************************************************************************************************************************
+
+* jetzt (erst einmal) unberücksichtigt
+
+
+
+
+
+*****************************************
+* 2. Schritt: Bildung Masterdatensatz ***
+*****************************************
+
+*** Öffnen Zwischen-Masterdatensatz von Jugendlichen, damit Eltern von Jugendlichen idntifiziert werden können ***
+
+
+	use ${AVZ}Melanie_jugendliche_ma.dta, clear
+
+
+
+***********************************************************
+*** Ranspielen der Infos vom Jugendlichen zu den Eltern ***
+***********************************************************
+
+*** Ranspielen Infos vom Jugendlichen zu seinen Eltern aus dem Datensatz von Elisabeth (2006)
+	sort persnr
+	merge m:1 persnr using ${AVZ}wjugend.dta // WICHTIG: Der Datensatz von Elisabeth muss im AVZ liegen!
+	tab _merge
+	drop _merge
+
+	rename wj7901 germborn_f_j
+	rename wj7902 germborn_m_j
+
+
+*** Ranspielen Infos fuer Eltern von Jugendlichen aus BIOPAREN --> FRAGE: Hier gibt es eine mnr und vnr --> Sind das dieselben wie bymnr und byvnr? 
+	sort persnr
+	merge m:1 persnr using ${AVZ}bioparen_migj.dta
+
+	tab _merge
+	drop if _merge==2
+	drop _merge
+
+
+*******************************************************************
+*** Ranspielen der Infos fuer die MUTTER aus PPFAD und BIOIMMIG ***
+*******************************************************************
+
+* Umbenennung der persnr
+	rename hhnr kindhhnr
+	rename persnr kindpersnr
+	rename bymnr persnr
+	sort persnr
+
+* Ranspielen Infos fuer die Mutter aus ppfad_mig
+*************************************************
+	merge m:1 persnr using ${AVZ}ppfad_migj.dta
+	tab _merge
+
+	rename hhnr hhnr_m
+	rename migback migback_m
+	rename gebmoval gebmoval_m
+	rename gebjahr gebjahr_m
+	rename immiyear immiyear_m
+	rename germborn germborn_m
+	rename corigin corigin_m 
+	rename sex sex_m
+
+	drop if _merge==2
+	drop _merge
+
+
+
+* Ranspielen Infos fuer die Mutter aus bioimmig_mig
+****************************************************
+	merge m:1 persnr using ${AVZ}bioimmig_mig.dta
+	tab _merge
+
+	rename biimgrp biimgrp_m
+	rename biresper bisresper_m 
+
+	drop if _merge==2
+	drop _merge
+
+
+
+******************************************************************
+*** Ranspielen der Infos fuer den VATER aus PPFAD und BIOIMMIG ***
+******************************************************************
+
+* Umbenennung der persnr
+	rename persnr bymnr
+	rename byvnr persnr
+	sort persnr
+
+* Ranspielen Infos fuer den Vater aus PPFAD
+	merge m:1 persnr using ${AVZ}ppfad_migj.dta
+
+	rename hhnr hhnr_f
+	rename migback migback_f
+	rename gebmoval gebmoval_f
+	rename gebjahr gebjahr_f
+	rename immiyear immiyear_f
+	rename germborn germborn_f
+	rename corigin corigin_f
+	rename sex sex_f
+
+	tab _merge
+	drop if _merge==2
+	drop _merge
+
+
+* Ranspielen Infos fuer den Vater aus bioimmig_mig
+****************************************************
+	merge m:1 persnr using ${AVZ}bioimmig_mig.dta
+	tab _merge
+
+	rename biimgrp biimgrp_f
+	rename biresper bisresper_f 
+
+	drop if _merge==2
+	drop _merge
+
+
+
+
+*******************************************************************************************************************
+*** Überprüfung der Angaben und Identifizierung von Fällen, bei denen Jugendlichen-Infos genutzen werden müssen ***
+*******************************************************************************************************************
+
 
 * Kongruente Infos aus PPFAD bei Germborn und Corigin?
 	tab corigin_f germborn_f, m
@@ -292,131 +567,66 @@ save ${AVZ}Melanie_jugendliche.dta, replace
 
 
 
-*****************************************************************
+********************************************************************************************************************************
 * WJUGEND: Benoetigt man die Dummy-Info von den Jugendlichen zu dem Geburtsland ihrer Eltern aus dem DS von Elisabeth fuer 2006?
-
-* VATER
+********************************************************************************************************************************
+*************
+*** VATER ***
+*************
 	tab germborn_f_j
 	tab germborn_f germborn_f_j if erhebj==2006, m
-*** 39 "." bei germborn_f; Wenn Nutzung Info von Elisabeth fuer 2006, dann koennten 35 Faelle deutsch und 3 Faelle den Immigranten zugeordnet werden
-*** Folglich: Diese Faelle wuerde ich noch zuordnen + Vermerk in Hilfsvariable, dass diese Info vom Jugendlichen kommt
+* 39 "." bei germborn_f; Wenn Nutzung Info von Elisabeth fuer 2006, dann koennten 35 Faelle deutsch und 3 Faelle den Immigranten zugeordnet werden
+* Folglich: Diese Faelle wuerde ich noch zuordnen + Vermerk in Hilfsvariable, dass diese Info vom Jugendlichen kommt
 
 * Ist die Info bei vorigin enthalten?
 	tab vorigin germborn_f_j if erhebj==2006, m //--> Nein; hier -1
 
 
-* MUTTER
+
+**************
+*** MUTTER ***
+**************
 	tab germborn_m germborn_m_j if erhebj==2006, m
-*** 6 Sysmis bei germborn_m; bei der Info von Elisabeth 4x Deutschland und 2x-2
+* 6 Sysmis bei germborn_m; bei der Info von Elisabeth 4x Deutschland und 2x-2
 
 * Ist die Info bei morigin enthalten?
 	tab morigin germborn_m_j if erhebj==2006, m //--> Nein; hier -1
 
 
-*****************************************************************
 
+****************************************************************************************************
+*** Vorigin und Morigin aus BIOPAREN (auch Infos von Jugendlichen zu den Eltern seit 2007 enthalten)
+****************************************************************************************************
 
-* Vorigin und Morigin aus BIOPAREN (auch Infos von Jugendlichen zu den Eltern seit 2007 enthalten)
 	tab vorigin, m
-*** 2640 x keine Angabe (-1) - Was ist da los? Eventuell doch nicht zusaetzlich die Infos aus PPFAD zugespielt, sondern nur Angaben der Jugendlichen?
-*** Dennoch FRAGE: Wie kann es sein, dass es hier weniger Infos gibt als bei den aus PPFAD zugespielten Infos???
-*** Verstehe ich nicht ... Sind das andere Personen?  
+	tab vorigin germborn_f
+* 2640 x keine Angabe (-1) - Was ist da los? Eventuell doch nicht zusaetzlich die Infos aus PPFAD zugespielt, sondern nur Angaben der Jugendlichen?
+* Dennoch FRAGE: Wie kann es sein, dass es hier weniger Infos gibt als bei den aus PPFAD zugespielten Infos???
+* Verstehe ich nicht ... Sind das andere Personen?  
+
 
 	tab morigin, m
-*** 2640 x keine Angabe (-1) - Was ist da los? Siehe Vater
+	tab morigin germborn_m
+
+* 2640 x keine Angabe (-1) - Was ist da los? Siehe Vater
 
 
+***********************************************************************************************************************************
+*** Sind bei den PPFAD-Infos zu den Eltern mehr Informationen enthalten als bei der VORIGIN und MORGIN aus Bioparen oder umgekehrt?
+***********************************************************************************************************************************
 
-* Sind bei den PPFAD-Infos zu den Eltern mehr Informationen enthalten als bei der VORIGIN und MORGIN aus Bioparen oder umgekehrt?
+
 	tab vorigin germborn_f, m
-*** vorigin -1=2261 Faelle; in germborn_f sind davon 1821 in Deutschland geboren, 418 migriert und 20 haben anderen Missing-Wert
-*** + Eine Reihe von Faellen, hat in vorigin ein anderes Geburtsland und ist gemaess der germborn aber in D geboren --> Sehr suspekt, welche Info nun wahr ...
-*** + 503 Faelle, die in germborn "." haben: sind in der vorigin: 103 x 1; 20 x 2; 1 x -3; 379 x -1
+* vorigin -1=2261 Faelle; in germborn_f sind davon 1821 in Deutschland geboren, 418 migriert und 20 haben anderen Missing-Wert
+* + Eine Reihe von Faellen, hat in vorigin ein anderes Geburtsland und ist gemaess der germborn aber in D geboren --> Sehr suspekt, welche Info nun wahr ...
+* + 503 Faelle, die in germborn "." haben: sind in der vorigin: 103 x 1; 20 x 2; 1 x -3; 379 x -1
 
 	tab morigin germborn_m, m
 * 1 von den fehlenden 74 Faellen kann zugeordnet werden (Migrant)
 
 
-*** HINWEIS: Wenn Verwendung der Informationen von vorigin und morigin, dann muss diese Info sowohl Origin als auch germborn zugespielt werden
+* HINWEIS: Wenn Verwendung der Informationen von vorigin und morigin, dann muss diese Info sowohl Origin als auch germborn zugespielt werden
 
-
-
-* 2. Schritt: Zuspielen weiterer Infos zu den Eltern-Variablen
-**************************************************************
-
-* Fuer die ELTERN
-
-* Aus wjugend
-*** Zuspielen der Infos fuer VATER (zu der germborn_f)
-	replace germborn_f=2 if germborn_f==. & germborn_f_j==2
-	replace germborn_f=1 if germborn_f==. & germborn_f_j==1
-	replace germborn_f=-2 if germborn_f==. & germborn_f_j==-2
-
-	tab germborn_f, m
-
-
-*** Zuspielen der Infos fuer MUTTER (zu der germborn_m)
-	replace germborn_m=1 if germborn_m==. & germborn_m_j==1
-	replace germborn_m=-2 if germborn_m==. & germborn_m_j==-2
-
-	tab germborn_m, m
-
-
-*************************************************************************
-
-* Aus Bioparen
-**************
-
-* VATER
-
-*** Zuspielen Infos aus vorigin/BIOPAREN zu germborn_f
-	tab vorigin germborn_f, m
-* 464 Sysmis koennten so eliminiert werden
-
-* Was haben die aus Wjugend zugespielten Faelle bei Vorigin?
-	tab corigin_f germborn_f_j if erhebj==2006, m
-	tab vorigin germborn_f_j if erhebj==2006, m
-* Die aus Wjugend der germborn_f zugespielten Faelle bekommen folglich -1
-
-* Zuspielen
-	replace germborn_f=2 if germborn_f==. & vorigin>=2
-	replace germborn_f=1 if germborn_f==. & vorigin==1
-	replace germborn_f=-1 if germborn_f==. & vorigin==-1
-	replace germborn_f=-3 if germborn_f==. & vorigin==-3
-	tab vorigin germborn_f, m
-
-
-*** Zuspielen Infos aus vorigin/BIOPAREN zu corigin_f
-	tab corigin_f vorigin, m
-
-	replace corigin_f=vorigin if corigin_f==.
-	tab corigin_f, m
-
-
-* MUTTER
-
-*** Zuspielen Infos aus morigin/BIOPAREN zu germborn_m
-*******************************************************
-
-	tab morigin germborn_m, m
-* 68 Sysmis koennten so eliminiert werden, wobei 67 x -1
-
-* Was haben aber die aus Wjugend zugespielten Faelle bei Morigin?
-	tab corigin_m germborn_m_j if erhebj==2006, m
-	tab morigin germborn_m_j if erhebj==2006, m
-* Die aus Wjugend der germborn_m zugespielten Faelle bekommen folglich -1
-
-* Zuspielen
-	replace germborn_m=2 if germborn_m==. & morigin>=2
-	replace germborn_m=-1 if germborn_m==. & morigin==-1
-	tab germborn_m
-
-
-*** Zuspielen Infos aus morigin/BIOPAREN zu corigin_m
-	tab corigin_m morigin, m
-
-	replace corigin_m=morigin if corigin_m==.
-	tab corigin_m, m
 
 
 
@@ -460,6 +670,8 @@ save ${AVZ}Melanie_jugendliche.dta, replace
 * Nehme nur die Variablen fuer die Jugendlichen, nicht die aus ppfad
 * deu_seit_j25 -> deu_seit
 * staatsang`x', biimgrp`x', nation`x', corigin[_n-`x'], germborn[_n-`x'], immiyear[_n-`x'], gebjahr[_n-`x'], germnatbirth[_n-`x']
+
+
 
 use ${AVZ}melanie_jugendliche.dta, clear
 
