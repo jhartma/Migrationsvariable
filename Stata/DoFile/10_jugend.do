@@ -167,7 +167,7 @@ save ${AVZ}bioimmig_mig_j.dta, replace
 *******************************************
 
 * Oeffnen des Masterdatensatzes 
-	use ${AVZ}bioage17.dta, clear
+	use ${dir}bioage17.dta, clear
 	keep hhnr hhnrakt persnr bymnr byvnr
 	save ${AVZ}Melanie_jugendliche_ma.dta, replace
 

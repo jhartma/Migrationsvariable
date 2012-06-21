@@ -6,313 +6,52 @@
 *************************************************************
 
 ***** 1.1 ppfad.dta *****************************************
-do ${AVZ}DoFile/01_ppfad.do                                             // Output: ppfad_mig.dta
+do ${AVZ}DoFile/01_ppfad.do                                             // Output: ppfad_mig.dta 	|| persnr, corigin, gebjahr, gebmoval, germborn, immiyear, migback, sex, hhnr, hhnr1984-hhnr2010
 
 ***** 1.2 $pgen.dta *****************************************
-do ${AVZ}DoFile/02_pgen.do                                              // Output: pgen_mig.dta
+do ${AVZ}DoFile/02_pgen.do                                              // Output: pgen_mig.dta		|| persnr, hhnr1984-hhnr2010, nation1984-nation2010
 
 ***** 1.3 $kind.dta *****************************************
-do ${AVZ}DoFile/03_kind.do                                              // Output: kind_mig.dta
+do ${AVZ}DoFile/03_kind.do                                              // Output: kind_mig.dta		|| persnr, hhnr1984, hhnr1989, nationkind1984, nationkind1989, hhnr
 
 ***** 1.4 hbrutt$.dta ***************************************
-do ${AVZ}DoFile/04_hbrutt.do                                            // Output: hbrutt_mig.dta
+do ${AVZ}DoFile/04_hbrutt.do                                            // Output: hbrutt_mig.dta	|| hhnr, hhnr1998, hhnr2000, sexhv1998, sexhv2000, nathv1998, nathv2000
 
 ***** 1.5 $p.dta ********************************************
-do ${AVZ}DoFile/05_p.do                                                 // Output: p_mig.dta
+do ${AVZ}DoFile/05_p.do                                                 // Output: p_mig.dta		|| persnr, hhnr, deu_seit2002-deu_seit2010, hhnr2002-hhnr2010
 
 ***** 1.6 bioimmig.dta **************************************
-do ${AVZ}DoFile/06_bioimmig.do						// Output: bioimmig_mig.dta
+do ${AVZ}DoFile/06_bioimmig.do						// Output: bioimmig_mig.dta	|| persnr, hhnr1984 bis hhnr2010, biresper1984-biresper2010, biimgrp1984-biimgrp2010 
 
 ***** 1.7 bioparen.dta **************************************
-do ${AVZ}DoFile/07_bioparen.do                                          // Output: bioparen_mig.dta
+do ${AVZ}DoFile/07_bioparen.do                                          // Output: bioparen_mig.dta	|| vnat, mnat, vgebj, mgebj, vaortakt, maortakt, vaortup, maortup, living1 bis living7, persnr, hhnr 
 
 ***** 1.8 Elternzeiger (von Sabine Keller) ******************
-do ${AVZ}DoFile/08_parents.do                                           // Output: elternzeiger2.dta
+do ${AVZ}DoFile/08_parents.do                                           // Output: elternzeiger2.dta	|| persnr, v_persnr, m_persnr, m_quelle, v_quelle, gv_v, gv_m, gm_v, gm_m
 
 ***** 1.09 Eingebuergerte ***********************************
-do ${AVZ}DoFile/09_deu_seit.do                                          // Output: germ_sbs.dta
+do ${AVZ}DoFile/09_deu_seit.do                                          // Output: germ_sbs.dta		|| persnr, germ_since, deu_seit
 
 ***** 1.10 Jugendliche **************************************
-do ${AVZ}DoFile/10_jugend.do                                            // Output: melanie_jugendliche_recoded.dta
+do ${AVZ}DoFile/10_jugend.do                                            // Output: melanie_jugendliche_recoded.dta	|| Germborn; Corigin; immiyear; gebjahr; erste und zweite Nation zum Befragrungszeitpunkt (ab einschliesslich 2006); Deu_seit; biresper; biimgrp
 
 ***** 1.11 Mergen aller Datensaetze *************************
-do ${AVZ}DoFile/11_merge.do						// Output: miggen_merged.dta
-
+do ${AVZ}DoFile/11_merge.do						// Output: miggen_merged.dta	|| persnr, sex, biimgrp, corigin, deu_seit, gebjahr, gebmoval, germ_since, 
+									//                    		|| immiyear, germborn, germnatbirth, gm_m, gm_v, gv_m, gv_v, hhnr, m_persnr, m_quelle, maortakt, maortup, mgebj, migback, mnat
+									//                              || nathv1998, nathv2000, nation, nationkind1984, nationkind1989, v_persnr, vaortakt, vaortup, vgebj, vnat
+									//                              || biimgrp1984 - biimgrp2010,
+									//                              || biresper1984 - biresper2010,
+									//                              || deu_seit2002 - deu_seit2010,
+									//                              || hhnr1984 - hhnr2010,
+									//                              || living1 - living7,
+									//                              || nation1984 - nation2010,
 
 
 *****************************************
 ***** 2. Bildung von Hilfsvariablen *****
 *****************************************
-***** von Joerg *************************
+do ${AVZ}DoFile/12_auxiliary.do
 
-cd ${AVZ}
-use miggen_merged.dta, clear
-
-***************************************************************************************************************************
-***** 2.1 Eltern und Grosseltern (gebjahr, germborn, corigin, nation, immiyear, BIIGRP, deu_seit, biimgrp, staatsang) *****
-***************************************************************************************************************************
-
-
-***Vorbereitungen***
-*generate biimgrp =.
-forvalues x=1/27 {
-	replace biimgrp = biimgrp`x' if biimgrp`x'!=.
-}
-
-*generate nation =.
-forvalues x=1/27 {
-	replace nation = nation`x' if nation`x'!=.
-}
-
-
-***Generierung der Hilfsvariablen***
-sort hhnr persnr
-forvalues x=1/36 {
-	capture gen corigin_m=.								// corigin_m
-	replace corigin_m=corigin[_n-`x'] if m_persnr==persnr[_n-`x']
-	replace corigin_m=corigin[_n+`x'] if m_persnr==persnr[_n+`x']
-	capture gen corigin_f=.								// corigin_f
-	replace corigin_f=corigin[_n-`x'] if v_persnr==persnr[_n-`x']
-	replace corigin_f=corigin[_n+`x'] if v_persnr==persnr[_n+`x']
-	capture gen corigin_f_f=.							// corigin_f_f
-	replace corigin_f_f=corigin[_n-`x'] if gv_v==persnr[_n-`x']
-	replace corigin_f_f=corigin[_n+`x'] if gv_v==persnr[_n+`x']
-	capture gen corigin_m_f=.							// corigin_m_f
-	replace corigin_m_f=corigin[_n-`x'] if gm_v==persnr[_n-`x']
-	replace corigin_m_f=corigin[_n+`x'] if gm_v==persnr[_n+`x']
-	capture gen corigin_f_m=.							// corigin_f_m
-	replace corigin_f_m=corigin[_n-`x'] if gv_m==persnr[_n-`x']
-	replace corigin_f_m=corigin[_n+`x'] if gv_m==persnr[_n+`x']
-	capture gen corigin_m_m=.							// corigin_m_m
-	replace corigin_m_m=corigin[_n-`x'] if gm_m==persnr[_n-`x']
-	replace corigin_m_m=corigin[_n+`x'] if gm_m==persnr[_n+`x']
-
-	capture gen germborn_m=.							// germborn_m
-	replace germborn_m=germborn[_n-`x'] if m_persnr==persnr[_n-`x']
-	replace germborn_m=germborn[_n+`x'] if m_persnr==persnr[_n+`x']
-	capture gen germborn_f=.							// germborn_f
-	replace germborn_f=germborn[_n-`x'] if v_persnr==persnr[_n-`x']
-	replace germborn_f=germborn[_n+`x'] if v_persnr==persnr[_n+`x']
-	capture gen germborn_f_f=.							// germborn_f_f
-	replace germborn_f_f=germborn[_n-`x'] if gv_v==persnr[_n-`x']
-	replace germborn_f_f=germborn[_n+`x'] if gv_v==persnr[_n+`x']
-	capture gen germborn_m_f=.							// germborn_m_f
-	replace germborn_m_f=germborn[_n-`x'] if gm_v==persnr[_n-`x']
-	replace germborn_m_f=germborn[_n+`x'] if gm_v==persnr[_n+`x']
-	capture gen germborn_f_m=.							// germborn_f_m
-	replace germborn_f_m=germborn[_n-`x'] if gv_m==persnr[_n-`x']
-	replace germborn_f_m=germborn[_n+`x'] if gv_m==persnr[_n+`x']
-	capture gen germborn_m_m=.							// germborn_m_m
-	replace germborn_m_m=germborn[_n-`x'] if gm_m==persnr[_n-`x']
-	replace germborn_m_m=germborn[_n+`x'] if gm_m==persnr[_n+`x']
-
-	capture gen immiyear_m=.							// immiyear_m
-	replace immiyear_m=immiyear[_n-`x'] if m_persnr==persnr[_n-`x']
-	replace immiyear_m=immiyear[_n+`x'] if m_persnr==persnr[_n+`x']
-	capture gen immiyear_f=.							// immiyear_f
-	replace immiyear_f=immiyear[_n-`x'] if v_persnr==persnr[_n-`x']
-	replace immiyear_f=immiyear[_n+`x'] if v_persnr==persnr[_n+`x']	
-	capture gen immiyear_f_f=.							// immiyear_f_f
-	replace immiyear_f_f=immiyear[_n-`x'] if gv_v==persnr[_n-`x']
-	replace immiyear_f_f=immiyear[_n+`x'] if gv_v==persnr[_n+`x']
-	capture gen immiyear_m_f=.							// immiyear_m_f
-	replace immiyear_m_f=immiyear[_n-`x'] if gv_m==persnr[_n-`x']
-	replace immiyear_m_f=immiyear[_n+`x'] if gv_m==persnr[_n+`x']	
-	capture gen immiyear_f_m=.							// immiyear_f_m
-	replace immiyear_f_m=immiyear[_n-`x'] if gm_v==persnr[_n-`x']
-	replace immiyear_f_m=immiyear[_n+`x'] if gm_v==persnr[_n+`x']
-	capture gen immiyear_m_m=.							// immiyear_m_m
-	replace immiyear_m_m=immiyear[_n-`x'] if gm_m==persnr[_n-`x']
-	replace immiyear_m_m=immiyear[_n+`x'] if gm_m==persnr[_n+`x']
-
-	capture gen gebjahr_m=.								// gebjahr_m
-	replace gebjahr_m=gebjahr[_n-`x'] if m_persnr==persnr[_n-`x']
-	replace gebjahr_m=gebjahr[_n+`x'] if m_persnr==persnr[_n+`x']
-	capture gen gebjahr_f=.								// gebjahr_f
-	replace gebjahr_f=gebjahr[_n-`x'] if v_persnr==persnr[_n-`x']
-	replace gebjahr_f=gebjahr[_n+`x'] if v_persnr==persnr[_n+`x']
-	capture gen gebjahr_f_f=.							// gebjahr_f_f
-	replace gebjahr_f_f=gebjahr[_n-`x'] if gv_v==persnr[_n-`x']
-	replace gebjahr_f_f=gebjahr[_n+`x'] if gv_v==persnr[_n+`x']
-	capture gen gebjahr_m_f=.							// gebjahr_m_f
-	replace gebjahr_m_f=gebjahr[_n-`x'] if gv_m==persnr[_n-`x']
-	replace gebjahr_m_f=gebjahr[_n+`x'] if gv_m==persnr[_n+`x']
-	capture gen gebjahr_f_m=.							// gebjahr_f_m
-	replace gebjahr_f_m=gebjahr[_n-`x'] if gm_v==persnr[_n-`x']
-	replace gebjahr_f_m=gebjahr[_n+`x'] if gm_v==persnr[_n+`x']
-	capture gen gebjahr_m_m=.							// gebjahr_m_m
-	replace gebjahr_m_m=gebjahr[_n-`x'] if gm_m==persnr[_n-`x']
-	replace gebjahr_m_m=gebjahr[_n+`x'] if gm_m==persnr[_n+`x']
-
-	capture gen biimgrp_m=.								// biimgrp_m
-	replace biimgrp_m=biimgrp[_n-`x'] if m_persnr==persnr[_n-`x'] 
-	replace biimgrp_m=biimgrp[_n+`x'] if m_persnr==persnr[_n+`x']
-	capture gen biimgrp_v=.								// biimgrp_v
-	replace biimgrp_v=biimgrp[_n-`x'] if v_persnr==persnr[_n-`x']
-	replace biimgrp_v=biimgrp[_n+`x'] if v_persnr==persnr[_n+`x']
-	capture gen biimgrp_gv_v=.							// biimgrp_gv_v
-	replace biimgrp_gv_v=biimgrp[_n-`x'] if gv_v==persnr[_n-`x']
-	replace biimgrp_gv_v=biimgrp[_n+`x'] if gv_v==persnr[_n+`x']
-	capture gen biimgrp_gv_m=.							// biimgrp_gv_m
-	replace biimgrp_gv_m=biimgrp[_n-`x'] if gv_m==persnr[_n-`x']
-	replace biimgrp_gv_m=biimgrp[_n+`x'] if gv_m==persnr[_n+`x']
-	capture gen biimgrp_gm_v=.							// biimgrp_gm_v
-	replace biimgrp_gm_v=biimgrp[_n-`x'] if gm_v==persnr[_n-`x']
-	replace biimgrp_gm_v=biimgrp[_n+`x'] if gm_v==persnr[_n+`x']
-	capture gen biimgrp_gm_m=.							// biimgrp_gm_m
-	replace biimgrp_gm_m=biimgrp[_n-`x'] if gm_m==persnr[_n-`x']
-	replace biimgrp_gm_m=biimgrp[_n+`x'] if gm_m==persnr[_n+`x']
-
-	capture gen nation_m=.								// nation_m
-	replace nation_m=nation[_n-`x'] if m_persnr==persnr[_n-`x'] 
-	replace nation_m=nation[_n+`x'] if m_persnr==persnr[_n+`x']
-	capture gen nation_f=.								// nation_f
-	replace nation_f=nation[_n-`x'] if v_persnr==persnr[_n-`x']
-	replace nation_f=nation[_n+`x'] if v_persnr==persnr[_n+`x']
-	capture gen nation_f_f=.							// nation_f_f
-	replace nation_f_f=nation[_n-`x'] if gv_v==persnr[_n-`x']
-	replace nation_f_f=nation[_n+`x'] if gv_v==persnr[_n+`x']
-	capture gen nation_m_f=.							// nation_m_f
-	replace nation_m_f=nation[_n-`x'] if gv_m==persnr[_n-`x']
-	replace nation_m_f=nation[_n+`x'] if gv_m==persnr[_n+`x']
-	capture gen nation_f_m=.							// nation_f_m
-	replace nation_f_m=nation[_n-`x'] if gm_v==persnr[_n-`x']
-	replace nation_f_m=nation[_n+`x'] if gm_v==persnr[_n+`x']
-	capture gen nation_m_m=.							// nation_m_m
-	replace nation_m_m=nation[_n-`x'] if gm_m==persnr[_n-`x']
-	replace nation_m_m=nation[_n+`x'] if gm_m==persnr[_n+`x']
-
-	capture gen BIIMGRP_m=.								// biimgrp_m
-	replace BIIMGRP_m=biimgrp[_n-`x'] if m_persnr==persnr[_n-`x'] 
-	replace BIIMGRP_m=biimgrp[_n+`x'] if m_persnr==persnr[_n+`x']
-	capture gen BIIMGRP_f=.								// biimgrp_f
-	replace BIIMGRP_f=biimgrp[_n-`x'] if v_persnr==persnr[_n-`x']
-	replace BIIMGRP_f=biimgrp[_n+`x'] if v_persnr==persnr[_n+`x']
-	capture gen BIIMGRP_f_f=.							// biimgrp_f_f
-	replace BIIMGRP_f_f=biimgrp[_n-`x'] if gv_v==persnr[_n-`x']
-	replace BIIMGRP_f_f=biimgrp[_n+`x'] if gv_v==persnr[_n+`x']
-	capture gen BIIMGRP_m_f=.							// biimgrp_m_f
-	replace BIIMGRP_m_f=biimgrp[_n-`x'] if gv_m==persnr[_n-`x']
-	replace BIIMGRP_m_f=biimgrp[_n+`x'] if gv_m==persnr[_n+`x']
-	capture gen BIIMGRP_f_m=.							// biimgrp_f_m
-	replace BIIMGRP_f_m=biimgrp[_n-`x'] if gm_v==persnr[_n-`x']
-	replace BIIMGRP_f_m=biimgrp[_n+`x'] if gm_v==persnr[_n+`x']
-	capture gen BIIMGRP_m_m=.							// biimgrp_m_m
-	replace BIIMGRP_m_m=biimgrp[_n-`x'] if gm_m==persnr[_n-`x']
-	replace BIIMGRP_m_m=biimgrp[_n+`x'] if gm_m==persnr[_n+`x']
-
-	capture gen deu_seit_m=.							// deu_seit_m
-	replace deu_seit_m=germnatbirth[_n-`x'] if m_persnr==persnr[_n-`x'] 
-	replace deu_seit_m=germnatbirth[_n+`x'] if m_persnr==persnr[_n+`x']
-	capture gen deu_seit_f=.							// deu_seit_f
-	replace deu_seit_f=germnatbirth[_n-`x'] if v_persnr==persnr[_n-`x']
-	replace deu_seit_f=germnatbirth[_n+`x'] if v_persnr==persnr[_n+`x']
-	capture gen deu_seit_f_f=.							// deu_seit_f_f
-	replace deu_seit_f_f=germnatbirth[_n-`x'] if gv_v==persnr[_n-`x']
-	replace deu_seit_f_f=germnatbirth[_n+`x'] if gv_v==persnr[_n+`x']
-	capture gen deu_seit_m_f=.							// deu_seit_m_f
-	replace deu_seit_m_f=germnatbirth[_n-`x'] if gv_m==persnr[_n-`x']
-	replace deu_seit_m_f=germnatbirth[_n+`x'] if gv_m==persnr[_n+`x']
-	capture gen deu_seit_f_m=.							// deu_seit_f_m
-	replace deu_seit_f_m=germnatbirth[_n-`x'] if gm_v==persnr[_n-`x']
-	replace deu_seit_f_m=germnatbirth[_n+`x'] if gm_v==persnr[_n+`x']
-	capture gen deu_seit_m_m=.							// deu_seit_m_m
-	replace deu_seit_m_m=germnatbirth[_n-`x'] if gm_m==persnr[_n-`x']
-	replace deu_seit_m_m=germnatbirth[_n+`x'] if gm_m==persnr[_n+`x']
-}
-
-gen deu_seit_zp = germnatbirth
-compress
-
-save ${AVZ}miggen.dta, replace
-
-
-********************************************************			
-***** 2.2 Weitere Hilfsvariablen ***********************
-********************************************************
-
-cd ${AVZ}
-use miggen.dta, clear
-
-
-******************************************
-***** 2.2.1 r_corigin* and r_nation ******
-******************************************
-gen r_corigin_zp  = corigin
-gen r_corigin_f   = corigin_f
-gen r_corigin_m   = corigin_m
-gen r_corigin_f_f = corigin_f_f
-gen r_corigin_f_m = corigin_f_m
-gen r_corigin_m_m = corigin_m_m
-gen r_corigin_m_f = corigin_m_f
-gen r_nation_zp   = nation
-gen r_nation_f    = nation_f
-gen r_nation_m    = nation_m
-gen r_nation_m_m  = nation_m_m
-gen r_nation_m_f  = nation_m_f
-gen r_nation_f_m  = nation_f_m
-gen r_nation_f_f  = nation_f_f 
-
-foreach var of varlist r_corigin_zp r_corigin_f r_corigin_m r_corigin_m_m r_corigin_m_f r_corigin_f_m r_corigin_f_f r_nation_zp r_nation_m r_nation_f r_nation_m_m r_nation_m_f r_nation_f_f r_nation_f_m {
-	// Ehemalige Sowjetstaaten
-	replace `var' = 444 if `var' ==  32 // Rekodiere Russland // +++MO: 444 muss noch Label bekommen 
-	replace `var' = 444 if `var' ==  73 // Rekodiere Moldawien
-	replace `var' = 444 if `var' ==  74 // Rekodiere Kasachstan
-	replace `var' = 444 if `var' ==  77 // Rekodiere Kirgistan
-	replace `var' = 444 if `var' ==  78 // Rekodiere Ukraine
-	replace `var' = 444 if `var' ==  82 // Rekodiere Tadschikistan
-	replace `var' = 444 if `var' ==  91 // Rekodiere Turkmenistan
-	replace `var' = 444 if `var' ==  97 // Rekodiere Usbekistan
-	replace `var' = 444 if `var' == 101 // Rekodiere Estland
-	replace `var' = 444 if `var' == 103 // Rekodiere Lettland
-	replace `var' = 444 if `var' == 130 // Rekodiere Aserbaidschan
-	replace `var' = 444 if `var' == 132 // Rekodiere Weissrussland
-	replace `var' = 444 if `var' == 141 // Rekodiere Georgien
-	replace `var' = 444 if `var' == 146 // Rekodiere Litauen
-	replace `var' = 444 if `var' == 148 // Rekodiere Armenien
-
-	// Ex-Jugoslawien
-	replace `var' =   3 if `var' == 106 // Rekodiere Montenegro
-	replace `var' =   3 if `var' == 119 // Rekodiere Kroatien
-	replace `var' =   3 if `var' == 120 // Rekodiere Bosnien-Herzegowina
-	replace `var' =   3 if `var' == 121 // Rekodiere Makedonien
-	replace `var' =   3 if `var' == 122 // Rekodiere Slowenien
-	replace `var' =   3 if `var' == 140 // Rekodiere Kosovo-Albanien
-
-	// Andere
-	replace `var' =   1 if `var' == 153 // Rekodiere Freistaat Danzig -> Deutschland --> MO: DDR muesste noch ergaenzt werden (es gaht ja zunaechst um den Generationenstatus und bei origin differenzieren wir auch nicht zwischen Ost und West)
-	replace `var' =   1 if `var' == 7   // Rekodiere Ex-DDR zu Deutschland
-}
-
-
-*******************************
-***** 2.2.2 nr_corigin_zp *****
-*******************************
-gen nr_corigin_zp   = r_corigin_zp
-gen nr_corigin_f    = r_corigin_f
-gen nr_corigin_m    = r_corigin_m
-gen nr_corigin_m_m  = r_corigin_m_m
-gen nr_corigin_m_f  = r_corigin_m_f
-gen nr_corigin_f_f  = r_corigin_f_f
-gen nr_corigin_f_m  = r_corigin_f_m
-
-replace nr_corigin_zp  = r_nation_zp  if nr_corigin_zp  >= .  
-replace nr_corigin_f   = r_nation_f   if nr_corigin_f   >= .  
-replace nr_corigin_m   = r_nation_m   if nr_corigin_m   >= .  
-replace nr_corigin_m_m = r_nation_m_m if nr_corigin_m_m >= .  
-replace nr_corigin_m_f = r_nation_m_f if nr_corigin_m_f >= .  
-replace nr_corigin_f_f = r_nation_f_f if nr_corigin_f_f >= . 
-
-*******************************
-***** 2.2.3 migage ************
-*******************************
-gen migage = immiyear - gebjahr	// Jugendliche sind in immiyear auch enthalten
-
-list persnr immiyear gebjahr if immiyear < gebjahr // 3 Personen sind Jahre vor ihrer Geburt eingewandert
-
-***Speicherung des Datensatzes unter migra.dta***
-sort persnr 
-save ${AVZ}miggen_helpers.dta, replace
 
 
 ****************************************************************************************************
