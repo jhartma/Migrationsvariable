@@ -7,7 +7,7 @@
 ******************************
 
 display "$S_DATE $S_TIME"
-clear all                                                                        //Arbeitsspeicher reinigen
+clear all                                                                        // Arbeitsspeicher reinigen
 macro drop _all                                                                  // alle Makros loeschen
 version 10.1                                                                     // Version einlesen
 capture log close                                                                // falls Log-Files offen sind schliessen, ansonsten Fehlermeldung unterdruecken
@@ -71,6 +71,9 @@ gen deu_seit = 1 if check == 1 & (sp116 == 1 | tp124 == 1 | up128 == 1 | vp137 =
 replace deu_seit = 0 if deu_seit == . // alle mit Inkonsistenzem werden als Nicht Mit Dt. SBS geboren gezaehlt
 keep persnr deu_seit
 
+label define deu_seit 0 "Eingebuergert" 1 "Von Geburt"
+label value deu_seit deu_seit
+
 save ${tmp}germnatbirth ,replace
 
 * 1.10.2 Genaues Jahr der Einbuergerung **********************
@@ -88,6 +91,7 @@ foreach file in bpgen.dta cpgen.dta dpgen.dta epgen.dta fpgen.dta gpgen.dta hpge
 	quietly: compress
 }
 
+*** Hole Nationalitaeten-Variable, um Einbuergerungsjahr zu bestimmen
 ***Umbennenung ausgewaehlter Variablen***
 soepren nation84 nation85 nation86 nation87 nation88 nation89 nation90 nation91 nation92 nation93 nation94 nation95 nation96 nation97 nation98 nation99 nation00 nation01 nation02 nation03 nation04 nation05 nation06 nation07 nation08 nation09 nation10, newstub(nation) waves (1984/2010)  
 
@@ -100,7 +104,8 @@ rename _j year
 gen since = .
 list persnr year nation if nation==1 & nation[_n-1]>1 & nation[_n-1]<200 & sp118 >0
 list persnr year nation since sp118 if persnr == 5099902 						// test
-bysort persnr: replace since = year+1983 if nation[_n-1] > 1 & nation[_n-1] < 200 & nation == 1
+recode sp118 (-2 -1 = .)
+bysort persnr: replace since = year if nation[_n-1] > 1 & nation[_n-1] < 200 & nation == 1
 list persnr year nation since sp118 if persnr == 7214601 						// test
 list persnr year nation since sp118 if persnr == 9803  						// test
 
@@ -127,5 +132,11 @@ use ${tmp}germ_since.dta, clear
 merge persnr using ${tmp}germnatbirth, sort
 drop _merge 
 sort persnr
+
+* Wenn Zuwanderungsjahr vorhanden, dann immer eingebuergert!
+replace deu_seit = 0 if germ_since > 0 & germ_since != .
+
+*** Test 
+tab germ_since deu_seit, m
 
 save ${AVZ}germ_sbs, replace 

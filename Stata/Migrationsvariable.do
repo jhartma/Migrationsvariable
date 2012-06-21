@@ -5,28 +5,29 @@
 ***** 1. Zusammenfuehrung der benoetigten Datensaetze *******
 *************************************************************
 
-***** 1.1 ppfad.dta *****************************************
+***** 1.01 ppfad.dta *****************************************
 do ${AVZ}DoFile/01_ppfad.do                                             // Output: ppfad_mig.dta 	|| persnr, corigin, gebjahr, gebmoval, germborn, immiyear, migback, sex, hhnr, hhnr1984-hhnr2010
 
-***** 1.2 $pgen.dta *****************************************
+***** 1.02 $pgen.dta *****************************************
 do ${AVZ}DoFile/02_pgen.do                                              // Output: pgen_mig.dta		|| persnr, hhnr1984-hhnr2010, nation1984-nation2010
 
-***** 1.3 $kind.dta *****************************************
+***** 1.03 $kind.dta *****************************************
 do ${AVZ}DoFile/03_kind.do                                              // Output: kind_mig.dta		|| persnr, hhnr1984, hhnr1989, nationkind1984, nationkind1989, hhnr
 
-***** 1.4 hbrutt$.dta ***************************************
+***** 1.04 hbrutt$.dta ***************************************
 do ${AVZ}DoFile/04_hbrutt.do                                            // Output: hbrutt_mig.dta	|| hhnr, hhnr1998, hhnr2000, sexhv1998, sexhv2000, nathv1998, nathv2000
 
-***** 1.5 $p.dta ********************************************
-do ${AVZ}DoFile/05_p.do                                                 // Output: p_mig.dta		|| persnr, hhnr, deu_seit2002-deu_seit2010, hhnr2002-hhnr2010
+***** 1.05 $p.dta ********************************************
+* do ${AVZ}DoFile/05_p.do                                               // Output: p_mig.dta		|| persnr, hhnr, deu_seit2002-deu_seit2010, hhnr2002-hhnr2010
+* redundant, brauchen wir nicht, siehe  1.09
 
-***** 1.6 bioimmig.dta **************************************
+***** 1.06 bioimmig.dta **************************************
 do ${AVZ}DoFile/06_bioimmig.do						// Output: bioimmig_mig.dta	|| persnr, hhnr1984 bis hhnr2010, biresper1984-biresper2010, biimgrp1984-biimgrp2010 
 
-***** 1.7 bioparen.dta **************************************
+***** 1.07 bioparen.dta **************************************
 do ${AVZ}DoFile/07_bioparen.do                                          // Output: bioparen_mig.dta	|| vnat, mnat, vgebj, mgebj, vaortakt, maortakt, vaortup, maortup, living1 bis living7, persnr, hhnr 
 
-***** 1.8 Elternzeiger (von Sabine Keller) ******************
+***** 1.08 Elternzeiger (von Sabine Keller) ******************
 do ${AVZ}DoFile/08_parents.do                                           // Output: elternzeiger2.dta	|| persnr, v_persnr, m_persnr, m_quelle, v_quelle, gv_v, gv_m, gm_v, gm_m
 
 ***** 1.09 Eingebuergerte ***********************************
