@@ -48,6 +48,8 @@ use ${dir}/bioparen.dta, clear
 ***Beibehaltung ausgewaehlter Variablen***
 keep vnat mnat vgebj mgebj vaortakt maortakt vaortup maortup living* persnr hhnr 
 
+mvdecode *, mv(-3 -2 -1)
+
 ***Reduzierten Datensatz speichern***
 isid persnr // persnr ist eindeutige Identifikationsvariable
 sort persnr

@@ -77,4 +77,7 @@ rename qhhnr hhnr2000 // Notwendig, aufgrund bioimmig (siehe 1.6)
 isid hhnr hhnr2000 // hhnr und hhnr17 sind eindeutige Identifikationsvariable
 sort hhnr hhnr2000
 
+***Rekodiere Missings*
+mvdecode hhnr2000 sexhv2000 nathv2000, mv(-3 -2 -1)
+
 save ${AVZ}hbrutt00_mig.dta, replace

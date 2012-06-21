@@ -274,6 +274,11 @@ merge m_persnr using elternzeiger_m.dta
 drop if _merge ==2
 drop _merge
 
+***Rekodiere Missings
+mvdecode *, mv(-3 -2 -1)
+
 ***Sortierung und Speicherung des Datensatzes***
 sort persnr
 save ${AVZ}elternzeiger2, replace 
+
+

@@ -1,4 +1,4 @@
-// Ausgangsdatensatz: ppfad_mig.dta, pgen_mig.dta, germ_sbs.dta, kind_mig.dta, p_mig.dta, 
+// Ausgangsdatensatz: ppfad_mig.dta, pgen_mig.dta, germ_sbs.dta, kind_mig.dta,
 //                    bioparen_mig.dta, elternzeiger2.dta, melanie_jugendliche_recoded.dta, bioimmig_mig.dta, hbrutt98_mig.dta, hbrutt00_mig.dta
 // Enddatensatz:      miggen_merged.dta
 // Variablen:         persnr, sex, biimgrp, corigin, deu_seit, gebjahr, gebmoval, germ_since, 
@@ -6,8 +6,6 @@
 //                    nathv1998, nathv2000, nation, nationkind1984, nationkind1989, v_persnr, vaortakt, vaortup, vgebj, vnat
 //                    biimgrp1984 - biimgrp2010,
 //                    biresper1984 - biresper2010,
-//                    deu_seit2002 - deu_seit2010,
-//                    hhnr1984 - hhnr2010,
 //                    living1 - living7,
 //                    nation1984 - nation2000,
 

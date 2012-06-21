@@ -25,7 +25,7 @@ capture ssc install soepren
 // Globals Melanie
 	global dir= "L:/_Arbeit/_Diss/_Datensaetze/SOEP/SOEP27/"                 // Arbeitsverzeichnis der relginaldatensaetze 
 	global AVZ= "L:/_Arbeit/_Diss/_Datensaetze/SOEP/SOEP27/Datensaetze_Mig/" // Arbeitsverzeichnis der neu generierten Datensaetze und anderer Ordner
-	global temp="L:/_Arbeit/_Diss/_Datensaetze/SOEP/SOEP27/Datensaetze_Mig/" //Temporaerer Arbeitsspeicher
+	global temp="L:/_Arbeit/_Diss/_Datensaetze/SOEP/SOEP27/Datensaetze_Mig/" // Temporaerer Arbeitsspeicher
 	global LoFi="L:/_Arbeit/_Diss/_Datensaetze/SOEP/SOEP27/Datensaetze_Mig/" // Ordner fuer Log-Files
 	global DoFi="L:/_Arbeit/_Diss/_Datensaetze/SOEP/SOEP27/Datensaetze_Mig/" // Ordner fuer Do-Files 
 
@@ -64,6 +64,9 @@ drop _merge
 ***Umbennenung ausgewaehlter Variablen***
 soepren ak07a ek03a, newstub(nationkind) waves (1984, 1989)  
 soepren ahhnr  ehhnr , newstub(hhnr) waves (1984,1989)   
+
+***Rekodiere Missings***
+mvdecode hhnr* nationkind*, mv(-3 -2 -1)
 
 ***Reduzierten Datensatz speichern***
 isid persnr // persnr ist eindeutige Identifikationsvariable

@@ -61,5 +61,9 @@ isid persnr // Ueberpruefung, persnr ist jetzt die eindeutige Identifikationsvar
 ***Reduzierten Datensatz speichern***
 isid persnr // persnr ist eindeutige Identifikationsvariable
 sort persnr
+
+***Rekodiere Missings***
+mvdecode hhnr* biresper* biimgrp*,mv(-3 -2 -1)
+
 save ${AVZ}bioimmig_mig.dta, replace
 

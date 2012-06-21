@@ -58,4 +58,8 @@ soepren ahhnr bhhnr chhnr dhhnr ehhnr fhhnr ghhnr hhhnr ihhnr jhhnr khhnr lhhnr 
 ***Reduzierten Datensatz speichern***
 isid persnr // persnr ist eindeutige Identifikationsvariable
 sort persnr
+
+***Recode Missings***
+mvdecode immiyear sex migback germborn gebjahr gebmoval corigin, mv(-3 -2 -1)
+
 save ${AVZ}ppfad_mig.dta, replace

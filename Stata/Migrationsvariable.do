@@ -1,5 +1,7 @@
 ***************************************************************************************************************************
 * MASTER DO-FILE **********************************************************************************************************
+***************************************************************************************************************************
+* Konventionen: Missings mit . kodiert
 
 *************************************************************
 ***** 1. Zusammenfuehrung der benoetigten Datensaetze *******
@@ -25,7 +27,7 @@ do ${AVZ}DoFile/04_hbrutt.do                                            // Outpu
 do ${AVZ}DoFile/06_bioimmig.do						// Output: bioimmig_mig.dta	|| persnr, hhnr1984 bis hhnr2010, biresper1984-biresper2010, biimgrp1984-biimgrp2010 
 
 ***** 1.07 bioparen.dta **************************************
-do ${AVZ}DoFile/07_bioparen.do                                          // Output: bioparen_mig.dta	|| vnat, mnat, vgebj, mgebj, vaortakt, maortakt, vaortup, maortup, living1 bis living7, persnr, hhnr 
+do ${AVZ}DoFile/07_bioparen.do                                          // Output: bioparen_mig.dta	|| vnat, mnat, vgebj, mgebj, vaortakt, maortakt, vaortup, maortup, living1-living7, persnr, hhnr 
 
 ***** 1.08 Elternzeiger (von Sabine Keller) ******************
 do ${AVZ}DoFile/08_parents.do                                           // Output: elternzeiger2.dta	|| persnr, v_persnr, m_persnr, m_quelle, v_quelle, gv_v, gv_m, gm_v, gm_m
@@ -39,11 +41,9 @@ do ${AVZ}DoFile/10_jugend.do                                            // Outpu
 ***** 1.11 Mergen aller Datensaetze *************************
 do ${AVZ}DoFile/11_merge.do						// Output: miggen_merged.dta	|| persnr, sex, biimgrp, corigin, deu_seit, gebjahr, gebmoval, germ_since, 
 									//                    		|| immiyear, germborn, germnatbirth, gm_m, gm_v, gv_m, gv_v, hhnr, m_persnr, m_quelle, maortakt, maortup, mgebj, migback, mnat
-									//                              || nathv1998, nathv2000, nation, nationkind1984, nationkind1989, v_persnr, vaortakt, vaortup, vgebj, vnat
+									//                              || nathv1998, nathv2000, nationkind1984, nationkind1989, v_persnr, vaortakt, vaortup, vgebj, vnat
 									//                              || biimgrp1984 - biimgrp2010,
 									//                              || biresper1984 - biresper2010,
-									//                              || deu_seit2002 - deu_seit2010,
-									//                              || hhnr1984 - hhnr2010,
 									//                              || living1 - living7,
 									//                              || nation1984 - nation2010,
 
