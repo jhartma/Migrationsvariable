@@ -3,9 +3,9 @@
 ***************************************************************************************************************************
 * Konventionen: Missings mit . kodiert
 
-*************************************************************
-***** 1. Zusammenfuehrung der benoetigten Datensaetze *******
-*************************************************************
+**************************************************************
+***** 1. Zusammenfuehrung der benoetigten Datensaetze ********
+**************************************************************
 
 ***** 1.01 ppfad.dta *****************************************
 do ${AVZ}DoFile/01_ppfad.do                                             // Output: ppfad_mig.dta 	|| persnr, corigin, gebjahr, gebmoval, germborn, immiyear, migback, sex, hhnr, hhnr1984-hhnr2010
@@ -21,7 +21,7 @@ do ${AVZ}DoFile/04_hbrutt.do                                            // Outpu
 
 ***** 1.05 $p.dta ********************************************
 * do ${AVZ}DoFile/05_p.do                                               // Output: p_mig.dta		|| persnr, hhnr, deu_seit2002-deu_seit2010, hhnr2002-hhnr2010
-* redundant, brauchen wir nicht, siehe  1.09
+* redundant, brauchen wir nicht, siehe 1.09
 
 ***** 1.06 bioimmig.dta **************************************
 do ${AVZ}DoFile/06_bioimmig.do						// Output: bioimmig_mig.dta	|| persnr, hhnr1984 bis hhnr2010, biresper1984-biresper2010, biimgrp1984-biimgrp2010 
@@ -32,13 +32,17 @@ do ${AVZ}DoFile/07_bioparen.do                                          // Outpu
 ***** 1.08 Elternzeiger (von Sabine Keller) ******************
 do ${AVZ}DoFile/08_parents.do                                           // Output: elternzeiger2.dta	|| persnr, v_persnr, m_persnr, m_quelle, v_quelle, gv_v, gv_m, gm_v, gm_m
 
-***** 1.09 Eingebuergerte ***********************************
+***** 1.09 Eingebuergerte ************************************
 do ${AVZ}DoFile/09_deu_seit.do                                          // Output: germ_sbs.dta		|| persnr, germ_since, deu_seit
+* welche Nationalitaet früher?
+* Variable mit Auspraegungen: deutsche SBS seit Geb, auslaendische SBS und dt. SBS seit Geburt, auslaendische seit Geb und dt. nicht seit Geburt
+* auslaendische ohne dt., vnat dt., vnat ausl., mnat dt., mnat ausl.
+* 
 
-***** 1.10 Jugendliche **************************************
+***** 1.10 Jugendliche ***************************************
 do ${AVZ}DoFile/10_jugend.do                                            // Output: melanie_jugendliche_recoded.dta	|| Germborn; Corigin; immiyear; gebjahr; erste und zweite Nation zum Befragrungszeitpunkt (ab einschliesslich 2006); Deu_seit; biresper; biimgrp
 
-***** 1.11 Mergen aller Datensaetze *************************
+***** 1.11 Mergen aller Datensaetze **************************
 do ${AVZ}DoFile/11_merge.do						// Output: miggen_merged.dta	|| persnr, sex, biimgrp, corigin, deu_seit, gebjahr, gebmoval, germ_since, 
 									//                    		|| immiyear, germborn, germnatbirth, gm_m, gm_v, gv_m, gv_v, hhnr, m_persnr, m_quelle, maortakt, maortup, mgebj, migback, mnat
 									//                              || nathv1998, nathv2000, nationkind1984, nationkind1989, v_persnr, vaortakt, vaortup, vgebj, vnat
@@ -47,6 +51,7 @@ do ${AVZ}DoFile/11_merge.do						// Output: miggen_merged.dta	|| persnr, sex, bi
 									//                              || living1 - living7,
 									//                              || nation1984 - nation2010,
 
+*** Zusatzinfos fuer Eltern aus Kinderdatensatz übernehmen!!!
 
 *****************************************
 ***** 2. Bildung von Hilfsvariablen *****

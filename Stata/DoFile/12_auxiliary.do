@@ -56,6 +56,7 @@ forvalues x=1/27 {
 	replace biimgrp = biimgrp`x' if biimgrp`x'!=.
 }
 
+* Neu machen: wenn einmal auslaendisch, dann diese 
 *generate nation =.
 forvalues x=1/27 {
 	replace nation = nation`x' if nation`x'!=.
