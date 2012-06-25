@@ -148,7 +148,7 @@ gen sbs = .
 label define sbs 1 "dt. seit Geb" 2 "dt. + andere seit Geb" 3 "dt. eingebuergert" 4 "nicht dt." 5 "vnat dt." 6 "vnat ausl." 7 "mnat dt." 8 "mnat ausl."
 label value sbs sbs
 
-* sbs 2,5,6,7,8 hier nicht möglich
+* sbs 2,5,6,7,8 hier nicht moeglich
 replace sbs = 1 if deu_seit == 1			// dt. seit Geb
 replace sbs = 3 if deu_seit == 0			// dt. eingebuergert
 replace sbs = 4 if nation > 1 & deu_seit == .		// nicht dt.
