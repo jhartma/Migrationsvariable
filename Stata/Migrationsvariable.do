@@ -33,11 +33,8 @@ do ${AVZ}DoFile/07_bioparen.do                                          // Outpu
 do ${AVZ}DoFile/08_parents.do                                           // Output: elternzeiger2.dta	|| persnr, v_persnr, m_persnr, m_quelle, v_quelle, gv_v, gv_m, gm_v, gm_m
 
 ***** 1.09 Eingebuergerte ************************************
-do ${AVZ}DoFile/09_deu_seit.do                                          // Output: germ_sbs.dta		|| persnr, germ_since, deu_seit
-* welche Nationalitaet früher?
-* Variable mit Auspraegungen: deutsche SBS seit Geb, auslaendische SBS und dt. SBS seit Geburt, auslaendische seit Geb und dt. nicht seit Geburt
-* auslaendische ohne dt., vnat dt., vnat ausl., mnat dt., mnat ausl.
-* 
+do ${AVZ}DoFile/09_deu_seit.do                                          // Output: germ_sbs.dta		|| persnr, germ_since, deu_seit, sbs
+* welche Nationalitaet frueher?
 
 ***** 1.10 Jugendliche ***************************************
 do ${AVZ}DoFile/10_jugend.do                                            // Output: melanie_jugendliche_recoded.dta	|| Germborn; Corigin; immiyear; gebjahr; erste und zweite Nation zum Befragrungszeitpunkt (ab einschliesslich 2006); Deu_seit; biresper; biimgrp
@@ -51,7 +48,7 @@ do ${AVZ}DoFile/11_merge.do						// Output: miggen_merged.dta	|| persnr, sex, bi
 									//                              || living1 - living7,
 									//                              || nation1984 - nation2010,
 
-*** Zusatzinfos fuer Eltern aus Kinderdatensatz übernehmen!!!
+*** Zusatzinfos fuer Eltern aus Kinderdatensatz Ã¼bernehmen!!!
 
 *****************************************
 ***** 2. Bildung von Hilfsvariablen *****

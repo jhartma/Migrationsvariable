@@ -107,21 +107,27 @@ list persnr year nation since sp118 if persnr == 5099902 						// test
 recode sp118 (-2 -1 = .)
 bysort persnr: replace since = year if nation[_n-1] > 1 & nation[_n-1] < 200 & nation == 1
 list persnr year nation since sp118 if persnr == 7214601 						// test
-list persnr year nation since sp118 if persnr == 9803  						// test
+list persnr year nation since sp118 if persnr == 9803  							// test
 
 save ${tmp}since, replace 
 use ${tmp}since, clear
 
-drop if (sp118 == . | sp118 == -1 | sp118 == -2) & since == .
+drop if (sp118 == . | sp118 == -1 | sp118 == -2) & since == . & nation == .
 bysort persnr: egen since2 = max(since)
 replace since = since2
 replace since = sp118 if since == . & sp118 > 0			// Die eigenen generierten Variablen aus xP haben Vorrang vor sp118!!!
 rename since germ_since
 
-drop nation year
+drop year
 duplicates drop
-duplicates list persnr // check for duplicates
-keep persnr germ_since
+duplicates list persnr 						// check for duplicates
+keep persnr germ_since nation
+
+drop if nation == . & germ_since > 0				// Behalte nur einen Eintrag pro Person
+by persnr: gen n = _N
+by persnr: gen nn = _n
+keep if n == nn
+drop n nn
 
 ***Sortierung und Speicherung des Datensatzes***
 sort persnr
@@ -129,12 +135,25 @@ save ${tmp}germ_since, replace
 
 ***Zusammenfuehren der Datensaetze**************
 use ${tmp}germ_since.dta, clear
-merge persnr using ${tmp}germnatbirth, sort
+merge persnr using ${tmp}germnatbirth, sort  	// Achtung: deu_seit hat Vorrang vor Nation-Variable!
 drop _merge 
 sort persnr
 
 * Wenn Zuwanderungsjahr vorhanden, dann immer eingebuergert!
 replace deu_seit = 0 if germ_since > 0 & germ_since != .
+
+* Variable mit Auspraegungen: deutsche SBS seit Geb, auslaendische SBS und dt. SBS seit Geburt, auslaendische seit Geb und dt. nicht seit Geburt
+* auslaendische ohne dt., vnat dt., vnat ausl., mnat dt., mnat ausl.
+gen sbs = .
+label define sbs 1 "dt. seit Geb" 2 "dt. + andere seit Geb" 3 "dt. eingebuergert" 4 "nicht dt." 5 "vnat dt." 6 "vnat ausl." 7 "mnat dt." 8 "mnat ausl."
+label value sbs sbs
+
+* sbs 2,5,6,7,8 hier nicht möglich
+replace sbs = 1 if deu_seit == 1			// dt. seit Geb
+replace sbs = 3 if deu_seit == 0			// dt. eingebuergert
+replace sbs = 4 if nation > 1 & deu_seit == .		// nicht dt.
+
+drop nation
 
 *** Test 
 tab germ_since deu_seit, m
