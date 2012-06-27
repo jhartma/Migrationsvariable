@@ -40,7 +40,7 @@ do ${AVZ}DoFile/09_deu_seit.do                                          // Outpu
 do ${AVZ}DoFile/10_jugend.do                                            // Output: melanie_jugendliche_recoded.dta	|| Germborn; Corigin; immiyear; gebjahr; erste und zweite Nation zum Befragrungszeitpunkt (ab einschliesslich 2006); Deu_seit; biresper; biimgrp
 
 ***** 1.11 Mergen aller Datensaetze **************************
-do ${AVZ}DoFile/11_merge.do						// Output: miggen_merged.dta	|| persnr, sex, biimgrp, corigin, deu_seit, gebjahr, gebmoval, germ_since, 
+do ${AVZ}DoFile/11_merge.do						// Output: miggen_merged.dta	|| persnr, sex, biimgrp, corigin, deu_seit, gebjahr, gebmoval, germ_since, sbs
 									//                    		|| immiyear, germborn, germnatbirth, gm_m, gm_v, gv_m, gv_v, hhnr, m_persnr, m_quelle, maortakt, maortup, mgebj, migback, mnat
 									//                              || nathv1998, nathv2000, nationkind1984, nationkind1989, v_persnr, vaortakt, vaortup, vgebj, vnat
 									//                              || biimgrp1984 - biimgrp2010,

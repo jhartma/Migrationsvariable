@@ -144,14 +144,23 @@ replace deu_seit = 0 if germ_since > 0 & germ_since != .
 
 * Variable mit Auspraegungen: deutsche SBS seit Geb, auslaendische SBS und dt. SBS seit Geburt, auslaendische seit Geb und dt. nicht seit Geburt
 * auslaendische ohne dt., vnat dt., vnat ausl., mnat dt., mnat ausl.
+merge persnr using ${dir}bioparen, sort keep(vnat mnat)
+drop _merge
+mvdecode vnat mnat, mv(-3 -2 -1)
+
 gen sbs = .
-label define sbs 1 "dt. seit Geb" 2 "dt. + andere seit Geb" 3 "dt. eingebuergert" 4 "nicht dt." 5 "vnat dt." 6 "vnat ausl." 7 "mnat dt." 8 "mnat ausl."
+label define sbs 1 "dt. seit Geb" 2 "dt. + andere seit Geb" 3 "dt. eingebuergert" 4 "nicht dt." 5 "vnat + mnat dt." 6 "vnat + mnat ausl." 7 "vnat dt. + mnat ausl." 8 "vnat ausl. + mnat dt."
 label value sbs sbs
 
-* sbs 2,5,6,7,8 hier nicht moeglich
+* Greife nur auf Staatsangehoerigkeit der Eltern zurueck, wenn keine Personeninformationen vorliegen
 replace sbs = 1 if deu_seit == 1			// dt. seit Geb
 replace sbs = 3 if deu_seit == 0			// dt. eingebuergert
 replace sbs = 4 if nation > 1 & deu_seit == .		// nicht dt.
+replace sbs = 5 if vnat == 1 & mnat == 1 & sbs == .	// vnat dt.   + mnat dt.
+replace sbs = 6 if vnat == 2 & mnat == 2 & sbs == .	// vnat ausl. + mnat ausl.
+replace sbs = 7 if vnat == 1 & mnat == 2 & sbs == .	// vnat dt.   + mnat ausl.
+replace sbs = 8 if vnat == 2 & mnat == 1 & sbs == . 	// vnat ausl. + mnat dt.
+
 
 drop nation
 
