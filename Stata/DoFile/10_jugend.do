@@ -406,12 +406,13 @@ save ${AVZ}melanie_jugendliche_recoded, replace
 
 
 
+
 *** ELTERN --> Müßte in Extra-Do-File eingefügt werden (Resultat Besprechung am Freitag) ***
 
 
-// Ausgangsdatensatz: $PAGE17; PPFAD
+// Ausgangsdatensatz: $PAGE17; BIOPAREN; WJUGEND
 // Enddatensatz: melanie_jugendliche_eltern.dta
-// Variablen: corigin_f, corigin_m; germborn_f, germborn_m (Wenn Eltern nicht im HH, dann nutze Info von Jugendlichen)
+// Variablen: corigin_f, corigin_m; germborn_f, germborn_m (Wenn PPFAD-Info Sysmis, dann nutze Info von Jugendlichen)
 
 ******************************
 ***** Grundeinstellungen *****
@@ -461,7 +462,7 @@ save ${AVZ}ppfad_mige.dta, replace // bereits gebildeter PPFAD_mig Datensatz aus
 ********************************************************
 
 use ${dir}bioparen.dta, clear // bereits gebildeter PPFAD_mig Datensatz ausreichend
-keep vorigin morigin persnr hhnr
+keep vorigin morigin persnr
 save ${AVZ}bioparen_mige.dta, replace // bereits gebildeter PPFAD_mig Datensatz ausreichend
 
 
@@ -569,9 +570,101 @@ tab corigin_m germborn_m, m
 
 
 
+
+***********************************
+*** Abgleich BIOPAREN und PPFAD ***
+***********************************
+* FRAGE: Ist es möglich, dass durch den Elternzeiger von Sabine Eltern identifiziert werden und folglich Väter im SOEP identifiziert werden?
+
+
+*************
+*** VATER ***
+*************
+
+* Germborn 
+**********
+
+* N Jugendliche=3.679 
+tab vorigin germborn_f, m // 503 Sysmis bei germborn_f, aber Wert in vorigin (und sei es -1, -2, etc)
+tab vorigin germborn_f if erhebj==2006, m
+
+
+* Wenn germborn_f==., nimm den Wert aus Vorigin
+gen germborn_fr=.
+replace germborn_fr=1 if germborn_f==. & vorigin==1 // Väter aus Deutschland werden zugewiesen
+replace germborn_fr=2 if germborn_f==. & (vorigin>=2 & vorigin<=166)
+replace germborn_fr=-1 if germborn_f==. & (vorigin==-1)
+replace germborn_fr=-2 if germborn_f==. & (vorigin==-2)
+replace germborn_fr=-3 if germborn_f==. & (vorigin==-3)
+tab germborn_fr
+
+*** WICHTIG: Abweichungen zwischen VORIGIN und GERMBORN (Auspärgung 1 und 2) sind jetzt unberücksichtigt (N=66/3139)
+
+
+
+* Corigin
+*********
+* N Jugendliche=3.679 
+tab vorigin corigin_f, m
+tab vorigin corigin_f if erhebj==2006, m
+
+
+* Wenn corigin_f==., nimm Wert aus Vorigin
+gen corigin_fr=.
+replace corigin_fr=vorigin if corigin_f==.
+tab corigin_fr
+
+
+
+
+
+**************
+*** MUTTER ***
+**************
+
+* Germborn 
+**********
+
+* N Jugendliche=3.679 
+tab morigin germborn_m, m // 73 Sysmis bei germborn_m, aber Wert in vorigin (und sei es -1, -2, etc)
+tab morigin germborn_m if erhebj==2006, m
+
+
+* Wenn germborn_m==., nimm den Wert aus Morigin
+gen germborn_mr=.
+replace germborn_mr=1 if germborn_m==. & morigin==1 // Väter aus Deutschland werden zugewiesen
+replace germborn_mr=2 if germborn_m==. & (morigin>=2 & morigin<=166)
+replace germborn_mr=-1 if germborn_m==. & (morigin==-1)
+replace germborn_mr=-2 if germborn_m==. & (morigin==-2)
+replace germborn_mr=-3 if germborn_m==. & (morigin==-3)
+tab germborn_mr
+
+*** WICHTIG: Abweichungen zwischen MORIGIN und GERMBORN (Auspärgung 1 und 2) sind jetzt unberücksichtigt (N=1/3600)
+
+
+
+* Corigin
+*********
+* N Jugendliche=3.679 
+tab morigin corigin_m, m
+tab morigin corigin_m if erhebj==2006, m
+
+
+* Wenn corigin_m==., nimm Wert aus Morigin
+gen corigin_mr=.
+replace corigin_mr=morigin if corigin_m==.
+tab corigin_mr
+
+
+
+
+
+
+
 ********************************************************************************************************************************
 * WJUGEND: Benoetigt man die Dummy-Info von den Jugendlichen zu dem Geburtsland ihrer Eltern aus dem DS von Elisabeth fuer 2006?
 ********************************************************************************************************************************
+
 
 *************
 *** VATER ***
@@ -580,9 +673,16 @@ tab germborn_f_j
 tab germborn_f germborn_f_j if erhebj==2006, m
 * 39 "." bei germborn_f; Wenn Nutzung Info von Elisabeth fuer 2006, dann koennten 35 Faelle deutsch und 3 Faelle den Immigranten zugeordnet werden
 * Folglich: Diese Faelle wuerde ich noch zuordnen + Vermerk in Hilfsvariable, dass diese Info vom Jugendlichen kommt
+tab germborn_f_j germborn_fr
 
 * Ist die Info bei vorigin enthalten?
 tab vorigin germborn_f_j if erhebj==2006, m //--> Nein; hier -1
+
+
+* Zuweisung der 39 Fälle zu germborn_fr
+tab germborn_fr
+replace germborn_fr=germborn_f_j if germborn_fr==-1 & germborn_f_j!=.
+tab germborn_fr
 
 
 
@@ -591,40 +691,42 @@ tab vorigin germborn_f_j if erhebj==2006, m //--> Nein; hier -1
 **************
 tab germborn_m germborn_m_j if erhebj==2006, m
 * 6 Sysmis bei germborn_m; bei der Info von Elisabeth 4x Deutschland und 2x-2
+tab germborn_m_j germborn_mr
+
 
 * Ist die Info bei morigin enthalten?
 tab morigin germborn_m_j if erhebj==2006, m //--> Nein; hier -1
 
-
-**************************************************************************************************************
-*** Zuweisung von Info zu germborn_f und germborn_m, bei denen Info aus Wjugend (2006) genutzt werden kann ***
-**************************************************************************************************************
-
-replace germborn_f==1 if germborn_f==. & germborn_f_j==1
-replace germborn_f==2 if germborn_f==. & germborn_f_j==2
-
-
-replace germborn_m==1 if germborn_m==. & germborn_m_j==1
-replace germborn_m==2 if germborn_m==. & germborn_m_j==2
+* Zuweisung der 6 Fälle zu germborn_mr
+tab germborn_mr
+replace germborn_mr=germborn_m_j if germborn_mr==-1 & germborn_m_j!=.
+tab germborn_mr, m
 
 
 
-* Vermerk zugewiesener Faelle in einer Hilfsvariable (sind hoechstwahrscheinlich Infos von den Jugendlichen zu ihren Eltern).
 
-*** Vermerk in Hilfsvariable "quelle_germborn_f"
-gen quelle_germborn_f=.
-replace quelle_germborn_f=0 if germborn_f!=. & erhebj==2006 // Bezug auf Wjugend haette man sich sparen koennen. Naja ...
-replace quelle_germborn_f=1 if germborn_f==. & (germborn_f_j==2 | germborn_f_j==1 | germborn_f_j==-2) & erhebj==2006
+*** Beibehaltung derjenigen Fälle, die im PPFAD Sysmis haben und denen ein Wert aus BIOPAREN bzw. WJUGEND zugeordnet werden konnte
+**********************************************************************************************************************************
 
+keep if germborn_mr!=. | germborn_fr!=.
 
 
-*** Vermerk in Hilfsvariable "quelle_rgermborn_m"
-gen quelle_germborn_m=.
-replace quelle_germborn_m=0 if germborn_m!=. & erhebj==2006
-replace quelle_germborn_m=1 if germborn_m==. & (germborn_m_j==2 | germborn_m_j==1 | germborn_m_j==-2) & erhebj==2006
+*** Beibehaltung relevanter Variablen
+*************************************
+
+keep persnr hhnr bymnr byvnr corigin_mr corigin_fr germborn_mr germborn_fr // FRAGE: kann die Eltern-ID und die HH-ID auch gelöscht werden?
 
 
+*** Angleichung an Masterdatensatz der Variablennamen
+*****************************************************
 
+rename corigin_mr corigin_m
+rename corigin_fr corigin_f
+rename germborn_fr germborn_f
+rename germborn_mr germborn_m
+
+
+*** Abspeichern des Datensatzes
+*******************************
 
 save ${AVZ}melanie_jugendliche_eltern, replace
-*\
