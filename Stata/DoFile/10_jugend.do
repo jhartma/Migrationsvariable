@@ -714,7 +714,7 @@ keep if germborn_mr!=. | germborn_fr!=.
 *** Beibehaltung relevanter Variablen
 *************************************
 
-keep persnr hhnr bymnr byvnr corigin_mr corigin_fr germborn_mr germborn_fr // FRAGE: kann die Eltern-ID und die HH-ID auch gelöscht werden?
+keep persnr corigin_mr corigin_fr germborn_mr germborn_fr // FRAGE: kann die Eltern-ID und die HH-ID auch gelöscht werden?
 
 
 *** Angleichung an Masterdatensatz der Variablennamen
