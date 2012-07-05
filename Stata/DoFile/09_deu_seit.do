@@ -167,4 +167,6 @@ drop nation
 *** Test 
 tab germ_since deu_seit, m
 
+sort persnr
+
 save ${AVZ}germ_sbs, replace 
