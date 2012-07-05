@@ -73,97 +73,13 @@ do ${AVZ}DoFile/11_merge.do						// Output: miggen_merged.dta	|| persnr, sex, bi
 *****************************************
 do ${AVZ}DoFile/12_auxiliary.do
 
+* Melanies Elterndatensatz aus den Jugendlichen  ranspielen
 
 
 ****************************************************************************************************
 *** 3. Bildung Migrantenvariablen  *****************************************************************
 *** Von Melanie ************************************************************************************
 ****************************************************************************************************
-
-****************************************************************************************************
-*** HINWEIS: Vorgehen basiert auf Grundlage des skizzierten Datenaufbereitungsvorgehens wie es im **
-*** Sheet "Logik" skizziert ist (im Excel-Uebersichten-Dokument) ************************************
-*** ALTERNATIV koennte zunaechst der Generationenstatus fuer die Eltern und Grosseltern gebildet werden
-*** und im naechsten Schritt fuer juengste Generation --> ich bezweifle, dass das weniger komplex wird,
-*** da die Zwischenschritte und Teilbedingungen immer anfallen werden
-****************************************************************************************************
-
-*** Variablenliste Bildung Mig
-*** Germborn (wie germborn) --> hier werden spaeter noch Dummies gebildet/Rekodierungen vorgenommen 
-* germborn
-* germborn_m
-* germborn_f
-* germborn_m_m
-* germborn_m_f
-* germborn_f_m
-* germborn_f_f
-
-
-* migage // Muss zuvor aus Geburts- und Zuwanderungsalter (gebjahr und immiyear) fuer alle gebildet werden
-** FRAGE: Ist das schon gebildet?
-
-*** Corigin (wie corigin)
-* corigin
-* corigin_f
-* corigin_m
-* corigin_f_f
-* corigin_f_m
-* corigin_m_f
-* corigin_m_m
-
-*** r_corigin (Rekodierungen; siehe auch Excel-Sheet)
-* r_corigin_zp
-* r_corigin_f
-* r_corigin_m
-* r_corigin_f_f
-* r_corigin_f_m
-* r_corigin_m_f
-* r_corigin_m_m
-
-*** nr_corigin (Kombi aus r_nation und r_corigin)
-* nr_corigin_zp
-* nr_corigin_f
-* nr_corigin_m
-* nr_corigin_f_f
-* nr_corigin_f_m
-* nr_corigin_m_f
-* nr_corigin_m_m
-
-*** Nation (wie nation)
-* nation
-* nation_f
-* nation_m
-* nation_f_f
-* nation_f_m
-* nation_m_f
-* nation_m_m
-
-*** r_nation (Rekodierungen; siehe auch Excel-Sheet)
-* r_nation_zp
-* r_nation_f
-* r_nation_m
-* r_nation_f_f
-* r_nation_f_m
-* r_nation_m_f
-* r_nation_m_m
-
-
-*** BIIMGRP (wie BIIMGRP)
-* BIIMGRP_f
-* BIIMGRP_m
-* BIIMGRP_f_f
-* BIIMGRP_f_m
-* BIIMGRP_m_f
-* BIIMGRP_m_m
-
-*** deu_seit 
-* deu_seit_zp
-* deu_seit_f
-* deu_seit_m
-* deu_seit_f_f
-* deu_seit_f_m
-* deu_seit_m_f
-* deu_seit_m_m
 
 ****************************************************************************************************
 *** 3.1. Generationenstatus ************************************************************************
