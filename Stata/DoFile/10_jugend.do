@@ -392,7 +392,7 @@ keep persnr hhnr biimgrp nation corigin germborn immiyear gebjahr germnatbirth
 
 save ${AVZ}melanie_jugendliche_recoded, replace
 
-*\
+*/
 
 
 
