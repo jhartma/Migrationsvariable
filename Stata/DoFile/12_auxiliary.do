@@ -50,20 +50,91 @@ use miggen_merged.dta, clear
 ***************************************************************************************************************************
 
 
-***Vorbereitungen***
-*generate biimgrp =.
-forvalues x=1/27 {
-	replace biimgrp = biimgrp`x' if biimgrp`x'!=.
+***************************************************************************************************************************
+***** 2.1.1 Fasse Jahre zu einer Variablen zusammen ***********************************************************************
+***************************************************************************************************************************
+
+***** biimgrp *************************************************************************************************************
+preserve
+mvdecode biimgrp*, mv(-3 -2 -1)
+egen biimgrp_min = rowmin(biimgrp*)
+egen biimgrp_max = rowmax(biimgrp*)
+list persnr biimgrp* if biimgrp_min != biimgrp_max  // keine Abweichungen ueber die Jahre, nehme deswegen irgendein nichtleeres Jahr
+restore
+
+generate abiimgrp =.					
+forvalues x=1984/2010 {
+	replace abiimgrp = biimgrp`x' if biimgrp`x'!=.
 }
 
-* Neu machen: wenn einmal auslaendisch, dann diese 
-*generate nation =.
-forvalues x=1/27 {
-	replace nation = nation`x' if nation`x'!=.
-}
+drop biimgrp*
+rename abiimgrp biimgrp
+
+***** nation **************************************************************************************************************
+preserve
+mvdecode nation*, mv(-3 -2 -1)
+egen nation_min = rowmin(nation*)
+egen nation_max = rowmax(nation*)
+list persnr nation* if nation_min != nation_max // viele Unterschiede zwischen den Jahren
+restore
+
+egen anation = rowmax(nation*)		// nehme die groesste Nationenzahl, um maximale Migrantenzahlen zu bekommen
+label value anation nation10
+drop nation*
+rename anation nation
+
+***** biresper ************************************************************************************************************
+preserve
+mvdecode biresper*, mv(-3 -2 -1)
+egen biresper_min = rowmin(biresper*)
+egen biresper_max = rowmax(biresper*)
+list persnr biresper* if biresper_min != biresper_max // keine Abweichungen ueber die Jahre
+restore
+
+egen abiresper = rowmax(biresper*)
+label value abiresper biresper
+drop biresper*
+rename abiresper biresper
+
+***** immiyear ************************************************************************************************************
+egen immiyear_min = rowmin(immiyear*)
+egen immiyear_max = rowmax(immiyear*)
+list persnr immiyear* if immiyear_min != immiyear_max	// es gibt Abweichungen, nehme immiyear aus ppfad
+
+replace immiyear = immiyear_max if immiyear == .
+drop immiyear_j2006 immiyear_j2007 immiyear_j2008 immiyear_j2009 immiyear_j2010 immiyear_max immiyear_min
+
+***** germborn ************************************************************************************************************
+rename germborn_m agermborn_m
+rename germborn_f agermborn_f
+egen germborn_min = rowmin(germborn*)
+egen germborn_max = rowmax(germborn*)
+list persnr germborn* if germborn_min != germborn_max	// es gibt Abweichungen, nehme germborn aus ppfad
+
+replace germborn = germborn_max if germborn == .
+drop germborn_j2006 germborn_j2007 germborn_j2008 germborn_j2009 germborn_j2010 germborn_max germborn_min
+
+rename agermborn_m germborn_m
+rename agermborn_f germborn_f
+
+***** corigin *************************************************************************************************************
+
+***** deu_seit ************************************************************************************************************
+
+***** gebjahr *************************************************************************************************************
+
+***** gebmoval ************************************************************************************************************
+
+***** d_nation2 ***********************************************************************************************************
 
 
-***Generierung der Hilfsvariablen***
+
+aorder
+sort persnr
+
+***************************************************************************************************************************
+***** 2.1.2 Ordne Eltern und Grosseltern zu Personen zu *******************************************************************
+***************************************************************************************************************************
 sort hhnr persnr
 forvalues x=1/36 {
 	capture gen corigin_m=.								// corigin_m

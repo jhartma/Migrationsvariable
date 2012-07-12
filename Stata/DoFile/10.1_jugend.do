@@ -392,6 +392,12 @@ egen germnatbirth = rowmax(germnatbirth*)
 keep persnr hhnr biimgrp nation corigin germborn immiyear gebjahr germnatbirth
 */
 
+recode biimgrp_j* (1 = 2) (2 = 3) (3 = 4) (4 = 6) (5 = 7)
+label value biimgrp_j* biimgrp
+
+recode germborn_j* (1 2 = 1) (3 = 2)
+label value germborn_j* germborn
+
 sort persnr
 
 save ${AVZ}melanie_jugendliche_recoded, replace
