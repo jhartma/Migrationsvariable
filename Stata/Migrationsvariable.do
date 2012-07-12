@@ -55,7 +55,10 @@ do ${AVZ}DoFile/09_deu_seit.do                                          // Outpu
 * welche Nationalitaet frueher?
 
 ***** 1.10 Jugendliche ***************************************
-do ${AVZ}DoFile/10_jugend.do                                            // Output: melanie_jugendliche_recoded.dta	|| Germborn; Corigin; immiyear; gebjahr; erste und zweite Nation zum Befragrungszeitpunkt (ab einschliesslich 2006); Deu_seit; biresper; biimgrp
+do ${AVZ}DoFile/10.1_jugend.do                                            // Output: melanie_jugendliche_recoded.dta	|| Germborn; Corigin; immiyear; gebjahr; erste und zweite Nation zum Befragrungszeitpunkt (ab einschliesslich 2006); Deu_seit; biresper; biimgrp
+
+***** 1.10 Jugendliche ***************************************
+do ${AVZ}DoFile/10.2_jugend.do 
 
 ***** 1.11 Mergen aller Datensaetze **************************
 do ${AVZ}DoFile/11_merge.do						// Output: miggen_merged.dta	|| persnr, sex, biimgrp, corigin, deu_seit, gebjahr, gebmoval, germ_since, sbs
@@ -66,15 +69,16 @@ do ${AVZ}DoFile/11_merge.do						// Output: miggen_merged.dta	|| persnr, sex, bi
 									//                              || living1 - living7,
 									//                              || nation1984 - nation2010,
 
-*** Zusatzinfos fuer Eltern aus Kinderdatensatz übernehmen!!!
+*** Zusatzinfos fuer Eltern aus Kinderdatensatz uebernehmen!!!
 
 *****************************************
 ***** 2. Bildung von Hilfsvariablen *****
 *****************************************
 do ${AVZ}DoFile/12_auxiliary.do
 
+* deu_seit von Jugendlichen vervollstaendlichen mit Melanies Daten, melanie_jugendliche
 * Melanies Elterndatensatz aus den Jugendlichen  ranspielen
-
+* Generell noch mal durchschauen
 
 ****************************************************************************************************
 *** 3. Bildung Migrantenvariablen  *****************************************************************
@@ -190,10 +194,10 @@ use ${AVZ}miggen_helpers.dta, clear
 *** Bildung von "eltern": Hilfsvariable ueber Vorhandensein Geburtslandinfo fuer Eltern
 
 	gen eltern=.
-	replace eltern=1 if germborn_f==germborn_m & (germborn_f==1 | germborn_f==2) // 1: Info liegt fuer beide Eltern vor
-	replace eltern=2 if ((germborn_m==1 | germborn_m==2) & germborn_f<=0)  // 2: Info liegt nur fuer Mutter vor, Vater Missing
-	replace eltern=3 if ((germborn_f==1 | germborn_f==2) & germborn_m<=0)  // 3: Info liegt nur fuer den Vater vor; Mutter Missing
-	replace eltern=4 if germborn_f==germborn_m & germborn_f<=0 // 3: Info liegt fuer gar kein Elternteil vor
+	replace eltern=1 if germborn_f==germborn_m & (germborn_f==1 | germborn_f==2) 	// 1: Info liegt fuer beide Eltern vor
+	replace eltern=2 if ((germborn_m==1 | germborn_m==2) & germborn_f<=0)  		// 2: Info liegt nur fuer Mutter vor, Vater Missing
+	replace eltern=3 if ((germborn_f==1 | germborn_f==2) & germborn_m<=0)  		// 3: Info liegt nur fuer den Vater vor; Mutter Missing
+	replace eltern=4 if germborn_f==germborn_m & germborn_f<=0 			// 3: Info liegt fuer gar kein Elternteil vor
 
 
 	lab var eltern "Geburtslandinfos fuer Eltern vorhanden"
@@ -217,6 +221,7 @@ use ${AVZ}miggen_helpers.dta, clear
 ***********************************************************************************************************************************************************
 *** WICHTIG: Infos aus Jugendlichenbefragung muessen den "Haupt-Hilfsvariablen" (Germborn, germborn_f, etc.) zugeordnet werden ****************************
 ***********************************************************************************************************************************************************
+* Fälle durchgehen und Logik auch: Jörg!!!
 
 	gen mig_gen_c = .
 
