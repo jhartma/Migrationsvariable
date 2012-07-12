@@ -78,7 +78,7 @@ merge persnr using melanie_jugendliche_recoded.dta
 drop _merge
 
 sort persnr
-merge persnr using melanie_jugendliche.dta 
+merge persnr using melanie_jugendliche_eltern.dta 
 drop _merge
 
 sort persnr 

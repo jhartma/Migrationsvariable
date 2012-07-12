@@ -323,5 +323,5 @@ rename germborn_mr germborn_m
 
 *** Abspeichern des Datensatzes
 *******************************
-
+sort persnr
 save ${AVZ}melanie_jugendliche_eltern, replace
