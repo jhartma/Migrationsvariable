@@ -77,6 +77,10 @@ sort persnr
 merge persnr using melanie_jugendliche_recoded.dta 
 drop _merge
 
+sort persnr
+merge persnr using melanie_jugendliche.dta 
+drop _merge
+
 sort persnr 
 merge persnr using bioimmig_mig.dta
 drop _merge

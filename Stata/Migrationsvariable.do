@@ -55,10 +55,10 @@ do ${AVZ}DoFile/09_deu_seit.do                                          // Outpu
 * welche Nationalitaet frueher?
 
 ***** 1.10 Jugendliche ***************************************
-do ${AVZ}DoFile/10.1_jugend.do                                            // Output: melanie_jugendliche_recoded.dta	|| Germborn; Corigin; immiyear; gebjahr; erste und zweite Nation zum Befragrungszeitpunkt (ab einschliesslich 2006); Deu_seit; biresper; biimgrp
+do ${AVZ}DoFile/10.1_jugend.do                                          // Output: melanie_jugendliche_recoded.dta	|| Germborn; Corigin; immiyear; gebjahr; erste und zweite Nation zum Befragrungszeitpunkt (ab einschliesslich 2006); Deu_seit; biresper; biimgrp
 
 ***** 1.10 Jugendliche ***************************************
-do ${AVZ}DoFile/10.2_jugend.do 
+do ${AVZ}DoFile/10.2_jugend.do 						// Output: melanie_jugendliche_eltern.dta	|| persnr, germborn_f, corigin_f, germborn_m, corigin_m
 
 ***** 1.11 Mergen aller Datensaetze **************************
 do ${AVZ}DoFile/11_merge.do						// Output: miggen_merged.dta	|| persnr, sex, biimgrp, corigin, deu_seit, gebjahr, gebmoval, germ_since, sbs
@@ -68,6 +68,7 @@ do ${AVZ}DoFile/11_merge.do						// Output: miggen_merged.dta	|| persnr, sex, bi
 									//                              || biresper1984 - biresper2010,
 									//                              || living1 - living7,
 									//                              || nation1984 - nation2010,
+									//				|| germborn_f, corigin_f, germborn_m, corigin_m
 
 *** Zusatzinfos fuer Eltern aus Kinderdatensatz uebernehmen!!!
 

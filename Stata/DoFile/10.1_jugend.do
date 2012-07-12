@@ -69,18 +69,18 @@ quietly: compress
 
 
 * Umbennenung ausgewaehlter Variablen***
-soepren wj6001 xj6001 yj6001 zj6001 baj6001, newstub(gebjahr_j) waves (23/27) // Eigentlich brauch man doch die Jahresinfo bei den unveränderlichen Sachen nicht, da es Querschnittsdaten sind
-soepren wj6002 xj6002 yj6002 zj6002 baj6002, newstub(gebmoval_j) waves (23/27)
-soepren wj61 xj61 yj61 zj61 baj61, newstub(germborn_j) waves (23/27)
-soepren wj6201 xj62 yj62 zj62 baj62, newstub(corigin_j) waves (23/27)
-soepren wj63 xj63 yj63 zj63 baj63, newstub(immiyear_j) waves (23/27)
-soepren wj64 xj64 yj64 zj64 baj64, newstub(biimgrp_j) waves (23/27)
-soepren wj65 xj65 yj65 zj65 baj65, newstub(nation_deu_j) waves (23/27) // Wie kann/soll mit der Nation-Info bei den Jugendlichen umgegangen werden?
-soepren wj67 xj67 yj67 zj67 baj67, newstub(deu_seit_j) waves (23/27)
-soepren wj6601 xj6601 yj6601 zj6601 baj6601, newstub(d_nation2_j) waves (23/27) // Wie Umgang mit zweiter SBS? Damit zusammenhängend grundsätzliche Frage, wie mit zeitveränderlicher Info umgegangen werden soll?
-soepren wj6602 xj6602 yj6602 zj6602 baj6602, newstub(nation2_j) waves (23/27)
-soepren wj6801 xj68 yj68 zj68 baj68, newstub(nation_j) waves (23/27)
-soepren wj69 xj69 yj69 zj69 baj69, newstub(biresper_j) waves (23/27)
+soepren wj6001 xj6001 yj6001 zj6001 baj6001, newstub(gebjahr_j) waves (2006/2010) // Eigentlich brauch man doch die Jahresinfo bei den unveränderlichen Sachen nicht, da es Querschnittsdaten sind
+soepren wj6002 xj6002 yj6002 zj6002 baj6002, newstub(gebmoval_j) waves (2006/2010)
+soepren wj61 xj61 yj61 zj61 baj61, newstub(germborn_j) waves (2006/2010)
+soepren wj6201 xj62 yj62 zj62 baj62, newstub(corigin_j) waves (2006/2010)
+soepren wj63 xj63 yj63 zj63 baj63, newstub(immiyear_j) waves (2006/2010)
+soepren wj64 xj64 yj64 zj64 baj64, newstub(biimgrp_j) waves (2006/2010)
+soepren wj65 xj65 yj65 zj65 baj65, newstub(nation_deu_j) waves (2006/2010) // Wie kann/soll mit der Nation-Info bei den Jugendlichen umgegangen werden?
+soepren wj67 xj67 yj67 zj67 baj67, newstub(deu_seit_j) waves (2006/2010)
+soepren wj6601 xj6601 yj6601 zj6601 baj6601, newstub(d_nation2_j) waves (2006/2010) // Wie Umgang mit zweiter SBS? Damit zusammenhängend grundsätzliche Frage, wie mit zeitveränderlicher Info umgegangen werden soll?
+soepren wj6602 xj6602 yj6602 zj6602 baj6602, newstub(nation2_j) waves (2006/2010)
+soepren wj6801 xj68 yj68 zj68 baj68, newstub(nation_j) waves (2006/2010)
+soepren wj69 xj69 yj69 zj69 baj69, newstub(biresper_j) waves (2006/2010)
 
 
 * Reduzierten Datensatz speichern
@@ -130,9 +130,9 @@ biresper1998 biresper1999 biimgrp1984 biimgrp1985 biimgrp1986 biimgrp1987 biimgr
 biimgrp1996 biimgrp1997 biimgrp1998 biimgrp1999
 
 
-soepren hhnr2000 hhnr2001 hhnr2002 hhnr2003 hhnr2004 hhnr2005 hhnr2006 hhnr2007 hhnr2008 hhnr2009 hhnr2010, newstub(hhnr) waves (17/27)
-soepren biresper2000 biresper2001 biresper2002 biresper2003 biresper2004 biresper2005 biresper2006 biresper2007 biresper2008 biresper2009 biresper2010, newstub(biresper) waves (17/27)
-soepren biimgrp2000 biimgrp2001 biimgrp2002 biimgrp2003 biimgrp2004 biimgrp2005 biimgrp2006 biimgrp2007 biimgrp2008 biimgrp2009 biimgrp2010, newstub(biimgrp) waves (17/27)
+*soepren hhnr2000 hhnr2001 hhnr2002 hhnr2003 hhnr2004 hhnr2005 hhnr2006 hhnr2007 hhnr2008 hhnr2009 hhnr2010, newstub(hhnr) waves (17/27)
+*soepren biresper2000 biresper2001 biresper2002 biresper2003 biresper2004 biresper2005 biresper2006 biresper2007 biresper2008 biresper2009 biresper2010, newstub(biresper) waves (17/27)
+*soepren biimgrp2000 biimgrp2001 biimgrp2002 biimgrp2003 biimgrp2004 biimgrp2005 biimgrp2006 biimgrp2007 biimgrp2008 biimgrp2009 biimgrp2010, newstub(biimgrp) waves (17/27)
 
 ***Reduzierten Datensatz speichern***
 isid persnr // persnr ist eindeutige Identifikationsvariable
@@ -183,34 +183,34 @@ save ${AVZ}Melanie_jugendliche.dta, replace
 * Pruefen, ob Geburtslandinfos aus $PAGE in der PPFAD-Info enthalten ist
 
 tab germborn, m
-tab germborn germborn_j23
-tab germborn germborn_j24
-tab germborn germborn_j25
-tab germborn germborn_j26
-tab germborn germborn_j27
+tab germborn germborn_j2006
+tab germborn germborn_j2007
+tab germborn germborn_j2008
+tab germborn germborn_j2009
+tab germborn germborn_j2010
 
 *** Ja, Infos sind in PPFAD-Daten enthalten
 * wobei Abweichungen (in 25 (1 x J: Ausland; PPFAD: Deutschland))
 
-tab corigin_j25 germborn_j25 // 1 x Deutschland!!!!!!!!!!!
-tab corigin if corigin_j25==1 // der deutsche Fall hat dann bei CORIGIN Schweiz
+tab corigin_j2008 germborn_j2008 // 1 x Deutschland!!!!!!!!!!!
+tab corigin if corigin_j2008==1 // der deutsche Fall hat dann bei CORIGIN Schweiz
 
-tab corigin_j25 germborn_j25 if germborn_j25==3 & germborn==1 // in J und PPFAD abweichender Fall hat aber Ex-Jugoslawien bei corigin!
-tab corigin if germborn_j25==3 & germborn==1 // in PPFAD dann aber Deutschland
+tab corigin_j2008 germborn_j2008 if germborn_j2008==3 & germborn==1 // in J und PPFAD abweichender Fall hat aber Ex-Jugoslawien bei corigin!
+tab corigin if germborn_j2008==3 & germborn==1 // in PPFAD dann aber Deutschland
 
 
 
 * wobei Abweichungen (in 26 (1 x J: Ausland; PPFAD: -1) 1 x (J: Ausland; PPFAD: Deutschland))
-tab corigin_j26 germborn_j26
-tab corigin if germborn_j26==3 & germborn==-1 
-tab corigin_j26 if germborn_j26==3 & germborn==-1 // J hat Holland angegeben
+tab corigin_j2009 germborn_j2009
+tab corigin if germborn_j2009==3 & germborn==-1 
+tab corigin_j2009 if germborn_j2009==3 & germborn==-1 // J hat Holland angegeben
 
-tab corigin if germborn_j26==3 & germborn==1
+tab corigin if germborn_j2009==3 & germborn==1
 
 
 * wobei Abweichungen (in 27 (1 x J: -1 und PPFAD: 1)) 
-tab corigin_j27 germborn_j27
-tab corigin if germborn_j27==-1 & germborn==1
+tab corigin_j2010 germborn_j2010
+tab corigin if germborn_j2010==-1 & germborn==1
 
 
 
@@ -219,11 +219,11 @@ tab corigin if germborn_j27==-1 & germborn==1
 * Pruefen, ob corigin-Infos aus $PAGE in PPFAD-corigin enthalten sind
 
 tab corigin, m
-tab corigin corigin_j23
-tab corigin corigin_j24
-tab corigin corigin_j25
-tab corigin corigin_j26
-tab corigin corigin_j27
+tab corigin corigin_j2006
+tab corigin corigin_j2007
+tab corigin corigin_j2008
+tab corigin corigin_j2009
+tab corigin corigin_j2010
 
 *** Ja, Infos sind enthalten, wobei Abweichungen --> Warum?
 *** --> corigin aus PPFAD kann grundsaetzlich genutzt werden
@@ -234,11 +234,11 @@ tab corigin corigin_j27
 **************************************************************
 * Pruefen, ob immiyearinfos aus $PAGE auch bei PPFAD enthalten
 tab immiyear, m
-tab immiyear immiyear_j23
-tab immiyear immiyear_j24
-tab immiyear immiyear_j25
-tab immiyear immiyear_j26
-tab immiyear immiyear_j27
+tab immiyear immiyear_j2006
+tab immiyear immiyear_j2007
+tab immiyear immiyear_j2008
+tab immiyear immiyear_j2009
+tab immiyear immiyear_j2010
 
 *** Ja, Info ist enthalten, wobei teilweise Abweichungen (23; 24; 25; 26) --> Warum?
 *** --> immiyear aus PPFAD kann grundsaetzlich genutzt werden
@@ -247,88 +247,88 @@ tab immiyear immiyear_j27
 
 ***************************************************************************************
 * Prüfen, ob biimgrp-Info aus PAGE auch in BIOIMMIG enthalten ist --> Ja, ist enthalten
-tab biimgrp17
-tab biimgrp17 if germborn==2
-tab biimgrp17 if germborn==1
+tab biimgrp2000
+tab biimgrp2000 if germborn==2
+tab biimgrp2000 if germborn==1
 
-tab biimgrp18
-tab biimgrp18 if germborn==2, m
-tab biimgrp18 if germborn==1
+tab biimgrp2001
+tab biimgrp2001 if germborn==2, m
+tab biimgrp2001 if germborn==1
 
-tab biimgrp19
-tab biimgrp19 if germborn==2, m
+tab biimgrp2002
+tab biimgrp2002 if germborn==2, m
 
-tab biimgrp20
-tab biimgrp20 if germborn==2, m
+tab biimgrp2003
+tab biimgrp2003 if germborn==2, m
 
-tab biimgrp21
-tab biimgrp21 if germborn==2, m
+tab biimgrp2004
+tab biimgrp2004 if germborn==2, m
 
-tab biimgrp22
-tab biimgrp22 if germborn==2, m
+tab biimgrp2005
+tab biimgrp2005 if germborn==2, m
 
 
-tab biimgrp23 biimgrp_j23
-tab biimgrp_j23, m
+tab biimgrp2006 biimgrp_j2006
+tab biimgrp_j2006, m
 
-tab biimgrp24 biimgrp_j24
-tab biimgrp_j24, m
+tab biimgrp2007 biimgrp_j2007
+tab biimgrp_j2007, m
 
-tab biimgrp25 biimgrp_j25
-tab biimgrp_j25, m
+tab biimgrp2008 biimgrp_j2008
+tab biimgrp_j2008, m
 
-tab biimgrp26 biimgrp_j26
-tab biimgrp_j26, m
+tab biimgrp2009 biimgrp_j2009
+tab biimgrp_j2009, m
 
-tab biimgrp27 biimgrp_j27
-tab biimgrp_j27, m
+tab biimgrp2010 biimgrp_j2010
+tab biimgrp_j2010, m
 
 
 
 
 *****************************************************************************************
-* Prüfen, ob biresper-Info aus PAGE auch in BIOIMMIG enthalten ist --> Ja, ist enthalten
+* Pruefen, ob biresper-Info aus PAGE auch in BIOIMMIG enthalten ist --> Ja, ist enthalten
 
-tab biresper17
-tab biresper17 if germborn==2
+tab biresper2000
+tab biresper2000 if germborn==2
 
-tab biresper18
-tab biresper18 if germborn==2
+tab biresper2001
+tab biresper2001 if germborn==2
 
-tab biresper19
-tab biresper19 if germborn==2
+tab biresper2002
+tab biresper2002 if germborn==2
 
-tab biresper20
-tab biresper20 if germborn==2
+tab biresper2003
+tab biresper2003 if germborn==2
 
-tab biresper21
-tab biresper21 if germborn==2
+tab biresper2004
+tab biresper2004 if germborn==2
 
-tab biresper22
-tab biresper22 if germborn==2
-
-
-tab biresper23 biresper_j23
-tab biresper_j23, m
-
-tab biresper24 biresper_j24, m
-tab biresper_j24, m
-
-tab biresper25 biresper_j25, m
-tab biresper_j25, m
-
-tab biresper26 biresper_j26, m
-tab biresper_j26, m
-
-tab biresper27 biresper_j27, m
-tab biresper_j27, m
+tab biresper2005
+tab biresper2005 if germborn==2
 
 
+tab biresper2006 biresper_j2006
+tab biresper_j2006, m
 
-*** FAZIT: Infos sind im PPFAD bzw. in BIOIMMIG enthalten und können genutzt werden (teils Abweichungen, aber wir vertrauen einfach mal dem SOEP ...)
+tab biresper2007 biresper_j2007, m
+tab biresper_j2007, m
+
+tab biresper2008 biresper_j2008, m
+tab biresper_j2008, m
+
+tab biresper2009 biresper_j2009, m
+tab biresper_j2009, m
+
+tab biresper2010 biresper_j2010, m
+tab biresper_j2010, m
 
 
-*** Das kann dann eigentlich gelöscht werden (ggf. noch benötigt bei der Bildung der NATION-Hilfsvariable???)
+
+*** FAZIT: Infos sind im PPFAD bzw. in BIOIMMIG enthalten und koennen genutzt werden (teils Abweichungen, aber wir vertrauen einfach mal dem SOEP ...)
+
+
+*** Das kann dann eigentlich gelaescht werden (ggf. noch benoetigt bei der Bildung der NATION-Hilfsvariable???)
 /*
 ******************************************************************************
 *** REKODIERUNG ZENTRALER INFOS UND ANGLEICHUNG AN ANDERE VARS ***************
@@ -390,7 +390,10 @@ egen nation  = rowmax(nation*)
 egen germnatbirth = rowmax(germnatbirth*)
 
 keep persnr hhnr biimgrp nation corigin germborn immiyear gebjahr germnatbirth
+*/
+
+sort persnr
 
 save ${AVZ}melanie_jugendliche_recoded, replace
 
-*/
+
