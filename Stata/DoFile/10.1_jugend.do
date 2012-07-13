@@ -616,7 +616,7 @@ soepren deu_seit_j23 deu_seit_j24 deu_seit_j25 deu_seit_j26 deu_seit_j27, newstu
 * deu_seit_j -> staatsang (SP116 seit wann dt. staatsangehoerigkeit: geburt, erworben)
 * soepren deu_seit_j23 deu_seit_j24 deu_seit_j25 deu_seit_j26 deu_seit_j27, newstub(staatsang) waves(23/27)
 
-keep persnr hhnr nation* germnatbirth*
+keep persnr hhnr nation* germnatbirth* biimgrp* corigin* germborn* immiyear* gebjahr*
 aorder
 order persnr 
 sort persnr

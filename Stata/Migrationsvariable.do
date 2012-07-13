@@ -231,7 +231,7 @@ use ${AVZ}miggen_helpers.dta, clear
 *** FRAGE: Unberuecksichtigt bleibt jetzt der Pfad ueber die Nationalitaet und den Einreisestatus, 
 *** aber eigentlich muesste es doch jetzt so passen (oder geben Ossis an, im Ausland geboren zu sein?)???
 
-	replace mig_gen_c = 1 if germborn==2 & (migage >=7 | migage == .) // Wenn migage anders gebildet, so dass keine sysmis, muessten die Missing-Werte auch anders bestimmt werden
+	replace mig_gen_c = 1 if germborn==2 & (migage >=7 | migage == .) 	// Wenn migage anders gebildet, so dass keine sysmis, muessten die Missing-Werte auch anders bestimmt werden
 
 
 *1,5. Generation (vor dem 7. Lebensjahr zugewandert)
@@ -244,7 +244,7 @@ use ${AVZ}miggen_helpers.dta, clear
 	                         germborn_f==2 & germborn_m==2                           // Eltern, . nicht kleiner 0 !!!
 
 
-*2,5. Generation: ein Elternteil zugewandert, anderes 2. oder 2,5. (ZP in Deutschland geboren oder Missing) --> FEHLER
+*2,5. Generation: ein Elternteil zugewandert, anderes 2. oder 2,5. (ZP in Deutschland geboren oder Missing)
 ***********************************************************************************************************
 	replace mig_gen_c = 4 if germborn!=2 & ///                
 				 (((germborn_f!=2 & (germborn_f_m==2 | germborn_f_f==2)) & germborn_m==2) | ///   
@@ -296,8 +296,6 @@ use ${AVZ}miggen_helpers.dta, clear
 ***************************************************
 	replace mig_gen_c = . if germborn==. & germborn_f==. & germborn_m==. & sum_germborn_gp_mis==4
 
-
-
 	lab var mig_gen_c "Generationenstatus CORIGIN"
 	lab def generationenstatus 0 "kein Migrationshintergrund" ///
  	1 "1.Generation: selbst zugewandert nach dem 6. Lebensjahr" ///
@@ -315,7 +313,7 @@ use ${AVZ}miggen_helpers.dta, clear
 	tab mig_gen_c migback
 
 *XXX FEHLEND: Plausibilaetschecks XXX
-
+* Einzelfaelle aus der Kreuztabelle anschauen
 
 ***************************************************************************************************
 *** 3.1.1.3 mig_gen_c_hv **************************************************************************

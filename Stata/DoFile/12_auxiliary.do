@@ -398,6 +398,7 @@ replace nr_corigin_f_f = r_nation_f_f if nr_corigin_f_f >= .
 *******************************
 ***** 2.2.3 migage ************
 *******************************
+mvdecode *, mv(-3 -2 -1)
 gen migage = immiyear - gebjahr	// Jugendliche sind in immiyear auch enthalten
 
 list persnr immiyear gebjahr if immiyear < gebjahr // 3 Personen sind Jahre vor ihrer Geburt eingewandert
