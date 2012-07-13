@@ -1,6 +1,7 @@
-// Ausgangsdatensatz: $PAGE17; PPFAD; BIOIMMIG - Was genau soll hier stehen?
-// Enddatensatz: Melanie_jugendliche.dta und melanie_jugendliche_recoded.dta
-// Variablen: Germborn; Corigin; immiyear; gebjahr; erste und zweite Nation zum Befragrungszeitpunkt (ab einschlieÃŸlich 2006); Deu_seit; biresper; biimgrp
+// 1. Ausgangsdatensatz (?): BIOAGE17; $PAGE17; PPFAD; BIOIMMIG; Bioimmig
+// 2. Ausgangsdatensatz (?): BIOAGE17; $PAGE17; P und PGEN
+// Enddatensatz: Melanie_jugendliche.dta; Melanie_jugendliche_recoded.dta
+// Variablen (2. Ausgangsdatensatz):  d_nation2_j*;  nation2_j*; deu_seit2006 deu_seit2007 deu_seit2008 deu_seit2009 deu_seit2010
 
 ******************************
 ***** Grundeinstellungen *****
@@ -175,9 +176,9 @@ drop _merge
 save ${AVZ}Melanie_jugendliche.dta, replace
 
 
-************************************************************************************************************************************************************
-* Pruefen, ob Infos aus PAGE17-Daten in PPFAD und BIOIMMIG (noch nicht geprÃ¼ft wurde, inwieweit Infos zur StaatsangehÃ¶rigkeit in P bzw. PGEN enthalten sind)
-************************************************************************************************************************************************************
+**********************************************************
+* Pruefen, ob Infos aus PAGE17-Daten in PPFAD und BIOIMMIG
+**********************************************************
 
 * Pruefen, ob Geburtslandinfos aus $PAGE in der PPFAD-Info enthalten ist
 
@@ -245,7 +246,7 @@ tab immiyear immiyear_j27
 
 
 ***************************************************************************************
-* PrÃ¼fen, ob biimgrp-Info aus PAGE auch in BIOIMMIG enthalten ist --> Ja, ist enthalten
+* Prüfen, ob biimgrp-Info aus PAGE auch in BIOIMMIG enthalten ist --> Ja, ist enthalten
 tab biimgrp17
 tab biimgrp17 if germborn==2
 tab biimgrp17 if germborn==1
@@ -286,7 +287,7 @@ tab biimgrp_j27, m
 
 
 *****************************************************************************************
-* PrÃ¼fen, ob biresper-Info aus PAGE auch in BIOIMMIG enthalten ist --> Ja, ist enthalten
+* Prüfen, ob biresper-Info aus PAGE auch in BIOIMMIG enthalten ist --> Ja, ist enthalten
 
 tab biresper17
 tab biresper17 if germborn==2
@@ -335,14 +336,15 @@ tab biresper_j27, m
 
 
 
-*******************************************************************************
-*** PRÜFEN: a) Sind Nation-Infos aus PAGE-Daten auch in P bzw. Pgen zu finden?
-*** PRÜFEN: b) Sind für die Fälle 
-*******************************************************************************
+
+**************************************************************************************************
+*** 2. Prüfen, wie Nation-Infos verteilt sind - gekürzter Masterdatensatz: Melanie_jugendliche.dta
+**************************************************************************************************
 
 
 * 1. Schritt: Reduzierung Datensatz
 ***********************************
+
 keep persnr erhebj nation_deu_j* deu_seit_j* d_nation2_j* nation2_j* nation_j*
 save ${AVZ}melanie_jugendliche.dta, replace
 
@@ -392,6 +394,7 @@ save ${AVZ}melanie_jugendliche.dta, replace
 
 * 3. Schritt: Infos aus P hinzuspielen
 ***************************************
+
 * Seit wann dt. Staatsangehörigkeit?
 	
 cd ${dir}
@@ -462,32 +465,32 @@ tab erhebj
 
 tab nation2001 // Wie können hier 825 Fälle sein, obwohl es nur 618 Befragte 2001 gab? Sind die aus 2000 auch dabei? --> Ja!
 tab nation2001 if erhebj==2001, m // 6 Sysmis bei den 2001-Befragten
-tab nation2001 if erhebj==2001 | erhebj==2000, m // 25 Sysmis (19 davon MÜSSEN 2000-Befragte sein)
+tab nation2001 if erhebj==2000 | erhebj==2001, m // 25 Sysmis (19 davon MÜSSEN 2000-Befragte sein)
 tab erhebj
 
 tab nation2002 // 1064 Fälle; 352 Jugendliche in 2002 befragt
 tab nation2002 if erhebj==2002, m //6 Sysmis
-tab nation2002 if erhebj==2001 | erhebj==2000 | erhebj==2002, m // 138 Sysmis
+tab nation2002 if erhebj==2000 | erhebj==2001 | erhebj==2002, m // 138 Sysmis
 tab erhebj
 
 tab nation2003 // 1310 Fälle; 365 Jugendliche in 2003 befragt
 tab nation2003 if erhebj==2003, m //2 Sysmis
-tab nation2003 if erhebj==2001 | erhebj==2000 | erhebj==2002 | erhebj==2003, m // 257 Sysmis
+tab nation2003 if erhebj==2000 | erhebj==2001 | erhebj==2002 | erhebj==2003, m // 257 Sysmis
 tab erhebj
 
 tab nation2004 // 1561 Fälle; 373 Jugendliche 2004 befragt
 tab nation2004 if erhebj==2004, m //7 Sysmis
-tab nation2004 if erhebj==2001 | erhebj==2000 | erhebj==2002 | erhebj==2003 | erhebj==2004, m // 380 Sysmis
+tab nation2004 if erhebj==2000 | erhebj==2001 | erhebj==2002 | erhebj==2003 | erhebj==2004, m // 380 Sysmis
 tab erhebj
 
 tab nation2005 // 1788 Fälle; 368 Jugendliche 2005 befragt
 tab nation2005 if erhebj==2005, m //2 Sysmis
-tab nation2005 if erhebj==2001 | erhebj==2000 | erhebj==2002 | erhebj==2003 | erhebj==2004 | erhebj==2005, m // 520 Sysmis
+tab nation2005 if erhebj==2000 | erhebj==2001 | erhebj==2002 | erhebj==2003 | erhebj==2004 | erhebj==2005, m // 520 Sysmis
 tab erhebj
 
 tab nation2006 // 1890 Fälle; 307 Jugendliche 2006 befragt
 tab nation2006 if erhebj==2006, m // 1 Sysmis
-tab nation2006 if erhebj==2001 | erhebj==2000 | erhebj==2002 | erhebj==2003 | erhebj==2004 | erhebj==2005 | erhebj==2006, m // 725 Sysmis
+tab nation2006 if erhebj==2000 | erhebj==2001 | erhebj==2002 | erhebj==2003 | erhebj==2004 | erhebj==2005 | erhebj==2006, m // 725 Sysmis
 tab erhebj
 * Stimmen Codes aus den PAGE-Daten mit denen in PGEN überein? --> Ja
 tab nation2006 nation_j23 if erhebj==2006, m 
@@ -526,8 +529,12 @@ tab nation2010 nation_j27 if erhebj==2010, m
 
 
 *** FAZIT 1: Staatsbürgerschaft-Infos zu den Jugendlichen sind in den PGEN-Daten enthalten (seit 2000)!
-*** FAZIT 2: Angaben zur zweiten SBS ABER NICHT --> Müßten dazugespielt werden (wurde gemäß der Fragebögen seit einschließlich 2006 erfasst)
-
+*** FAZIT 2: Angaben zur zweiten SBS ABER NICHT (seit 2006 in den PAGE17-Daten)
+* HINWEIS: Wie erfolgt die Abfrage der SBS im Jugend-FB: 
+*** Haben Sie heute die deutsche SBS? --> Ja --> Haben Sie neben der deutschen eine zweite SBS --> Ja --> Welche --> Deutsche SBS seit Geburt oder später?
+*** Haben Sie heute die deutsche SBS? --> Ja --> Haben Sie neben der deutschen eine zweite SBS --> Nein --> Deutsche SBS seit Geburt oder später?
+*** Haben Sie heute die deutsche SBS? --> Nein --> Welche SBS haben Sie? --> Frage zur Aufenthaltserlaubnis
+* Folgende Vars werden gekeept:  d_nation2_j* und  nation2_j*
 
 
 
@@ -583,64 +590,81 @@ tab deu_seit2010  deu_seit_j26 // Tatsächlich!!! Die Infos sind immer für das 
 
 
 
-*** FAZIT: Info, ob deutsche SBS seit Geburt oder nicht, findet sich ebenfalls in den P-Daten, allerdings:
-*** a. Es gibt Abweichungen zwischen den PAGE17-Angaben und den bei P zugespielten Infos
+*** FAZIT: Info, ob deutsche SBS seit Geburt vorliegt oder nicht, findet sich ebenfalls in den P-Daten, allerdings:
+*** a. Es gibt Abweichungen zwischen den PAGE17-Angaben und den bei P enthaltenen Infos (2008)
 *** b. Infos, die seit dem FB 2006 erhoben werden, sind immer nur für das Folgejahr in P zugespielt (heißt: PAGE 17 2006 --> P 2007)
 *** KONSEQUENZEN: Abgleich noch notwendig, ob 2010er-Info zugespielt werden kann (Stimmen Angaben zur SBS (P) dann mit Infos, ob seit Geburt oder nicht (PAGE17) überein? Notwendig, da Abweichungen zwischen P und PAGE17 ...
 
 
 
+* Vornehmen der Anpassung
+*************************
+tab deu_seit2007  deu_seit_j23 // Tatsächlich!!! Die Infos sind immer für das Folgejahr enthalten, aber Abweichungen (mal wieder ...)!!!!!
+replace deu_seit2006=deu_seit2007 if erhebj==2006 & deu_seit2006==.
+tab deu_seit2006 deu_seit_j23
+tab deu_seit2006 deu_seit_j23, m 
+
+tab deu_seit2008  deu_seit_j24 // Tatsächlich!!! Die Infos sind immer für das Folgejahr enthalten, aber Abweichungen (mal wieder ...)!!!!!
+replace deu_seit2007=deu_seit2008 if erhebj==2007 & deu_seit2007==.
+tab deu_seit2007 deu_seit_j24
+tab deu_seit2007 deu_seit_j24, m
+
+tab deu_seit2009  deu_seit_j25 // Tatsächlich!!! Die Infos sind immer für das Folgejahr enthalten, aber Abweichungen (mal wieder ...)!!!!!
+replace deu_seit2008=deu_seit2009 if erhebj==2008 & deu_seit2008==.
+tab deu_seit2008 deu_seit_j25
+tab deu_seit2008 deu_seit_j25, m
+
+tab deu_seit2010  deu_seit_j26 // Tatsächlich!!! Die Infos sind immer für das Folgejahr enthalten, aber Abweichungen (mal wieder ...)!!!!!
+replace deu_seit2009=deu_seit2010 if erhebj==2009 & deu_seit2009==.
+tab deu_seit2009 deu_seit_j26
+tab deu_seit2009 deu_seit_j26, m
+
+tab deu_seit2010 if erhebj==2010
+replace deu_seit2010=deu_seit_j27 if erhebj==2010 & deu_seit2010==.
+
+
+
+* Bildung des End-Datensatzes
+*****************************
+keep persnr d_nation2_j* nation2_j* deu_seit2006 deu_seit2007 deu_seit2008 deu_seit2009 deu_seit2010
+
+save ${AVZ}melanie_jugendliche, replace
+
+
+
+
+
+* Nächster Schritt NOTWENDIG??? Hab es jetzt mal teilweise angepasst ...
 
 ******************************************************************************
 *** REKODIERUNG ZENTRALER INFOS UND ANGLEICHUNG AN ANDERE VARS ***************
 ******************************************************************************
 
-
-use ${AVZ}Melanie_jugendliche.dta, clear
-
 * HINWEIS: Nachfolgende Schritte müssten nur für die zweite SBS gemacht werden (relevante Variablen im jetzigen Datensatz: )
-* HINWEIS 2: Wie erfolgt die Abfrage im Jugend-FB: 
-*** Haben Sie heute die deutsche SBS? --> Ja --> Haben Sie neben der deutschen eine zweite SBS --> Ja --> Welche --> Deutsche SBS seit Geburt oder später?
-*** Haben Sie heute die deutsche SBS? --> Ja --> Haben Sie neben der deutschen eine zweite SBS --> Nein --> Deutsche SBS seit Geburt oder später?
-*** Haben Sie heute die deutsche SBS? --> Nein --> Welche SBS haben Sie? --> Frage zur Aufenthaltserlaubnis
-
-
-
-
 
 
 // Wo ist der Unterschied zwischen germnatbirth und staatsang? Beide aus SP116!
-* deu_seit_j -> germnatbirth (SP116, German nationality since: birth, later)
-soepren deu_seit_j23 deu_seit_j24 deu_seit_j25 deu_seit_j26 deu_seit_j27, newstub(germnatbirth) waves(23/27)
+* deu_seit* -> germnatbirth (SP116, German nationality since: birth, later)
+soepren deu_seit2006 deu_seit2007 deu_seit2008 deu_seit2009 deu_seit2010, newstub(germnatbirth) waves(23/27)
 
-* deu_seit_j -> staatsang (SP116 seit wann dt. staatsangehoerigkeit: geburt, erworben)
-* soepren deu_seit_j23 deu_seit_j24 deu_seit_j25 deu_seit_j26 deu_seit_j27, newstub(staatsang) waves(23/27)
-
-keep persnr hhnr nation* germnatbirth* biimgrp* corigin* germborn* immiyear* gebjahr*
-aorder
-order persnr 
-sort persnr
 
 * Select one answer from many years
-recode biimgrp* (-2 -1 = .)
-recode nation*  (-2 -1 = .)
+recode nation2_j*  (-2 -1 = .) // das müsste angepasst werden auf nation2
 recode germnatbirth* (-2 -1 = .)
 
-egen bii_count = anymatch(biimgrp*), values(1 2 3 4 5 6 7)  // Pruefe, ob Personen Angaben zu mehreren Jahren haben
-tab bii_count
-egen na_count = anymatch(nation*), values(2 3 4 5 6 12 13 21 75 118 119 165)
+
+egen na_count = anymatch(nation2_j*), values(2 3 4 5 6 12 13 21 75 118 119 165) // das müsste auch noch angepasst werden ...
 tab na_count
 egen ger_count = anymatch(germnatbirth*), values(1 2)
 tab ger_count
 
-egen biimgrp = rowmax(biimgrp*)
-egen nation  = rowmax(nation*)
+egen nation  = rowmax(nation2_j*)
 egen germnatbirth = rowmax(germnatbirth*)
 
-keep persnr hhnr biimgrp nation corigin germborn immiyear gebjahr germnatbirth
+keep persnr nation2_j germnatbirth
 
 save ${AVZ}melanie_jugendliche_recoded, replace
 
-*/
+
 
 
