@@ -398,6 +398,10 @@ label value biimgrp_j* biimgrp
 recode germborn_j* (1 2 = 1) (3 = 2)
 label value germborn_j* germborn
 
+recode deu_seit_j* (1 = 1) (2 = 0)
+label define deu_seit 0 "Eingebuergert" 1 "Von Geburt"
+label value deu_seit_j* deu_seit
+
 sort persnr
 
 save ${AVZ}melanie_jugendliche_recoded, replace

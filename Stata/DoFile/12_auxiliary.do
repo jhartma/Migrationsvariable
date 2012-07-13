@@ -118,16 +118,54 @@ rename agermborn_m germborn_m
 rename agermborn_f germborn_f
 
 ***** corigin *************************************************************************************************************
+preserve
+rename corigin_m acorigin_m
+rename corigin_f acorigin_f
+mvdecode corigin*, mv(-3 -2 -1)
+egen corigin_min = rowmin(corigin*)
+egen corigin_max = rowmax(corigin*)
+list persnr corigin* if corigin_max != corigin_min	// es gibt Abweichungen zwischen corigin und corigin_j*, nehme corigin aus ppfad
+restore
+
+egen corigin_max = rowmax(corigin_j*)
+replace corigin = corigin_max if corigin == .
+drop corigin_max corigin_j*
 
 ***** deu_seit ************************************************************************************************************
+preserve
+mvdecode deu_seit*, mv(-3 -2 -1)
+egen deu_seit_max = rowmax(deu_seit*)
+egen deu_seit_min = rowmin(deu_seit*)
+list persnr deu_seit* if deu_seit_max != deu_seit_min	// es gibt Abweichungen sowohl zwischen deu_seit und Rest als auch innerhalb deu_seit*
+restore
+
+egen deu_seit_min = rowmin(deu_seit*)
+replace deu_seit = deu_seit_min if deu_seit == . 	// nehme eingebuergert an, wenn Konflikte
+drop deu_seit2* deu_seit_j* deu_seit_min
 
 ***** gebjahr *************************************************************************************************************
+egen gebjahr_max = rowmax(gebjahr*)
+egen gebjahr_min = rowmin(gebjahr*)
+list persnr gebjahr* if gebjahr_max != gebjahr_min	// keine Abweichungen
+
+replace gebjahr = gebjahr_max if gebjahr == .
+drop gebjahr_j* gebjahr_max gebjahr_min
 
 ***** gebmoval ************************************************************************************************************
+* brauchen wir nicht, also raus
+drop gebmoval*
+
 
 ***** d_nation2 ***********************************************************************************************************
+preserve
+mvdecode d_nation2*, mv(-3 -2 -1)
+egen d_nation2_min = rowmin(d_nation2*)
+egen d_nation2_max = rowmax(d_nation2*)
+list persnr d_nation2* if d_nation2_min != d_nation2_max	// keine Abweichungen
+restore
 
-
+egen d_nation2 = rowmax(d_nation2*)
+drop d_nation2_j*
 
 aorder
 sort persnr

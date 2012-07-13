@@ -44,7 +44,7 @@ capture ssc install soepren
 *************************************************
 ***** 05_p.do ***********************************
 *************************************************
-* Seit wann dt. Staatsangehörigkeit?
+* Seit wann dt. StaatsangehÃ¶rigkeit?
 	
 cd ${dir}
 use sp.dta, clear
@@ -84,6 +84,10 @@ soepren shhnr thhnr uhhnr vhhnr whhnr xhhnr yhhnr zhhnr bahhnr, newstub(hhnr) wa
 
 ***Zahlen als Missings kodieren***
 * quietly: mvdecode _all, mv(-1=.k\-2=.t\-3=.v) // deprecated 14.12.11
+
+recode deu_seit* (1 = 1) (2 = 0)
+label define deu_seit 0 "Eingebuergert" 1 "Von Geburt"
+label value deu_seit deu_seit
 
 ***Reduzierten Datensatz speichern***
 isid persnr // persnr ist eindeutige Identifikationsvariable
