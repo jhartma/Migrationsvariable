@@ -236,56 +236,56 @@ use ${AVZ}miggen_helpers.dta, clear
 
 *1,5. Generation (vor dem 7. Lebensjahr zugewandert)
 ****************************************************
-	replace mig_gen_c = 2 if germborn==2 & migage <=6 & migage != .
+	replace mig_gen_c = 2 if germborn==2 & migage <=6 
 
 
 *2. Generation: beide Elternteile zugewandert (ZP in Deutschland geboren oder Missing)
 **************************************************************************************
-	replace mig_gen_c = 3 if (germborn==1 | germborn<=0) &                             // Befragter ///
-	                         (germborn_f==2) & (germborn_m==2)                         // Eltern, . nicht kleiner 0 !!!
+	replace mig_gen_c = 3 if germborn!=2 & ///
+	germborn_f==2 & germborn_m==2                         
 
 
 *2,5. Generation: ein Elternteil zugewandert, anderes 2. oder 2,5. (ZP in Deutschland geboren oder Missing)
 ***********************************************************************************************************
-	replace mig_gen_c = 4 if (germborn==1 | germborn<=0) & ///                
-	((((germborn_f==1 | germborn_f<=0) & (germborn_f_m==2 | germborn_f_f==2)) & germborn_m==2) | ///     
-	(germborn_f==2 & ((germborn_m==1 | germborn_m<=0) & (germborn_m_m==2 | germborn_m_f==2)))) 
+	replace mig_gen_c = 4 if germborn!=2 & ///                
+	(((germborn_f!=2 & (germborn_f_m==2 | germborn_f_f==2)) & germborn_m==2) | ///     
+	(germborn_f==2 & (germborn_m!=2 & (germborn_m_m==2 | germborn_m_f==2)))) 
 
 
 *2,5. Generation: ein Elternteil zugewandert, anderes deutsch oder Missing bei den Eltern (ZP in Deutschland geboren oder Missing)
 **********************************************************************************************************************************
-	replace mig_gen_c = 5 if (germborn==1 | germborn<=0) & ///
-	(((germborn_f==1 | germborn_f<=0) & ((germborn_f_m<=0 | germborn_f_m==1) & (germborn_f_f<=0 | germborn_f_f==1)) & germborn_m==2) ///
-	| (germborn_f==2 & (germborn_m==1 | germborn_m<=0) & ((germborn_m_f==1 | germborn_m_f<=0) & (germborn_m_m==1 | germborn_m_m<=0))))
+	replace mig_gen_c = 5 if germborn!=2 & ///
+	((germborn_f!=2 & (germborn_f_m!=2 & germborn_f_f!=2) & germborn_m==2) ///
+	| (germborn_f==2 & germborn_m!=2 & germborn_m_f!=2 & germborn_m_m!=2))
 
 
 *3. Generation: vier Grosseltern zugewandert
 *******************************************
-	replace mig_gen_c = 6 if (germborn==1 | germborn<=0) & (germborn_f==1 | germborn_f<=0) & (germborn_m==1 | germborn_m<=0) & ///
+	replace mig_gen_c = 6 if germborn!=2 & germborn_f!=2 & germborn_m!=2 & ///
 	sum_germborn_gp==4
 
 
 *3,25. Generation: drei Grosseltern zugewandert
 **********************************************
-	replace mig_gen_c = 7 if (germborn==1 | germborn<=0) & (germborn_f==1 | germborn_f<=0) & (germborn_m==1 | germborn_m<=0) & ///
+	replace mig_gen_c = 7 if germborn!=2 & germborn_f!=2 & germborn_m!=2 & ///
 	sum_germborn_gp==3
 
 
 *3,5. Generation: zwei Grosseltern zugewandert
 *********************************************
-	replace mig_gen_c = 8 if (germborn==1 | germborn<=0) & (germborn_f==1 | germborn_f<=0) & (germborn_m==1 | germborn_m<=0) & ///
+	replace mig_gen_c = 8 if germborn!=2 & germborn_f!=2 & germborn_m!=2 & ///
 	sum_germborn_gp==2
 
 
 *3,75. Generation: ein Grosselternteil zugewandert
 *************************************************
-	replace mig_gen_c = 9 if (germborn==1 | germborn<=0) & (germborn_f==1 | germborn_f<=0) & (germborn_m==1 | germborn_m<=0) & ///
+	replace mig_gen_c = 9 if germborn!=2 & germborn_f!=2 & germborn_m!=2 & ///
 	sum_germborn_gp==1
 
 
 *kein Migrationshintergrund (auch diejenigen, die im Ausland geboren sind, aber deren beiden Eltern in Deutschland geboren sind)
 *******************************************************************************************************************************
-	replace mig_gen_c = 0 if (germborn==1 | germborn<=0) & (germborn_f==1 | germborn_f<=0) & (germborn_m==1 | germborn_m<=0) & ///
+	replace mig_gen_c = 0 if germborn!=2 & germborn_f!=2 & germborn_m!=2 & ///
 	(sum_germborn_gp==0 | sum_germborn_gp_mis==4)
 
 * Beruecksichtigung auch derjenigen, die im Ausland geboren sind, aber deren beiden Eltern in Deutschland geboren sind
@@ -295,7 +295,7 @@ use ${AVZ}miggen_helpers.dta, clear
 
 *Rausfiltern von Faellen, die ueberall Missings haben
 ***************************************************
-	replace mig_gen_c = . if germborn<=0 & (germborn_f<=0 & germborn_m<=0) & sum_germborn_gp_mis==4
+	replace mig_gen_c = . if germborn==. & germborn_f==. & germborn_m==. & sum_germborn_gp_mis==4
 
 
 
@@ -329,9 +329,9 @@ use ${AVZ}miggen_helpers.dta, clear
 * Wenn ZP und Eltern in Deutschland und Grosselternteil(e) Missing --> -4 und aufwaerts
 
 	gen mig_gen_c_hv = .
-	replace mig_gen_c_hv = -1 if germborn <=0
-	replace mig_gen_c_hv = -2 if (germborn==1 | germborn==2) & ((germborn_f>=0 & germborn_m<=0) | (germborn_f<=0 & germborn_m>=0))
-	replace mig_gen_c_hv = -3 if (germborn==1 | germborn==2) & (germborn_f<=0 & germborn_m<=0)
+	replace mig_gen_c_hv = -1 if germborn ==.
+	replace mig_gen_c_hv = -2 if (germborn==1 | germborn==2) & ((germborn_f==. & germborn_m!=.) | (germborn_f!=. & germborn_m==.))
+	replace mig_gen_c_hv = -3 if (germborn==1 | germborn==2) & (germborn_f==. & germborn_m==.)
 	replace mig_gen_c_hv = -4 if germborn==1 & germborn_f==1 & germborn_m==1 & sum_germborn_gp_mis==1
 	replace mig_gen_c_hv = -5 if germborn==1 & germborn_f==1 & germborn_m==1 & sum_germborn_gp_mis==2
 	replace mig_gen_c_hv = -6 if germborn==1 & germborn_f==1 & germborn_m==1 & sum_germborn_gp_mis==3
