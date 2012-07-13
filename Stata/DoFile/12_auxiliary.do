@@ -7,7 +7,7 @@
 ******************************
 
 display "$S_DATE $S_TIME"
-clear all                                                                        //Arbeitsspeicher reinigen
+clear all                                                                        // Arbeitsspeicher reinigen
 macro drop _all                                                                  // alle Makros loeschen
 version 10.1                                                                     // Version einlesen
 capture log close                                                                // falls Log-Files offen sind schliessen, ansonsten Fehlermeldung unterdruecken
@@ -40,7 +40,7 @@ capture ssc install soepren
 *************************************************
 ***** 12_auxiliary.do ***************************
 *************************************************
-***** von Joerg *************************
+***** von Joerg *********************************
 
 cd ${AVZ}
 use miggen_merged.dta, clear
@@ -78,7 +78,7 @@ egen nation_max = rowmax(nation*)
 list persnr nation* if nation_min != nation_max // viele Unterschiede zwischen den Jahren
 restore
 
-egen anation = rowmax(nation*)		// nehme die groesste Nationenzahl, um maximale Migrantenzahlen zu bekommen
+egen anation = rowmax(nation*)			// nehme die groesste Nationenzahl, um maximale Migrantenzahlen zu bekommen
 label value anation nation10
 drop nation*
 rename anation nation
@@ -173,6 +173,11 @@ sort persnr
 ***************************************************************************************************************************
 ***** 2.1.2 Ordne Eltern und Grosseltern zu Personen zu *******************************************************************
 ***************************************************************************************************************************
+rename corigin_m corigin_m2
+rename corigin_f corigin_f2
+rename germborn_m germborn_m2
+rename germborn_f germborn_f2
+
 sort hhnr persnr
 forvalues x=1/36 {
 	capture gen corigin_m=.								// corigin_m
@@ -289,46 +294,26 @@ forvalues x=1/36 {
 	replace nation_m_m=nation[_n-`x'] if gm_m==persnr[_n-`x']
 	replace nation_m_m=nation[_n+`x'] if gm_m==persnr[_n+`x']
 
-	capture gen BIIMGRP_m=.								// biimgrp_m
-	replace BIIMGRP_m=biimgrp[_n-`x'] if m_persnr==persnr[_n-`x'] 
-	replace BIIMGRP_m=biimgrp[_n+`x'] if m_persnr==persnr[_n+`x']
-	capture gen BIIMGRP_f=.								// biimgrp_f
-	replace BIIMGRP_f=biimgrp[_n-`x'] if v_persnr==persnr[_n-`x']
-	replace BIIMGRP_f=biimgrp[_n+`x'] if v_persnr==persnr[_n+`x']
-	capture gen BIIMGRP_f_f=.							// biimgrp_f_f
-	replace BIIMGRP_f_f=biimgrp[_n-`x'] if gv_v==persnr[_n-`x']
-	replace BIIMGRP_f_f=biimgrp[_n+`x'] if gv_v==persnr[_n+`x']
-	capture gen BIIMGRP_m_f=.							// biimgrp_m_f
-	replace BIIMGRP_m_f=biimgrp[_n-`x'] if gv_m==persnr[_n-`x']
-	replace BIIMGRP_m_f=biimgrp[_n+`x'] if gv_m==persnr[_n+`x']
-	capture gen BIIMGRP_f_m=.							// biimgrp_f_m
-	replace BIIMGRP_f_m=biimgrp[_n-`x'] if gm_v==persnr[_n-`x']
-	replace BIIMGRP_f_m=biimgrp[_n+`x'] if gm_v==persnr[_n+`x']
-	capture gen BIIMGRP_m_m=.							// biimgrp_m_m
-	replace BIIMGRP_m_m=biimgrp[_n-`x'] if gm_m==persnr[_n-`x']
-	replace BIIMGRP_m_m=biimgrp[_n+`x'] if gm_m==persnr[_n+`x']
-
 	capture gen deu_seit_m=.							// deu_seit_m
-	replace deu_seit_m=germnatbirth[_n-`x'] if m_persnr==persnr[_n-`x'] 
-	replace deu_seit_m=germnatbirth[_n+`x'] if m_persnr==persnr[_n+`x']
+	replace deu_seit_m=deu_seit[_n-`x'] if m_persnr==persnr[_n-`x'] 
+	replace deu_seit_m=deu_seit[_n+`x'] if m_persnr==persnr[_n+`x']
 	capture gen deu_seit_f=.							// deu_seit_f
-	replace deu_seit_f=germnatbirth[_n-`x'] if v_persnr==persnr[_n-`x']
-	replace deu_seit_f=germnatbirth[_n+`x'] if v_persnr==persnr[_n+`x']
+	replace deu_seit_f=deu_seit[_n-`x'] if v_persnr==persnr[_n-`x']
+	replace deu_seit_f=deu_seit[_n+`x'] if v_persnr==persnr[_n+`x']
 	capture gen deu_seit_f_f=.							// deu_seit_f_f
-	replace deu_seit_f_f=germnatbirth[_n-`x'] if gv_v==persnr[_n-`x']
-	replace deu_seit_f_f=germnatbirth[_n+`x'] if gv_v==persnr[_n+`x']
+	replace deu_seit_f_f=deu_seit[_n-`x'] if gv_v==persnr[_n-`x']
+	replace deu_seit_f_f=deu_seit[_n+`x'] if gv_v==persnr[_n+`x']
 	capture gen deu_seit_m_f=.							// deu_seit_m_f
-	replace deu_seit_m_f=germnatbirth[_n-`x'] if gv_m==persnr[_n-`x']
-	replace deu_seit_m_f=germnatbirth[_n+`x'] if gv_m==persnr[_n+`x']
+	replace deu_seit_m_f=deu_seit[_n-`x'] if gv_m==persnr[_n-`x']
+	replace deu_seit_m_f=deu_seit[_n+`x'] if gv_m==persnr[_n+`x']
 	capture gen deu_seit_f_m=.							// deu_seit_f_m
-	replace deu_seit_f_m=germnatbirth[_n-`x'] if gm_v==persnr[_n-`x']
-	replace deu_seit_f_m=germnatbirth[_n+`x'] if gm_v==persnr[_n+`x']
+	replace deu_seit_f_m=deu_seit[_n-`x'] if gm_v==persnr[_n-`x']
+	replace deu_seit_f_m=deu_seit[_n+`x'] if gm_v==persnr[_n+`x']
 	capture gen deu_seit_m_m=.							// deu_seit_m_m
-	replace deu_seit_m_m=germnatbirth[_n-`x'] if gm_m==persnr[_n-`x']
-	replace deu_seit_m_m=germnatbirth[_n+`x'] if gm_m==persnr[_n+`x']
+	replace deu_seit_m_m=deu_seit[_n-`x'] if gm_m==persnr[_n-`x']
+	replace deu_seit_m_m=deu_seit[_n+`x'] if gm_m==persnr[_n+`x']
 }
 
-gen deu_seit_zp = germnatbirth
 compress
 
 save ${AVZ}miggen.dta, replace

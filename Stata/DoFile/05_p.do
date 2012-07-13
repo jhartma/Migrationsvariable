@@ -87,7 +87,7 @@ soepren shhnr thhnr uhhnr vhhnr whhnr xhhnr yhhnr zhhnr bahhnr, newstub(hhnr) wa
 
 recode deu_seit* (1 = 1) (2 = 0)
 label define deu_seit 0 "Eingebuergert" 1 "Von Geburt"
-label value deu_seit deu_seit
+label value deu_seit* deu_seit
 
 ***Reduzierten Datensatz speichern***
 isid persnr // persnr ist eindeutige Identifikationsvariable
