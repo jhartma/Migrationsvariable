@@ -649,7 +649,7 @@ soepren deu_seit2006 deu_seit2007 deu_seit2008 deu_seit2009 deu_seit2010, newstu
 
 
 * Select one answer from many years
-recode nation2_j*  (-2 -1 = .) // das müsste angepasst werden auf nation2
+/* recode nation2_j*  (-2 -1 = .) // das müsste angepasst werden auf nation2
 recode germnatbirth* (-2 -1 = .)
 
 
@@ -661,7 +661,9 @@ tab ger_count
 egen nation  = rowmax(nation2_j*)
 egen germnatbirth = rowmax(germnatbirth*)
 
-keep persnr nation2_j germnatbirth
+*/
+keep persnr nation2_j* germnatbirth2*
+sort persnr
 
 save ${AVZ}melanie_jugendliche_recoded, replace
 

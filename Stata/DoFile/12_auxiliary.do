@@ -70,6 +70,18 @@ forvalues x=1984/2010 {
 drop biimgrp*
 rename abiimgrp biimgrp
 
+***** germnatbirth ********************************************************************************************************	// Warum? haben doch deu_seit?
+preserve
+mvdecode nation*, mv(-3 -2 -1)
+egen germnatbirth_min = rowmin(germnatbirth*)
+egen germnatbirth_max = rowmax(germnatbirth*)
+list persnr germnatbirth* if germnatbirth_min != germnatbirth_max // viele Unterschiede zwischen den Jahren
+restore
+
+egen agermnatbirth = rowmax(germnatbirth*)			// nehme die groesste Zahl, um maximale Migrantenzahlen zu bekommen
+drop germnatbirth2*
+rename agermnatbirth germnatbirth
+
 ***** nation **************************************************************************************************************
 preserve
 mvdecode nation*, mv(-3 -2 -1)
@@ -97,7 +109,7 @@ drop biresper*
 rename abiresper biresper
 
 ***** immiyear ************************************************************************************************************
-egen immiyear_min = rowmin(immiyear*)
+/*egen immiyear_min = rowmin(immiyear*)
 egen immiyear_max = rowmax(immiyear*)
 list persnr immiyear* if immiyear_min != immiyear_max	// es gibt Abweichungen, nehme immiyear aus ppfad
 
@@ -130,7 +142,7 @@ restore
 egen corigin_max = rowmax(corigin_j*)
 replace corigin = corigin_max if corigin == .
 drop corigin_max corigin_j*
-
+*/
 ***** deu_seit ************************************************************************************************************
 preserve
 mvdecode deu_seit*, mv(-3 -2 -1)
@@ -141,23 +153,22 @@ restore
 
 egen deu_seit_min = rowmin(deu_seit*)
 replace deu_seit = deu_seit_min if deu_seit == . 	// nehme eingebuergert an, wenn Konflikte
-drop deu_seit2* deu_seit_j* deu_seit_min
+drop deu_seit2* deu_seit_min
 
 ***** gebjahr *************************************************************************************************************
-egen gebjahr_max = rowmax(gebjahr*)
+/*egen gebjahr_max = rowmax(gebjahr*)
 egen gebjahr_min = rowmin(gebjahr*)
 list persnr gebjahr* if gebjahr_max != gebjahr_min	// keine Abweichungen
 
 replace gebjahr = gebjahr_max if gebjahr == .
-drop gebjahr_j* gebjahr_max gebjahr_min
-
+drop gebjahr_max gebjahr_min
+*/
 ***** gebmoval ************************************************************************************************************
 * brauchen wir nicht, also raus
 drop gebmoval*
 
-
 ***** d_nation2 ***********************************************************************************************************
-preserve
+/*preserve
 mvdecode d_nation2*, mv(-3 -2 -1)
 egen d_nation2_min = rowmin(d_nation2*)
 egen d_nation2_max = rowmax(d_nation2*)
@@ -166,7 +177,7 @@ restore
 
 egen d_nation2 = rowmax(d_nation2*)
 drop d_nation2_j*
-
+*/
 aorder
 sort persnr
 

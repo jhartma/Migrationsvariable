@@ -75,7 +75,7 @@ do ${AVZ}DoFile/11_merge.do						// Output: miggen_merged.dta	|| persnr, sex, bi
 *****************************************
 ***** 2. Bildung von Hilfsvariablen *****
 *****************************************
-do ${AVZ}DoFile/12_auxiliary.do
+do ${AVZ}DoFile/12_auxiliary.do						// Output: miggen_helpers.dta
 
 * deu_seit von Jugendlichen vervollstaendlichen mit Melanies Daten, melanie_jugendliche
 * Melanies Elterndatensatz aus den Jugendlichen ranspielen
