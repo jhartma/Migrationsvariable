@@ -338,7 +338,7 @@ tab biresper_j27, m
 
 
 **************************************************************************************************
-*** 2. Prüfen, wie Nation-Infos verteilt sind - gekürzter Masterdatensatz: Melanie_jugendliche.dta
+*** 2. Pruefen, wie Nation-Infos verteilt sind - gekuerzter Masterdatensatz: Melanie_jugendliche.dta
 **************************************************************************************************
 
 
@@ -383,8 +383,8 @@ save ${AVZ}pgen_mig_j.dta, replace
 cd ${AVZ}
 use melanie_jugendliche.dta, clear
 
-merge m:1 persnr using ${AVZ}pgen_mig_j.dta // für 5 Fälle keine Infos im Using 
-tab erhebj _merge // Diese 5 Fälle verteilen sich auf das Erhebungsjahr 2004 und 2005 --> Wie ist das möglich?
+merge m:1 persnr using ${AVZ}pgen_mig_j.dta // fuer 5 Faelle keine Infos im Using 
+tab erhebj _merge // Diese 5 Faelle verteilen sich auf das Erhebungsjahr 2004 und 2005 --> Wie ist das moeglich?
 drop if _merge==2
 drop _merge
 save ${AVZ}melanie_jugendliche.dta, replace
@@ -649,7 +649,7 @@ soepren deu_seit2006 deu_seit2007 deu_seit2008 deu_seit2009 deu_seit2010, newstu
 
 
 * Select one answer from many years
-/* recode nation2_j*  (-2 -1 = .) // das müsste angepasst werden auf nation2
+/* recode nation2_j*  (-2 -1 = .) // das muesste angepasst werden auf nation2
 recode germnatbirth* (-2 -1 = .)
 
 

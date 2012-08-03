@@ -70,19 +70,19 @@ forvalues x=1984/2010 {
 drop biimgrp*
 rename abiimgrp biimgrp
 
-***** germnatbirth ********************************************************************************************************	// Warum? haben doch deu_seit?
+***** germnatbirth ********************************************************************************************************	// Warum? haben doch deu_seit? -> germnatbirth aus page17, deu_seit aus p -> anpassen in 1 Variable
 preserve
-mvdecode nation*, mv(-3 -2 -1)
+mvdecode germnatbirth*, mv(-3 -2 -1)
 egen germnatbirth_min = rowmin(germnatbirth*)
 egen germnatbirth_max = rowmax(germnatbirth*)
-list persnr germnatbirth* if germnatbirth_min != germnatbirth_max // viele Unterschiede zwischen den Jahren
+list persnr germnatbirth* if germnatbirth_min != germnatbirth_max 	// viele Unterschiede zwischen den Jahren
 restore
 
-egen agermnatbirth = rowmax(germnatbirth*)			// nehme die groesste Zahl, um maximale Migrantenzahlen zu bekommen
+egen agermnatbirth = rowmax(germnatbirth*)				// nehme die groesste Zahl, um maximale Migrantenzahlen zu bekommen
 drop germnatbirth2*
 rename agermnatbirth germnatbirth
 
-***** nation **************************************************************************************************************
+***** nation **************************************************************************************************************	// ToDo: auf nation2 aufpassen!
 preserve
 mvdecode nation*, mv(-3 -2 -1)
 egen nation_min = rowmin(nation*)
@@ -94,6 +94,7 @@ egen anation = rowmax(nation*)			// nehme die groesste Nationenzahl, um maximale
 label value anation nation10
 drop nation*
 rename anation nation
+
 
 ***** biresper ************************************************************************************************************
 preserve

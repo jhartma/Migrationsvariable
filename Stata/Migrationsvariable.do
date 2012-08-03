@@ -147,8 +147,6 @@ use ${AVZ}miggen_helpers.dta, clear
 	lab var sum_germborn_gp_mis "Anzahl Missings bei Geburtsland Grosseltern"
 	tab sum_germborn_gp_mis
 
-
-
 *** Bildung Summenscore: Anzahl Grosseltern mit auslaendischer SBS "sum_r_nation_gp"
 
 *1. Schritt Rekodierung >=2->1, 1->0
@@ -314,6 +312,14 @@ use ${AVZ}miggen_helpers.dta, clear
 
 *XXX FEHLEND: Plausibilaetschecks XXX
 * Einzelfaelle aus der Kreuztabelle anschauen
+/* FEHLER:
+	- d_r_nation* sind fehlerhaft: ueber 70.000 mit einem Grosselternteil im Ausland
+	- persnr 604, 22901: migback indirekt, mig_gen_c ohne Migrationhintergrund, allerdings keine Anzeichen auf Migrationshintergrund ausser keiner dt. SBS
+	- persnr 8603, 8604, 8605, 8606: mig_gen_c kein Migrationshintergrund, aber Mutter eingebuergert
+	- persnr 7203, 7204: mig_gen_c kein Migrationshintergrund, migback indirekter Migrationshintergrund,  Mutter Schweizer Nationalitaet
+
+=> Abweichungen zwischen mig_gen_c und migback resultieren aus fehlendem Einbezug der Staatsbuergerschaft
+*/
 
 ***************************************************************************************************
 *** 3.1.1.3 mig_gen_c_hv **************************************************************************
@@ -336,9 +342,9 @@ use ${AVZ}miggen_helpers.dta, clear
 
 	lab var mig_gen_c_hv "Hilfsvariable Generationenstatus"
 	lab def Hilfsvariable_Generationenstatus -1 "Informationen fuer Person selbst nicht bekannt" ///
- 	-2 "Information fuer ein Elternteil nicht bekannt" ///
- 	-3 "Information fuer beide Elternteile nicht bekannt" ///
- 	-4 "Information fuer ein Grosselternteil nicht bekannt" ///
+ 	-2 "Information fuer ein Elternteil nicht bekannt"        ///
+ 	-3 "Information fuer beide Elternteile nicht bekannt"     ///
+ 	-4 "Information fuer ein Grosselternteil nicht bekannt"   ///
  	-5 "Information fuer zwei Grosselternteile nicht bekannt" ///
  	-6 "Information fuer drei Grosselternteile nicht bekannt" ///
  	-7 "Information fuer vier Grosselternteile nicht bekannt" 
@@ -351,10 +357,6 @@ use ${AVZ}miggen_helpers.dta, clear
 *****************************
 sort persnr 
 save ${AVZ}miggen_mig_gen_c.dta, replace
-
-*XXX FEHLEND: Plausibilaetschecks XXX
-
-
 
 ********************************************************************************************************************
 *** 3.1.2 Generationenstatus: Nutzung weiterer Informationen (Staatsangehoerigkeit; Einreisestatus; etc.)***********
@@ -379,13 +381,12 @@ use ${AVZ}miggen_mig_gen_c.dta, clear
 	clonevar mig_gen_cn = mig_gen_c
 
 ******************************************************
-*** Wenn der Befragte Missing beim Geburtsland hat ...
+*** Wenn der Befragte Missing beim Geburtsland hat ...			// ToDo: Missings!!!
 ******************************************************
 
 * ... und eine AUSLAENDISCHE Nationalitaet vorliegt und Angabe beim Einreisestatus: 1 oder 3 --> Kein Migrationshintergrund
-	replace mig_gen_cn=0 if mig_gen_c_hv==-1 & r_nation_zp>=2 ///
-	& (biimgrp==1 | biimgrp==3)
-
+	replace mig_gen_cn=0 if mig_gen_c_hv==-1 & r_nation_zp>=2 & (biimgrp==1 | biimgrp==3)	// hier sind auch Missings drin bei >= 2
+	
 * ... und eine AUSLAENDISCHE Nationalitaet vorliegt und Einreisestatus !=1 und !=3 sowie zugewandert nach dem 6. LJ oder Missing--> 1. Generation
 *** HINWEIS: Es wird jetzt darauf verzichtet ueber Living zu gehen, wenn Einreisealter Missing --> i.O.? Es wuerde sonst zu komplex werden und ich sehe nicht wirklich einen Mehrwert
 	replace mig_gen_cn=1 if mig_gen_c_hv==-1 & r_nation_zp>=2 ///
@@ -428,8 +429,6 @@ use ${AVZ}miggen_mig_gen_c.dta, clear
 *********************************************************************************************************************************************************************
 *** Wenn der Befragte in Deutschland geboren ist ODER seit der Geburt deutsche SBS ODER Missing bei beiden hat und bei mindestens einem Elternteil Missing vorliegt
 *********************************************************************************************************************************************************************
-
-* !!!@MO: ab hier komme ich nicht mehr weiter. Was bedeutet Deut_seit==1? Es steht auch mig_gen_hv, heisst es nicht eigentlich mig_gen_c_hv?
 
 * DEUTSCHE Nationalitaet seit der Geburt hat und beide Eltern im Ausland geboren sind --> 2. Generation
 	replace mig_gen_cn=3 if mig_gen_c_hv==-1 & r_nation_zp==1 & deu_seit_zp==1 & (germborn_f==2) & (germborn_m==2)
