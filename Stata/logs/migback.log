@@ -1,0 +1,1129 @@
+------------------------------------------------------------------------------------------
+       log:  /home/laodizea/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/logs
+> /migback.log
+  log type:  text
+ opened on:   3 Mar 2011, 11:39:25
+
+. 
+. 
+. **********************
+. ***** Gliederung *****
+. **********************
+. 
+. 
+. /*      
+>         1.      Zusammenfuehrung der benoetigten Datensaetze
+>                 
+>                 1.1     ppfad.dta - Output: ppfad_mig.dta 
+>                 1.2     $pgen.dta - Output: pgen_mig.dta 
+>                 1.3     $kind.dta - Output: kind_mig.dta 
+>                 1.4     hbrutt$.dta - Output: hbrutt_mig.dta 
+>                 1.5     $p.dta - Output: p_mig.dta 
+>                 1.6     bioimmig.dta - Output: bioimmig_mig.dta 
+>                 1.7     bioparen.dta - Output: bioparen_mig.dta 
+>                 1.8     Elternzeiger (von Sabine Keller) - Output: elternzeiger.dta 
+>                         
+>                         1.8.1 Eltern
+>                         1.8.2 Grosseltern
+>                         1.8.3 Zusammenfüehrung von Eltern und Grosseltern 
+>                 
+>                 1.9     Mergen aller Datensaetze - Output: migra.dta    
+> 
+>         2.      Bildung von Hilfsvariablen 
+>                 
+>                 2.1     Hilfsvariablen fuer die Eltern
+>                 2.2     Hilfsvariablen fuer die Grosseltern     
+> */
+. 
+. 
+. 
+. 
+. 
+. ****************************************************************************************
+> *******
+. *****                                   ANMERKUNGEN                                     
+>                                 *****
+. *****                                                                                   
+>                         *****
+. *****                                ZUERST LESEN!!!                                    
+>                         *****
+. *****                                                                                   
+>                         *****
+. ***** Bei elternzeiger.dta wurden nicht die Datensaetze $PBRUTTO rangespielt.           
+> *****
+. ***** Diesen Schritt wird Sabine noch machen.                                           
+>                 *****
+. *****                                                                                   
+>                         *****
+. ***** Die Hilfsvariablen sind in Arbeit!                                                
+>                         *****
+. *****                                                                                   
+>                         *****
+. ****************************************************************************************
+> *******
+. 
+. 
+. 
+. 
+. 
+. ***********************************************************
+. ***** 1. Zusammenfuehrung der benoetigten Datensaetze *****
+. ***********************************************************
+. 
+. 
+. *************************************************
+. ***** 1.1 ppfad.dta - Output: ppfad_mig.dta ***** 
+. *************************************************
+. 
+. 
+. use ${dir}ppfad.dta, clear
+(PPFAD: 09/10/10 10:14:13-634 DB09)
+
+. 
+. ***Beibehaltung ausgewaehlter Variablen***
+. keep hhnr persnr sex gebjahr ?hhnr immiyear todjahr todinfo germborn corigin loc1989 mig
+> back
+
+. 
+. ***Zahlen als Missings kodieren***
+. mvdecode hhnr persnr sex gebjahr ?hhnr todjahr todinfo immiyear germborn corigin loc1989
+>  migback, mv (-1 -2 -3)
+         sex: 6 missing values generated
+     gebjahr: 943 missing values generated
+       ahhnr: 49937 missing values generated
+       bhhnr: 49452 missing values generated
+       chhnr: 50335 missing values generated
+       dhhnr: 51244 missing values generated
+       ehhnr: 51626 missing values generated
+       fhhnr: 52220 missing values generated
+       ghhnr: 46558 missing values generated
+       hhhnr: 46507 missing values generated
+       ihhnr: 46666 missing values generated
+       jhhnr: 46973 missing values generated
+       khhnr: 46742 missing values generated
+       lhhnr: 46262 missing values generated
+       mhhnr: 46692 missing values generated
+       nhhnr: 47158 missing values generated
+       ohhnr: 45060 missing values generated
+       phhnr: 45607 missing values generated
+       qhhnr: 31914 missing values generated
+       rhhnr: 32121 missing values generated
+       shhnr: 31053 missing values generated
+       thhnr: 33279 missing values generated
+       uhhnr: 34681 missing values generated
+       vhhnr: 35891 missing values generated
+       whhnr: 33479 missing values generated
+       xhhnr: 35277 missing values generated
+       yhhnr: 37248 missing values generated
+       zhhnr: 35582 missing values generated
+     todjahr: 61285 missing values generated
+     todinfo: 61254 missing values generated
+    immiyear: 59266 missing values generated
+    germborn: 6182 missing values generated
+     corigin: 6253 missing values generated
+     loc1989: 20414 missing values generated
+     migback: 7366 missing values generated
+
+. 
+. ***Reduzierten Datensatz speichern***
+. isid persnr // persnr ist eindeutige Identifikationsvariable
+
+. sort persnr
+
+. save ${AVZ}ppfad_mig.dta, replace
+file /home/laodizea/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/ppfad_mig.dt
+> a saved
+
+. 
+. 
+. ************************************************
+. ***** 1.2 $pgen.dta - Output: pgen_mig.dta ***** 
+. ************************************************
+. 
+. 
+. cd ${dir}
+/home/laodizea/Documents/UniGoettingen/SOEP
+
+. use apgen.dta, clear
+(APGEN: 09/10/10 10:14:13-634 DB09)
+
+. 
+. ***Beibehaltung ausgewaehlter Variablen***
+. keep persnr ?hhnr nation* partz* partnr*
+
+. sort persnr
+
+. 
+. ***Datensatzzusammenfuehrung und Beibehaltung ausgewaehlter Variablen***
+. foreach file in bpgen.dta cpgen.dta dpgen.dta epgen.dta fpgen.dta gpgen.dta hpgen.dta ip
+> gen.dta jpgen.dta kpgen.dta lpgen.dta mpgen.dta npgen.dta opgen.dta ppgen.dta qpgen.dta 
+> rpgen.dta spgen.dta tpgen.dta upgen.dta vpgen.dta wpgen.dta xpgen.dta ypgen.dta zpgen.dt
+> a{
+  2.         merge persnr using "`file'", sort keep (?hhnr nation* partz* partnr*)
+  3.         drop _merge
+  4.         quietly: compress
+  5. }
+(BPGEN: 09/10/10 10:14:13-634 DB09)
+(CPGEN: 09/10/10 10:14:13-634 DB09)
+(DPGEN: 09/10/10 10:14:13-634 DB09)
+(EPGEN: 09/10/10 10:14:13-634 DB09)
+(FPGEN: 09/10/10 10:14:13-634 DB09)
+(GPGEN: 09/10/10 10:14:13-634 DB09)
+(HPGEN: 09/10/10 10:14:13-634 DB09)
+(IPGEN: 09/10/10 10:14:13-634 DB09)
+(JPGEN: 09/10/10 10:14:13-634 DB09)
+(KPGEN: 09/10/10 10:14:13-634 DB09)
+(LPGEN: 09/10/10 10:14:13-634 DB09)
+(MPGEN: 09/10/10 10:14:13-634 DB09)
+(NPGEN: 09/10/10 10:14:13-634 DB09)
+(OPGEN: 09/10/10 10:14:13-634 DB09)
+(PPGEN: 09/10/10 10:14:13-634 DB09)
+(QPGEN: 09/10/10 10:14:13-634 DB09)
+(RPGEN: 09/10/10 10:14:13-634 DB09)
+(SPGEN: 09/10/10 10:14:13-634 DB09)
+(TPGEN: 09/10/10 10:14:13-634 DB09)
+(UPGEN: 09/10/10 10:14:13-634 DB09)
+(VPGEN: 09/10/10 10:14:13-634 DB09)
+(WPGEN: 09/10/10 10:14:13-634 DB09)
+(XPGEN: 09/10/10 10:14:13-634 DB09)
+(YPGEN: 09/10/10 10:14:13-634 DB09)
+(ZPGEN: 09/10/10 10:14:13-634 DB09)
+
+. 
+. ***Umbennenung ausgewaehlter Variablen***
+. soepren nation84 nation85 nation86 nation87 nation88 nation89 nation90 nation91 nation92
+>  nation93 nation94 nation95 nation96 nation97 nation98 nation99 nation00 nation01 nation
+> 02 nation03 nation04 nation05 nation06 nation07 nation08 nation09, newstub(nation) waves
+>  (1/26)  
+
+. soepren partz84 partz85 partz86 partz87 partz88 partz89 partz90 partz91 partz92 partz93 
+> partz94 partz95 partz96 partz97 partz98 partz99 partz00 partz01 partz02 partz03 partz04 
+> partz05 partz06 partz07 partz08 partz09, newstub(partnerzeig) waves (1/26)  
+
+. soepren partnr84 partnr85 partnr86 partnr87 partnr88 partnr89 partnr90 partnr91 partnr92
+>  partnr93 partnr94 partnr95 partnr96 partnr97 partnr98 partnr99 partnr00 partnr01 partnr
+> 02 partnr03 partnr04 partnr05 partnr06 partnr07 partnr08 partnr09, newstub(partnernr) wa
+> ves (1/26)  
+
+. 
+. ***Zahlen als Missings kodieren***
+. mvdecode ?hhnr nation* partnerzeig* partnernr*, mv (-1 -2 -3)
+     nation1: 45 missing values generated
+     nation3: 1 missing value generated
+     nation5: 19 missing values generated
+     nation6: 20 missing values generated
+     nation9: 3 missing values generated
+    nation11: 12 missing values generated
+    nation12: 30 missing values generated
+    nation23: 1 missing value generated
+partnerzeig1: 45 missing values generated
+  partnernr1: 48 missing values generated
+  partnernr7: 1099 missing values generated
+  partnernr8: 3960 missing values generated
+  partnernr9: 3853 missing values generated
+ partnernr10: 3824 missing values generated
+ partnernr11: 3829 missing values generated
+ partnernr12: 3906 missing values generated
+ partnernr13: 3852 missing values generated
+ partnernr14: 3809 missing values generated
+ partnernr15: 4289 missing values generated
+ partnernr16: 4097 missing values generated
+ partnernr17: 7307 missing values generated
+ partnernr18: 6659 missing values generated
+ partnernr19: 6949 missing values generated
+ partnernr20: 6712 missing values generated
+ partnernr21: 6570 missing values generated
+ partnernr22: 6476 missing values generated
+ partnernr23: 6996 missing values generated
+ partnernr24: 6627 missing values generated
+ partnernr25: 6290 missing values generated
+ partnernr26: 6698 missing values generated
+
+. 
+. ***Reduzierten Datensatz speichern***
+. isid persnr // persnr ist eindeutige Identifikationsvariable
+
+. sort persnr
+
+. save ${AVZ}pgen_mig.dta, replace
+file /home/laodizea/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/pgen_mig.dta
+>  saved
+
+. 
+. 
+. ************************************************
+. ***** 1.3 $kind.dta - Output: kind_mig.dta ***** 
+. ************************************************
+. 
+. 
+. cd ${dir}
+/home/laodizea/Documents/UniGoettingen/SOEP
+
+. use akind.dta, clear
+(AKIND: 09/10/10 10:14:13-634 DB09)
+
+. 
+. ***Beibehaltung ausgewaehlter Variablen***
+. keep hhnr ?hhnr persnr ak07a akhv akhvp akmutti akmup
+
+. sort persnr
+
+. 
+. ***Datensatzzusammenfuehrung und Beibehaltung ausgewaehlter Variablen***
+. merge persnr using ekind.dta, sort keep (hhnr ?hhnr persnr ek03a ekhv ekhvp ekmutti ekmu
+> p)
+(EKIND: 09/10/10 10:14:13-634 DB09)
+
+. drop _merge
+
+. 
+. ***Zahlen als Missings kodieren***
+. mvdecode hhnr ?hhnr persnr ek03a ak07a ?khv ?khvp ?kmutti ?kmup, mv (-1 -2 -3)
+       ek03a: 1802 missing values generated
+       ak07a: 2230 missing values generated
+        ekhv: 9 missing values generated
+       ekhvp: 187 missing values generated
+     ekmutti: 70 missing values generated
+       ekmup: 242 missing values generated
+
+. 
+. ***Umbennenung ausgewaehlter Variablen***
+. soepren ak07a ek03a, newstub(nationkind) waves (1, 5)  
+
+. 
+. ***Reduzierten Datensatz speichern***
+. isid persnr // persnr ist eindeutige Identifikationsvariable
+
+. sort persnr
+
+. save ${AVZ}kind_mig.dta, replace
+file /home/laodizea/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/kind_mig.dta
+>  saved
+
+. 
+. 
+. ****************************************************
+. ***** 1.4 hbrutt$.dta - Output: hbrutt_mig.dta ***** 
+. ****************************************************
+. 
+. 
+. // hbrutt98.dta und hbrutt00.dta können erst später zusammengefuehrt werden, da es sich 
+> um Haushaltsdaten handelt, die keine 'persnr' besitzen
+. 
+. 
+. ***hbrutt98.dta***
+. cd ${dir}
+/home/laodizea/Documents/UniGoettingen/SOEP
+
+. use hbrutt98.dta, clear
+(HBRUTT98: 09/10/10 10:14:13-634 DB09)
+
+. 
+. keep hhnr ?hhnr nathv sexhv
+
+. rename nathv nathv15
+
+. rename sexhv sexhv15
+
+. rename ohhnr hhnr15 // Notwendig, aufgrund bioimmig (siehe 1.6)
+
+. 
+. mvdecode hhnr hhnr* nathv* sexhv*, mv (-1 -2 -3)
+     nathv15: 1342 missing values generated
+     sexhv15: 1302 missing values generated
+
+. 
+. isid hhnr hhnr15 // hhnr und hhnr15 sind eindeutige Identifikationsvariable
+
+. sort hhnr hhnr15
+
+. 
+. save ${AVZ}hbrutt98_mig.dta, replace
+file /home/laodizea/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/hbrutt98_mig
+> .dta saved
+
+. 
+. 
+. 
+. ***hbrutt00.dta***
+. cd ${dir}
+/home/laodizea/Documents/UniGoettingen/SOEP
+
+. use hbrutt00.dta, clear
+(HBRUTT00: 09/10/10 10:14:13-634 DB09)
+
+. 
+. keep hhnr ?hhnr nathv sexhv
+
+. rename nathv nathv17
+
+. rename sexhv sexhv17
+
+. rename qhhnr hhnr17 // Notwendig, aufgrund bioimmig (siehe 1.6)
+
+. 
+. mvdecode hhnr hhnr* nathv* sexhv*, mv (-1 -2 -3)
+     nathv17: 7926 missing values generated
+     sexhv17: 7868 missing values generated
+
+. 
+. isid hhnr hhnr17 // hhnr und hhnr17 sind eindeutige Identifikationsvariable
+
+. sort hhnr hhnr17
+
+. 
+. save ${AVZ}hbrutt00_mig.dta, replace
+file /home/laodizea/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/hbrutt00_mig
+> .dta saved
+
+. 
+. 
+. ******************************************
+. ***** 1.5 $p.dta - Output: p_mig.dta ***** 
+. ******************************************
+. 
+.         
+. cd ${dir}
+/home/laodizea/Documents/UniGoettingen/SOEP
+
+. use sp.dta, clear
+(SP: 09/10/10 10:14:13-634 DB09)
+
+. 
+. ***Beibehaltung ausgewaehlter Variablen***
+. keep hhnr persnr ?hhnr sp116
+
+. sort persnr
+
+. 
+. ***Datensatzzusammenfuehrung und Beibehaltung ausgewaehlter Variablen***
+. merge persnr using ${dir}tp.dta, sort keep (hhnr persnr ?hhnr tp124)
+(TP: 09/10/10 10:14:13-634 DB09)
+(label sample1 already defined)
+(label sample1_EN already defined)
+
+. drop _merge
+
+. 
+. merge persnr using ${dir}up.dta, sort keep (hhnr persnr ?hhnr up128)
+(UP: 09/10/10 10:14:13-634 DB09)
+(label sample1 already defined)
+(label sample1_EN already defined)
+
+. drop _merge
+
+. 
+. merge persnr using ${dir}vp.dta, sort keep (hhnr persnr ?hhnr vp137)
+(VP: 09/10/10 10:14:13-634 DB09)
+(label sample1 already defined)
+(label sample1_EN already defined)
+
+. drop _merge
+
+. 
+. merge persnr using ${dir}wp.dta, sort keep (hhnr persnr ?hhnr wp129)
+(WP: 09/10/10 10:14:13-634 DB09)
+(label sample1 already defined)
+(label sample1_EN already defined)
+
+. drop _merge
+
+. 
+. merge persnr using ${dir}xp.dta, sort keep (hhnr persnr ?hhnr xp141)
+(XP: 09/10/10 10:14:13-634 DB09)
+(label sample1 already defined)
+(label sample1_EN already defined)
+
+. drop _merge
+
+. 
+. merge persnr using ${dir}yp.dta, sort keep (hhnr persnr ?hhnr yp139)
+(YP: 09/10/10 10:14:13-634 DB09)
+(label sample1 already defined)
+(label sample1_EN already defined)
+
+. drop _merge
+
+. 
+. merge persnr using ${dir}zp.dta, sort keep (hhnr persnr ?hhnr zp139)
+(ZP: 09/10/10 10:14:13-634 DB09)
+(label sample1 already defined)
+(label sample1_EN already defined)
+
+. drop _merge
+
+. 
+. ***Umbennenung ausgewaehlter Variablen***
+. soepren sp116 tp124 up128 vp137 wp129 xp141 yp139 zp139, newstub(staatsang) waves (19/26
+> )  
+
+. 
+. ***Zahlen als Missings kodieren***
+. mvdecode hhnr persnr ?hhnr staatsang*, mv (-1 -2 -3)
+ staatsang19: 1929 missing values generated
+ staatsang20: 1761 missing values generated
+ staatsang21: 1645 missing values generated
+ staatsang22: 1564 missing values generated
+ staatsang23: 1487 missing values generated
+ staatsang24: 1307 missing values generated
+ staatsang25: 1148 missing values generated
+ staatsang26: 1168 missing values generated
+
+. 
+. ***Reduzierten Datensatz speichern***
+. isid persnr // persnr ist eindeutige Identifikationsvariable
+
+. sort persnr
+
+. save ${AVZ}p_mig.dta, replace
+file /home/laodizea/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/p_mig.dta sa
+> ved
+
+. 
+. 
+. *******************************************************
+. ***** 1.6 bioimmig.dta - Output: bioimmig_mig.dta ***** 
+. *******************************************************
+. 
+. 
+. use ${dir}/bioimmig.dta, clear
+(BIOIMMIG: 09/10/10 10:14:13-634 DB09)
+
+. 
+. ***Beibehaltung ausgewaehlter Variablen***
+. keep biimgrp persnr hhnr erhebj
+
+. 
+. ***Zahlen als Missings kodieren***
+. mvdecode biimgrp persnr erhebj hhnr, mv (-1 -2 -3)
+     biimgrp: 77018 missing values generated
+
+. 
+. ***Formataenderung (vom Long-Format ins Wide-Format); Dieser Schritt ist für die nachfol
+> genden Analysen wichtig***
+. reshape wide biimgrp hhnr, i(persnr) j(erhebj)
+(note: j = 1984 1985 1986 1987 1988 1989 1990 1991 1992 1993 1994 1995 1996 1997 1998 1999
+>  2000 2001 2002 2003 2004 2005 2006 2007 2008 2009)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                    97334   ->   13769
+Number of variables                   4   ->      53
+j variable (26 values)           erhebj   ->   (dropped)
+xij variables:
+                                biimgrp   ->   biimgrp1984 biimgrp1985 ... biimgrp2009
+                                   hhnr   ->   hhnr1984 hhnr1985 ... hhnr2009
+-----------------------------------------------------------------------------
+
+. isid persnr // Überprüfung, persnr ist jetzt die eindeutige Identifikationsvariable
+
+. 
+. ***Umbennenung ausgewaehlter Variablen***
+. soepren biimgrp1984 biimgrp1985 biimgrp1986 biimgrp1987 biimgrp1988 biimgrp1989 biimgrp1
+> 990 biimgrp1991 biimgrp1992 biimgrp1993 biimgrp1994 biimgrp1995 biimgrp1996 biimgrp1997 
+> biimgrp1998 biimgrp1999 biimgrp2000 biimgrp2001 biimgrp2002 biimgrp2003 biimgrp2004 biim
+> grp2005 biimgrp2006 biimgrp2007 biimgrp2008 biimgrp2009, newstub(biimgrp) waves (1/26)  
+
+. soepren hhnr1984 hhnr1985 hhnr1986 hhnr1987 hhnr1988 hhnr1989 hhnr1990 hhnr1991 hhnr1992
+>  hhnr1993 hhnr1994 hhnr1995 hhnr1996 hhnr1997 hhnr1998 hhnr1999 hhnr2000 hhnr2001 hhnr20
+> 02 hhnr2003 hhnr2004 hhnr2005 hhnr2006 hhnr2007 hhnr2008 hhnr2009, newstub(hhnr) waves (
+> 1/26)  
+
+. 
+. ***Reduzierten Datensatz speichern***
+. isid persnr // persnr ist eindeutige Identifikationsvariable
+
+. sort persnr
+
+. save ${AVZ}bioimmig_mig.dta, replace
+file /home/laodizea/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/bioimmig_mig
+> .dta saved
+
+. 
+. 
+. *******************************************************
+. ***** 1.7 bioparen.dta - Output: bioparen_mig.dta ***** 
+. *******************************************************
+. 
+. use ${dir}/bioparen.dta, clear
+(BIOPAREN: 09/10/10 10:14:13-634 DB09)
+
+. 
+. ***Beibehaltung ausgewaehlter Variablen***
+. keep vnat mnat persnr hhnr
+
+. 
+. ***Zahlen als Missings kodieren***
+. mvdecode vnat mnat persnr hhnr, mv (-1 -2 -3)
+        vnat: 27709 missing values generated
+        mnat: 27801 missing values generated
+
+. 
+. ***Reduzierten Datensatz speichern***
+. isid persnr // persnr ist eindeutige Identifikationsvariable
+
+. sort persnr
+
+. save ${AVZ}bioparen_mig.dta, replace
+file /home/laodizea/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/bioparen_mig
+> .dta saved
+
+. 
+. 
+. ***************************************************************************
+. ***** 1.8 Elternzeiger (von Sabine Keller) - Output: elternzeiger.dta *****
+. ***************************************************************************
+. 
+. 
+. ***********************
+. ***** 1.8. Eltern *****
+. ***********************
+. 
+. 
+. ****Elterninformationen aus dem Jugendbiographiedatensatz (BIOAGE17) holen***
+. use ${dir}bioage17, clear // Elterndaten ueber Jugendfragebogen ranspielen -> Lebenslauf
+> -Fragebogen hat keine Infos ueber Eltern
+(BIOAGE17: 09/10/10 10:14:13-634 DB09)
+
+. keep persnr bymnr byvnr // Personennr. der Eltern behalten
+
+. sort persnr // fuers Mergen vorsortieren 
+
+. save ${AVZ}Eltern, replace // im AVZ im temporaeren Ordner Sortierung und Reduzierung sp
+> eichern
+file /home/laodizea/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/Eltern.dta s
+> aved
+
+. 
+. 
+. ***Elterninformationen aus dem Kinderdatensaetzen ($Kind) holen***
+. cd ${dir}
+/home/laodizea/Documents/UniGoettingen/SOEP
+
+. use akind, clear
+(AKIND: 09/10/10 10:14:13-634 DB09)
+
+. merge persnr using bkind ckind dkind ekind fkind gkind hkind ikind jkind kkind lkind mki
+> nd nkind okind pkind qkind rkind skind tkind ukind vkind wkind xkind ykind zkind, sort
+(BKIND: 09/10/10 10:14:13-634 DB09)
+(label sampel already defined)
+(label sampel_EN already defined)
+(CKIND: 09/10/10 10:14:13-634 DB09)
+(label sampel already defined)
+(label sampel_EN already defined)
+(DKIND: 09/10/10 10:14:13-634 DB09)
+(label sampel already defined)
+(label sampel_EN already defined)
+(EKIND: 09/10/10 10:14:13-634 DB09)
+(FKIND: 09/10/10 10:14:13-634 DB09)
+(GKIND: 09/10/10 10:14:13-634 DB09)
+(HKIND: 09/10/10 10:14:13-634 DB09)
+(IKIND: 09/10/10 10:14:13-634 DB09)
+(JKIND: 09/10/10 10:14:13-634 DB09)
+(KKIND: 09/10/10 10:14:13-634 DB09)
+(LKIND: 09/10/10 10:14:13-634 DB09)
+(MKIND: 09/10/10 10:14:13-634 DB09)
+(NKIND: 09/10/10 10:14:13-634 DB09)
+(OKIND: 09/10/10 10:14:13-634 DB09)
+(PKIND: 09/10/10 10:14:13-634 DB09)
+(QKIND: 09/10/10 10:14:13-634 DB09)
+welle was byte now int
+(RKIND: 09/10/10 10:14:13-634 DB09)
+(SKIND: 09/10/10 10:14:13-634 DB09)
+(TKIND: 09/10/10 10:14:13-634 DB09)
+(UKIND: 09/10/10 10:14:13-634 DB09)
+(VKIND: 09/10/10 10:14:13-634 DB09)
+(WKIND: 09/10/10 10:14:13-634 DB09)
+(XKIND: 09/10/10 10:14:13-634 DB09)
+(YKIND: 09/10/10 10:14:13-634 DB09)
+(ZKIND: 09/10/10 10:14:13-634 DB09)
+
+. drop _merge*
+
+. compress
+akname was str20 now str3
+
+. sort persnr
+
+. save ${AVZ}kind.dta, replace
+file /home/laodizea/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/kind.dta sav
+> ed
+
+. 
+. cd ${AVZ}
+/home/laodizea/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata
+
+. use kind, clear // Kinderdatensatz in dem schon alle Wellen aneinandergespielt sind
+(AKIND: 09/10/10 10:14:13-634 DB09)
+
+. keep persnr *kmutti *kmup // nur die Elterninfos beibehalten
+
+. sort persnr             
+
+. 
+. merge persnr using ${AVZ}Eltern, sort // kind-Datensatz mit Elterndatensatz mergen
+
+. drop _merge
+
+. sort persnr
+
+. save ${AVZ}Eltern, replace
+file /home/laodizea/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/Eltern.dta s
+> aved
+
+. 
+. 
+. ***Kinderinformationen aus dem Biobirth-Datensatz holen***  
+. use ${dir}biobirth, clear // Personennr der Mutter ueber den Geburtsbiographie-Datensatz
+>  
+(BIOBIRTH: 09/10/10 10:14:13-634 DB09)
+
+. keep persnr kidpnr*
+
+. 
+. foreach x of varlist persnr-kidpnr15 {          // vor alle Mutter-Variablen m_ setzen -
+>  Abgrenzung von Vater und Frau selbst
+  2.         rename `x' m_`x' 
+  3. }
+
+. 
+. forvalues x=1/9 {                                       // Nullen entfernen, weil sonst 
+> der reshape-Befehl nicht funktioniert
+  2.         rename m_kidpnr0`x' m_kidpnr`x'
+  3. }
+
+. 
+. reshape long m_kidpnr, i(m_persnr) j(m_kidnr) // Rangfolge ist egal - entscheidend ist d
+> ie Personennr. des Elternteils
+(note: j = 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15)
+
+Data                               wide   ->   long
+-----------------------------------------------------------------------------
+Number of obs.                    26314   ->  394710
+Number of variables                  16   ->       3
+j variable (15 values)                    ->   m_kidnr
+xij variables:
+     m_kidpnr1 m_kidpnr2 ... m_kidpnr15   ->   m_kidpnr
+-----------------------------------------------------------------------------
+
+. keep if m_kidpnr>0&m_kidpnr<.
+(373447 observations deleted)
+
+. rename m_kidpnr persnr // zum Mergen muss Kindernr. in Personennr. umbenannt werden
+
+. rename m_persnr mb_persnr // damit erst im Elterndatensatz aneinandergespielt wird
+
+. keep persnr mb_persnr 
+
+. 
+. sort persnr 
+
+. save ${temp}biobirth, replace // im temproraeren Ordner des AVZ ablegen
+file /home/laodizea/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/temp/biobirt
+> h.dta saved
+
+. 
+. 
+. ***Vaternr. suchen*** 
+. use ${dir}biobrthm, clear // Personennr des Vaters ueber den Geburtsbiographie-Datensatz
+>  
+(BIOBRTHM: 09/10/10 10:14:13-634 DB09)
+
+. keep persnr kidpnr*
+
+. 
+. foreach x of varlist persnr-kidpnr15 {          // vor alle Vater-Variablen v_ setzen - 
+> Abgrenzung von Mutter und Befragungsperson selbst
+  2.         rename `x' v_`x'
+  3. }
+
+. 
+. forvalues x=1/9 {                                       // Nullen entfernen, weil sonst 
+> der reshape-Befehl nicht funktioniert
+  2.         rename v_kidpnr0`x' v_kidpnr`x'
+  3. }
+
+. 
+. reshape long v_kidpnr, i(v_persnr) j(v_kidnr) // Rangfolge ist egal - entscheidend ist d
+> ie Personennr. des Elternteils
+(note: j = 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15)
+
+Data                               wide   ->   long
+-----------------------------------------------------------------------------
+Number of obs.                    17294   ->  259410
+Number of variables                  16   ->       3
+j variable (15 values)                    ->   v_kidnr
+xij variables:
+     v_kidpnr1 v_kidpnr2 ... v_kidpnr15   ->   v_kidpnr
+-----------------------------------------------------------------------------
+
+. keep if v_kidpnr>0&v_kidpnr<.
+(247632 observations deleted)
+
+. rename v_kidpnr persnr // zum Mergen muss Kindernr. in Personennr. umbenannt werden
+
+. rename v_persnr vb_persnr // damit erst im Elterndatensatz aneinandergespielt wird
+
+. keep persnr vb_persnr
+
+. 
+. sort persnr 
+
+. save ${temp}biobrthm, replace // im temproraeren Ordner des AVZ ablegen
+file /home/laodizea/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/temp/biobrth
+> m.dta saved
+
+. 
+. 
+. ***Eltern ranspielen***
+. cd ${AVZ}
+/home/laodizea/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata
+
+. use Eltern, clear 
+(AKIND: 09/10/10 10:14:13-634 DB09)
+
+. merge persnr using ${temp}biobirth, keep (mb_persnr) // Zusammenspielen und nur die Pers
+> onennr. der Mutter beibehalten
+
+. drop _merge 
+
+. sort persnr 
+
+. save ${AVZ}Eltern, replace 
+file /home/laodizea/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/Eltern.dta s
+> aved
+
+. 
+. merge persnr using ${temp}biobrthm, keep (vb_persnr)
+
+. drop _merge 
+
+. sort persnr
+
+. save ${AVZ}TM_Eltern, replace
+file /home/laodizea/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/TM_Eltern.dt
+> a saved
+
+. 
+. merge persnr using ${dir}bioparen, sort keep (mnr vnr)
+(BIOPAREN: 09/10/10 10:14:13-634 DB09)
+
+. drop _merge
+
+. 
+. local vater byvnr vnr vb_persnr akmup bkmup ckmup dkmup ekmup fkmup gkmup hkmup ikmup jk
+> mup kkmup lkmup mkmup nkmup okmup pkmup qkmup rkmup skmup tkmup ukmup vkmup wkmup xkmup 
+> ykmup zkmup
+
+. local mutter bymnr mnr mb_persnr akmutti bkmutti ckmutti dkmutti ekmutti fkmutti gkmutti
+>  hkmutti ikmutti jkmutti kkmutti lkmutti mkmutti nkmutti okmutti pkmutti qkmutti rkmutti
+>  skmutti tkmutti ukmutti vkmutti wkmutti xkmutti ykmutti zkmutti
+
+. 
+. mvdecode `vater' `mutter', mv (-1 -2 -3 0=.)
+       byvnr: 469 missing values generated
+         vnr: 35210 missing values generated
+       akmup: 287 missing values generated
+       bkmup: 235 missing values generated
+       ckmup: 238 missing values generated
+       dkmup: 238 missing values generated
+       ekmup: 242 missing values generated
+       fkmup: 238 missing values generated
+       gkmup: 369 missing values generated
+       hkmup: 371 missing values generated
+       ikmup: 377 missing values generated
+       jkmup: 371 missing values generated
+       kkmup: 396 missing values generated
+       lkmup: 406 missing values generated
+       mkmup: 382 missing values generated
+       nkmup: 391 missing values generated
+       okmup: 433 missing values generated
+       pkmup: 421 missing values generated
+       qkmup: 740 missing values generated
+       rkmup: 665 missing values generated
+       skmup: 650 missing values generated
+       tkmup: 634 missing values generated
+       ukmup: 598 missing values generated
+       vkmup: 615 missing values generated
+       wkmup: 693 missing values generated
+       xkmup: 601 missing values generated
+       ykmup: 574 missing values generated
+       zkmup: 611 missing values generated
+       bymnr: 67 missing values generated
+         mnr: 33934 missing values generated
+     akmutti: 66 missing values generated
+     bkmutti: 51 missing values generated
+     ckmutti: 57 missing values generated
+     dkmutti: 64 missing values generated
+     ekmutti: 70 missing values generated
+     fkmutti: 66 missing values generated
+     gkmutti: 100 missing values generated
+     hkmutti: 103 missing values generated
+     ikmutti: 90 missing values generated
+     jkmutti: 83 missing values generated
+     kkmutti: 106 missing values generated
+     lkmutti: 81 missing values generated
+     mkmutti: 82 missing values generated
+     nkmutti: 80 missing values generated
+     okmutti: 72 missing values generated
+     pkmutti: 59 missing values generated
+     qkmutti: 103 missing values generated
+     rkmutti: 78 missing values generated
+     skmutti: 89 missing values generated
+     tkmutti: 69 missing values generated
+     ukmutti: 68 missing values generated
+     vkmutti: 72 missing values generated
+     wkmutti: 91 missing values generated
+     xkmutti: 61 missing values generated
+     ykmutti: 68 missing values generated
+     zkmutti: 54 missing values generated
+
+. egen v_persnr=rowfirst (byvnr vnr vb_persnr akmup bkmup ckmup dkmup ekmup fkmup gkmup hk
+> mup ikmup jkmup kkmup lkmup mkmup nkmup okmup pkmup qkmup rkmup skmup tkmup ukmup vkmup 
+> wkmup xkmup ykmup zkmup) // Vaterpersnr anlegen
+(35978 missing values generated)
+
+. egen m_persnr=rowfirst ( bymnr mnr mb_persnr akmutti bkmutti ckmutti dkmutti ekmutti fkm
+> utti gkmutti hkmutti ikmutti jkmutti kkmutti lkmutti mkmutti nkmutti okmutti pkmutti qkm
+> utti rkmutti skmutti tkmutti ukmutti vkmutti wkmutti xkmutti ykmutti zkmutti) // Mutterp
+> ersnr anlegen
+(33925 missing values generated)
+
+. label variable v_persnr "person number of father (child)"
+
+. label variable m_persnr "person number of mother (child)"
+
+. 
+. /* gen v_persnr=. // Vaterpersnr anlegen
+> gen m_persnr=. // Mutterpersnr anlegen
+> label variable v_persnr "person number of father (child)"
+> label variable m_persnr "person number of mother (child)"
+> 
+> foreach x of local vater {
+> 
+>                 quietly replace v_persnr=`x' if (v_persnr>=.&`x'<.&`x'>0) // fuer BIOPAR
+> EN, BIOAGE und $KIND schauen, ob eine gueltige Vaterpersonennr vorhanden ist und diese d
+> raufspeichern
+> }
+> foreach x of local mutter {
+>                 quietly replace m_persnr=`x' if (m_persnr>=.&`x'<.&`x'>0) // fuer BIOPAR
+> EN, BIOAGE und $KIND schauen, ob eine gueltige Mutterpersonennr vorhanden ist und diese 
+> draufspeichern
+> }
+>  */
+. drop  bymnr byvnr mnr vnr *kmutti *kmup mb_persnr vb_persnr
+
+. 
+. quietly compress // reduces the size of your dataset by considering demoting
+
+. sort persnr
+
+. save ${AVZ}elternzeiger, replace
+file /home/laodizea/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/elternzeiger
+> .dta saved
+
+. 
+. 
+. *****************************
+. ***** 1.8.2 Grosseltern *****
+. *****************************
+. 
+. 
+. ***Eltern vaeterlicherseits ***
+. use ${AVZ}elternzeiger, clear 
+(AKIND: 09/10/10 10:14:13-634 DB09)
+
+. rename v_persnr gv_v
+
+. rename m_persnr gm_v
+
+. rename persnr v_persnr
+
+. save ${AVZ}elternzeiger_v, replace 
+file /home/laodizea/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/elternzeiger
+> _v.dta saved
+
+. 
+. ***Eltern muetterlicherseits***
+. use ${AVZ}elternzeiger, clear 
+(AKIND: 09/10/10 10:14:13-634 DB09)
+
+. rename v_persnr gv_m
+
+. rename m_persnr gm_m
+
+. rename persnr m_persnr
+
+. save ${AVZ}elternzeiger_m, replace 
+file /home/laodizea/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/elternzeiger
+> _m.dta saved
+
+. 
+. 
+. *************************************************************
+. ***** 1.8.3 Zusammenfüehrung von Eltern und Grosseltern *****
+. *************************************************************
+. 
+. 
+. ***Grosseltern an elternzeiger.dta mergen***
+. cd ${AVZ}
+/home/laodizea/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata
+
+. use elternzeiger, clear 
+(AKIND: 09/10/10 10:14:13-634 DB09)
+
+. sort v_persnr
+
+. merge v_persnr using elternzeiger_v.dta
+variable v_persnr does not uniquely identify observations in the master data
+v_persnr was float now double
+
+. drop if _merge ==2
+(47359 observations deleted)
+
+. drop _merge
+
+. 
+. sort m_persnr 
+
+. merge m_persnr using elternzeiger_m.dta
+variable m_persnr does not uniquely identify observations in the master data
+m_persnr was float now double
+
+. drop if _merge ==2
+(45973 observations deleted)
+
+. drop _merge
+
+. 
+. ***Sortierung und Speicherung des Datensatzes***
+. sort persnr
+
+. save ${AVZ}elternzeiger2, replace 
+file /home/laodizea/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/elternzeiger
+> 2.dta saved
+
+. 
+. 
+. ************************************************************
+. ***** 1.9 Mergen aller Datensaetze - Output: migra.dta *****
+. ************************************************************
+. 
+. 
+. ***Merge-Prozess mit denjenigen Datensaetzen, deren eindeutige Identifikationsvariable '
+> persnr  ist***
+. cd ${AVZ}
+/home/laodizea/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata
+
+. use ppfad_mig.dta, clear
+(PPFAD: 09/10/10 10:14:13-634 DB09)
+
+. 
+. sort persnr
+
+. merge persnr using pgen_mig.dta
+
+. drop _merge
+
+. 
+. sort persnr
+
+. merge persnr using kind_mig.dta
+
+. drop _merge
+
+. 
+. sort persnr
+
+. merge persnr using p_mig.dta
+
+. drop _merge
+
+. 
+. sort persnr 
+
+. merge persnr using bioparen_mig.dta
+
+. drop _merge
+
+. 
+. sort persnr
+
+. merge persnr using elternzeiger2.dta
+
+. drop _merge
+
+. 
+. ***Umbenennung von ?hhn  (aufgrund der Umbenennungen in bioimmig_mig.dta)***
+. soepren ahhnr bhhnr chhnr dhhnr ehhnr fhhnr ghhnr hhhnr ihhnr jhhnr khhnr lhhnr mhhnr nh
+> hnr ohhnr phhnr qhhnr rhhnr shhnr thhnr uhhnr vhhnr whhnr xhhnr yhhnr zhhnr, newstub(hhn
+> r) waves (1/26)   
+
+. 
+. sor  persnr 
+
+. merge persnr using bioimmig_mig.dta
+
+. drop _merge
+
+. 
+. ***Merge-Prozess von Personen- und Haushaltsdaten; Analyseeinheit  Personen***
+. sort hhnr hhnr15 
+
+. merge hhnr hhnr15 using hbrutt98_mig.dta
+variables hhnr hhnr15 do not uniquely identify observations in the master data
+
+. drop _merge
+
+. 
+. sort hhnr hhnr17 
+
+. merge hhnr hhnr17 using hbrutt00_mig.dta
+variables hhnr hhnr17 do not uniquely identify observations in the master data
+(label sexhv already defined)
+(label nathv already defined)
+(label sexhv_EN already defined)
+(label nathv_EN already defined)
+
+. drop _merge
+
+. 
+. ***Speicherung des Datensatzes unter migra.dta***
+. sort persnr 
+
+. save "${AVZ}migra.dta", replace
+(note: file /home/laodizea/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/migra
+> .dta not found)
+file /home/laodizea/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata/migra.dta sa
+> ved
+
+. 
+. 
+. *****************************************
+. ***** 2. Bildung von Hilfsvariablen *****
+. *****************************************
+. 
+. cd ${AVZ}
+/home/laodizea/Documents/UniGoettingen/Projekte/Migrationsvariable/Stata
+
+. use migra.dta, clear
+(PPFAD: 09/10/10 10:14:13-634 DB09)
+
+. 
+. **********************************************
+. ***** 2.1 Hilfsvariablen fuerddie Eltern *****
+. **********************************************
+. 
+. gen sex_v = 1 if v_persnr !=. & v_persnr & persnr  == sex
+(73607 missing values generated)
+
+. eeep sex_v gebjahr_v immiyear_v todjahr_v todinfo_v germborn_v corigin_v loc1989_v migba
+> ck_v
+unrecognized command:  eeep
+r(199);
+
+end of do-file
+
+r(199);
+
+. exit, clear

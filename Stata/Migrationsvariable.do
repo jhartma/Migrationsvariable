@@ -238,7 +238,7 @@ use ${AVZ}miggen_helpers.dta, clear
 
 *2. Generation: beide Elternteile zugewandert (ZP in Deutschland geboren oder Missing)
 **************************************************************************************
-	replace mig_gen_c = 3 if germborn!=2 & ///                             // Befragter ///
+	replace mig_gen_c = 3 if germborn!=2 & ///                                       // Befragter ///
 	                         germborn_f==2 & germborn_m==2                           // Eltern, . nicht kleiner 0 !!!
 
 
@@ -252,8 +252,8 @@ use ${AVZ}miggen_helpers.dta, clear
 *2,5. Generation: ein Elternteil zugewandert, anderes deutsch oder Missing bei den Eltern (ZP in Deutschland geboren oder Missing)
 **********************************************************************************************************************************
 	replace mig_gen_c = 5 if germborn!=2 & ///
-	((germborn_f!=2 & (germborn_f_m!=2 & germborn_f_f!=2) & germborn_m==2) ///
-	| (germborn_f==2 & germborn_m!=2 & germborn_m_f!=2 & germborn_m_m!=2))
+	((germborn_f!=2 & germborn_f_m!=2 & germborn_f_f!=2 & germborn_m==2) ///
+	| (ermborn_m!=2 & germborn_m_f!=2 & germborn_m_m!=2 & germborn_f==2))
 
 
 *3. Generation: vier Grosseltern zugewandert
