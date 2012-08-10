@@ -541,6 +541,42 @@ use ${AVZ}miggen_mig_gen_c.dta, clear
 
 
 
+
+
+***************************************************************************************************
+*** Einschub ANFANG: 3.1.3 soep_info, um Migback-Fälle relativ einfach identifizieren zu können ***
+***************************************************************************************************
+
+* Vorbereitung
+	gen soep_info=.
+
+* 1: Nur Geburtsland
+	replace soep_info=1 if mig_gen_c!=.
+
+* 2: Nur Staatsbuergerschaft (SBS)
+	replace soep_info=2 if mig_gen_c==. & mig_gen_cn!=.
+
+* 3: Ausschliessliche Nutzung Migback (Wenn mig_gen_cn==.)
+	replace soep_info=3 if 	mig_gen_cn==. & migback==1
+	replace soep_info=3 if 	mig_gen_cn==. & migback==2
+	replace soep_info=3 if 	mig_gen_cn==. & migback==3
+* Hier ggf. noch Fälle ergänzen, die bei uns keinen Hintergrund haben, aber bei migback indirekten
+
+	lab var soep_info "CN Herangezogene Informationen"
+	tab soep_info
+	lab def soep_info 1 "Geburtsland" ///
+	2 "Staatsbuergerschaft" ///
+	3 "Nur Proxy Migback" ///
+	lab val soep_info soep_info
+
+***************************************************************************************************
+*** Einschub ENDE ********************************************************************************* 
+***************************************************************************************************
+
+
+
+
+
 *** Fuer die Faelle mit ueberhaupt keiner Info: Heranziehen von MIGBACK und versuchen, weitere Faelle zuzuordnen, die jetzt Missing sind
 ********************************************************************************************************************************
 * Wenn Sysmis bei mig_gen_cn und migback=1 (kein Migrationshintergrund), dann mig_gen_cn ebenfalls kein Migrationshintergrund
@@ -568,40 +604,7 @@ use ${AVZ}miggen_mig_gen_c.dta, clear
 
 
 
-***************************************************************************************************
-*** 3.1.3 soep_info *******************************************************************************
-***************************************************************************************************
-* TODO
 
-*** HINWEIS MO: JETZIGE BILDUNG SOEPINFO BEZIEHT SICH NUR AUF ZP! WIR HABEN ABER AUCH DIE ELTERN- UND GROssELTERNINFO!
-
-* Vorbereitung
-	gen soep_info=.
-
-* 1: Nur Geburtsland
-	replace soep_info=1 if (r_corigin_zp >= 0 & r_corigin_zp != .) & (r_nation_zp == . | r_nation_zp < 0)
-
-* 2: Nur Staatsbuergerschaft (SBS)
-	replace soep_info=2 if (r_corigin_zp <  0 | r_corigin_zp == .) & (r_nation_zp != . & r_nation_zp > 0)
-
-* 3: Geburtsland und SBS
-	replace soep_info=3 if (r_corigin_zp >= 0 & r_corigin_zp != .) & (r_nation_zp != . & r_nation_zp > 0)
-
-* 4: Ausschliessliche Nutzung Migback (Wenn mig_gen_cn==.)
-	replace soep_info=4 if mig_gen_cn==. & migback>=1
-
-* 5: Ausschliessliche Nutzung Living
-	*replace soep_info=5 if 
-
-
-	lab var soep_info "CN Herangezogene Informationen"
-	tab soep_info
-	lab def soep_info 1 "Geburtsland" ///
-	2 "Staatsbuergerschaft" ///
-	3 "Geburtsland und SBS" ///
-	4 "Nur Proxy Migback" ///
-	// 5 "Nur Proxy Living" // Wenn irrelevant, wuerde ich das loeschen
-	lab val soep_info soep_info
 
 
 
