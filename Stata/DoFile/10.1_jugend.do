@@ -233,6 +233,7 @@ tab corigin corigin_j27
 
 **************************************************************
 * Pruefen, ob immiyearinfos aus $PAGE auch bei PPFAD enthalten
+
 tab immiyear, m
 tab immiyear immiyear_j23
 tab immiyear immiyear_j24
@@ -247,6 +248,7 @@ tab immiyear immiyear_j27
 
 ***************************************************************************************
 * Prüfen, ob biimgrp-Info aus PAGE auch in BIOIMMIG enthalten ist --> Ja, ist enthalten
+
 tab biimgrp17
 tab biimgrp17 if germborn==2
 tab biimgrp17 if germborn==1
@@ -596,6 +598,8 @@ tab deu_seit2010  deu_seit_j26 // Tatsächlich!!! Die Infos sind immer für das 
 *** KONSEQUENZEN: Abgleich noch notwendig, ob 2010er-Info zugespielt werden kann (Stimmen Angaben zur SBS (P) dann mit Infos, ob seit Geburt oder nicht (PAGE17) überein? Notwendig, da Abweichungen zwischen P und PAGE17 ...
 
 
+/*
+* HINWEIS: Darauf wird nun verzichtet! Es werden die Infos aus der Jugendbefragung zur SBS und ob diese seit Geburt vorliegt genommen (Fälle seit 2006)
 
 * Vornehmen der Anpassung
 *************************
@@ -621,37 +625,63 @@ tab deu_seit2009 deu_seit_j26, m
 
 tab deu_seit2010 if erhebj==2010
 replace deu_seit2010=deu_seit_j27 if erhebj==2010 & deu_seit2010==.
-
+*/
 
 
 * Bildung des End-Datensatzes
 *****************************
-keep persnr d_nation2_j* nation2_j* deu_seit2006 deu_seit2007 deu_seit2008 deu_seit2009 deu_seit2010
+* Beibehaltung derjenigen Fälle, auf die das zutrifft
+*****************************************************
+keep if erhebj>=2006
+
+* Beibehaltung der relevanten Variablen
+***************************************
+
+keep persnr ///
+nation_deu_j23 nation_deu_j24 nation_deu_j25 nation_deu_j26 nation_deu_j27 ///
+nation_j23 nation_j24 nation_j25 nation_j26 nation_j27 ///
+deu_seit_j23 deu_seit_j24 deu_seit_j25 deu_seit_j26 deu_seit_j27 ///
+d_nation2_j23 d_nation2_j24 d_nation2_j25 d_nation2_j26 d_nation2_j27///
+nation2_j23 nation2_j24 nation2_j25 nation2_j26 nation2_j27
 
 save ${AVZ}melanie_jugendliche, replace
 
 
+**********
+* ABGLEICH
+**********
+
+*** Es fehlt: Abgleich nation_deu_j* und nation_j*
+
+*** Es fehlt: Abgleich d_nation2_j* und nation_2j*
 
 
-
-* Nächster Schritt NOTWENDIG??? Hab es jetzt mal teilweise angepasst ...
 
 ******************************************************************************
 *** REKODIERUNG ZENTRALER INFOS UND ANGLEICHUNG AN ANDERE VARS ***************
 ******************************************************************************
 
-* HINWEIS: Nachfolgende Schritte müssten nur für die zweite SBS gemacht werden (relevante Variablen im jetzigen Datensatz: )
 
-
-// Wo ist der Unterschied zwischen germnatbirth und staatsang? Beide aus SP116!
-* deu_seit* -> germnatbirth (SP116, German nationality since: birth, later)
-soepren deu_seit2006 deu_seit2007 deu_seit2008 deu_seit2009 deu_seit2010, newstub(germnatbirth) waves(23/27)
+* Deu_seit_j* --> germnatbirth
+******************************
+* deu_seit_j* -> germnatbirth (SP116, German nationality since: birth, later)
+soepren deu_seit_j23 deu_seit_j24 deu_seit_j25 deu_seit_j26 deu_seit_j27, newstub(germnatbirth) waves(23/27)
 
 
 * Select one answer from many years
-/* recode nation2_j*  (-2 -1 = .) // das muesste angepasst werden auf nation2
-recode germnatbirth* (-2 -1 = .)
+recode nation2_j*  (-2 -1 = .) // wie sinnvoll ist das? Ist ja ein Querschnittsdatensatz 
+recode germnatbirth* (-2 -1 = .) // wie sinnvoll ist das? Ist ja ein Querschnittsdatensatz 
 
+
+
+* Staatsangehörigkeit
+*********************
+* fehlt noch
+
+
+
+* 2. Staatsangehörigkeit
+************************
 
 egen na_count = anymatch(nation2_j*), values(2 3 4 5 6 12 13 21 75 118 119 165) // das müsste auch noch angepasst werden ...
 tab na_count
