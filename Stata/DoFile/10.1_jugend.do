@@ -1,7 +1,7 @@
 // 1. Ausgangsdatensatz (?): BIOAGE17; $PAGE17; PPFAD; BIOIMMIG; Bioimmig
 // 2. Ausgangsdatensatz (?): BIOAGE17; $PAGE17; P und PGEN
-// Enddatensatz: Melanie_jugendliche.dta; Melanie_jugendliche_recoded.dta
-// Variablen (2. Ausgangsdatensatz):  d_nation2_j*;  nation2_j*; deu_seit2006 deu_seit2007 deu_seit2008 deu_seit2009 deu_seit2010
+// Enddatensatz: Melanie_jugendliche.dta; Melanie_jugendliche_recoded.dta (Fälle ab einschließlich 2006; Querschnittsdatensatz)
+// Variablen (Melanie_jugendliche recoded):  nation*; deu_seit*; nation2_j*; nation_j*
 
 ******************************
 ***** Grundeinstellungen *****
@@ -24,11 +24,11 @@ capture ssc install soepren
 ***** Verzeichnisse festlegen *****
 ***********************************
 // Globals Melanie
-global dir= "L:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/" // Arbeitsverzeichnis der relginaldatensaetze
-global AVZ= "L:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Mig/" // Arbeitsverzeichnis der neu generierten Datensaetze und anderer Ordner
-global temp="L:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Mig/" //Temporaerer Arbeitsspeicher
-global LoFi="L:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Mig/" // Ordner fuer Log-Files
-global DoFi="L:/_Arbeit/_Diss/_Datensätze/SOEP/SOEP27/Datensätze_Mig/" // Ordner fuer Do-Files
+global dir= "L:/_Arbeit/_Diss/_Diss_Daten/SOEP/SOEP27/" // Arbeitsverzeichnis der relginaldatensaetze
+global AVZ= "L:/_Arbeit/_Diss/_Diss_Daten/SOEP/SOEP27/Datensätze_Mig/" // Arbeitsverzeichnis der neu generierten Datensaetze und anderer Ordner
+global temp="L:/_Arbeit/_Diss/_Diss_Daten/SOEP/SOEP27/Datensätze_Mig/" //Temporaerer Arbeitsspeicher
+global LoFi="L:/_Arbeit/_Diss/_Diss_Daten/SOEP/SOEP27/Datensätze_Mig/" // Ordner fuer Log-Files
+global DoFi="L:/_Arbeit/_Diss/_Diss_Daten/SOEP/SOEP27/Datensätze_Mig/" // Ordner fuer Do-Files
 
 // Globals Joerg
 global dir= "/home/Knut/Documents/UniGoettingen/SOEP2010/" // Arbeitsverzeichnis der Originaldatensaetze
@@ -641,19 +641,95 @@ keep persnr ///
 nation_deu_j23 nation_deu_j24 nation_deu_j25 nation_deu_j26 nation_deu_j27 ///
 nation_j23 nation_j24 nation_j25 nation_j26 nation_j27 ///
 deu_seit_j23 deu_seit_j24 deu_seit_j25 deu_seit_j26 deu_seit_j27 ///
-d_nation2_j23 d_nation2_j24 d_nation2_j25 d_nation2_j26 d_nation2_j27///
+d_nation2_j23 d_nation2_j24 d_nation2_j25 d_nation2_j26 d_nation2_j27 ///
 nation2_j23 nation2_j24 nation2_j25 nation2_j26 nation2_j27
 
 save ${AVZ}melanie_jugendliche, replace
 
 
-**********
-* ABGLEICH
-**********
+**************************
+* ABGLEICH und Rekodierung
+**************************
 
-*** Es fehlt: Abgleich nation_deu_j* und nation_j*
+****************************************
+*** Abgleich nation_deu_j* und nation_j*
+****************************************
 
-*** Es fehlt: Abgleich d_nation2_j* und nation_2j*
+tab nation_j23 nation_deu_j23
+tab nation_j24 nation_deu_j24
+tab nation_j25 nation_deu_j25
+tab nation_j26 nation_deu_j26
+tab nation_j27 nation_deu_j27
+
+
+* Zuweisung deutsch zur Nationalitätenliste (es finde hier keine Überschreibungen statt!)
+replace nation_j23=1 if nation_deu_j23==1 
+replace nation_j24=1 if nation_deu_j24==1 
+replace nation_j25=1 if nation_deu_j25==1 
+replace nation_j26=1 if nation_deu_j26==1 
+replace nation_j27=1 if nation_deu_j27==1 
+
+
+
+****************************************
+*** Abgleich d_nation2_j* und nation_2j*
+****************************************
+
+tab nation2_j23 d_nation2_j23, m
+tab nation2_j24 d_nation2_j24, m
+tab nation2_j25 d_nation2_j25, m
+tab nation2_j26 d_nation2_j26, m
+tab nation2_j27 d_nation2_j27, m
+
+* --> Super, diejenigen, die angeben 2. SBS zu besitzen, machen auch Angabe welche --> Keine Rekodierung nötig
+
+
+
+
+****************************************
+*** Abgleich nation2_j* und nation_j*
+****************************************
+
+tab nation2_j23 nation_j23  // 7 Fälle deutsch + andere
+tab nation2_j24 nation_j24 // 10 Fälle deutsch + andere
+tab nation2_j25 nation_j25 // 10 Falle deutsch + andere
+tab nation2_j26 nation_j26 // 9 Fälle deutsch + andere
+tab nation2_j27 nation_j27 // 5 Fälle deutsch + andere
+
+* Fazit: Keine Fälle, die zwei ausländische SBS haben
+
+
+*** Generierung einer Variable, die bei doppelter SBS die deutsche durch ausländische ersetzt
+clonevar nation_23=nation_j23
+replace nation_23=nation2_j23 if nation_j23==1 & (nation2_j23!=. -1 -2 -3)
+tab nation_23 nation_j23
+tab nation_23 nation2_j23
+
+
+clonevar nation_24=nation_j24
+replace nation_24=nation2_j24 if nation_j24==1 & (nation2_j24!=. -1 -2 -3)
+tab nation_24 nation_j24
+tab nation_24 nation2_j24
+
+
+clonevar nation_25=nation_j25
+replace nation_25=nation2_j25 if nation_j25==1 & (nation2_j25!=. -1 -2 -3)
+tab nation_25 nation_j25
+tab nation_25 nation2_j25
+
+
+clonevar nation_26=nation_j26
+replace nation_26=nation2_j26 if nation_j26==1 & (nation2_j26!=. -1 -2 -3)
+tab nation_26 nation_j26
+tab nation_26 nation2_j26
+
+
+clonevar nation_27=nation_j27
+replace nation_27=nation2_j27 if nation_j27==1 & (nation2_j27!=. -1 -2 -3)
+tab nation_27 nation_j27
+tab nation_27 nation2_j27
+
+
 
 
 
@@ -661,42 +737,14 @@ save ${AVZ}melanie_jugendliche, replace
 *** REKODIERUNG ZENTRALER INFOS UND ANGLEICHUNG AN ANDERE VARS ***************
 ******************************************************************************
 
-
-* Deu_seit_j* --> germnatbirth
-******************************
-* deu_seit_j* -> germnatbirth (SP116, German nationality since: birth, later)
-soepren deu_seit_j23 deu_seit_j24 deu_seit_j25 deu_seit_j26 deu_seit_j27, newstub(germnatbirth) waves(23/27)
-
-
-* Select one answer from many years
-recode nation2_j*  (-2 -1 = .) // wie sinnvoll ist das? Ist ja ein Querschnittsdatensatz 
-recode germnatbirth* (-2 -1 = .) // wie sinnvoll ist das? Ist ja ein Querschnittsdatensatz 
+soepren deu_seit_j23 deu_seit_j24 deu_seit_j25 deu_seit_j26 deu_seit_j27, newstub(deu_seit) waves(2006/2010)
+soepren nation_23 nation_24 nation_25 nation_26 nation_27, newstub(nation) waves(2006/2010)
 
 
 
-* Staatsangehörigkeit
-*********************
-* fehlt noch
-
-
-
-* 2. Staatsangehörigkeit
-************************
-
-egen na_count = anymatch(nation2_j*), values(2 3 4 5 6 12 13 21 75 118 119 165) // das müsste auch noch angepasst werden ...
-tab na_count
-egen ger_count = anymatch(germnatbirth*), values(1 2)
-tab ger_count
-
-egen nation  = rowmax(nation2_j*)
-egen germnatbirth = rowmax(germnatbirth*)
-
-*/
-keep persnr nation2_j* germnatbirth2*
+keep persnr nation* deu_seit* nation_j* nation2_j* 
 sort persnr
 
 save ${AVZ}melanie_jugendliche_recoded, replace
-
-
 
 
