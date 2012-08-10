@@ -62,8 +62,6 @@ save ${AVZ}bioparen_mige.dta, replace // bereits gebildeter PPFAD_mig Datensatz 
 
 
 
-
-
 *****************************************
 * 2. Schritt: Bildung Masterdatensatz ***
 *****************************************
@@ -109,6 +107,7 @@ rename persnr kindpersnr
 rename bymnr persnr
 sort persnr
 
+
 * Ranspielen Infos fuer die Mutter aus ppfad_mig
 *************************************************
 merge m:1 persnr using ${AVZ}ppfad_mige.dta
@@ -134,6 +133,8 @@ rename byvnr persnr
 sort persnr
 
 * Ranspielen Infos fuer den Vater aus PPFAD
+*******************************************
+
 merge m:1 persnr using ${AVZ}ppfad_mige.dta
 
 rename hhnr hhnr_f
@@ -264,6 +265,8 @@ tab corigin_mr
 *************
 *** VATER ***
 *************
+
+
 tab germborn_f_j
 tab germborn_f germborn_f_j if erhebj==2006, m
 * 39 "." bei germborn_f; Wenn Nutzung Info von Elisabeth fuer 2006, dann koennten 35 Faelle deutsch und 3 Faelle den Immigranten zugeordnet werden
@@ -284,6 +287,8 @@ tab germborn_fr
 **************
 *** MUTTER ***
 **************
+
+
 tab germborn_m germborn_m_j if erhebj==2006, m
 * 6 Sysmis bei germborn_m; bei der Info von Elisabeth 4x Deutschland und 2x-2
 tab germborn_m_j germborn_mr
