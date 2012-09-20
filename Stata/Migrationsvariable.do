@@ -62,7 +62,7 @@ do ${AVZ}DoFile/10.2_jugend.do 						// Output: melanie_jugendliche_eltern.dta	|
 
 ***** 1.11 Mergen aller Datensaetze **************************
 do ${AVZ}DoFile/11_merge.do						// Output: miggen_merged.dta	|| persnr, sex, biimgrp, corigin, deu_seit, gebjahr, gebmoval, germ_since, sbs
-									//                    		|| immiyear, germborn, germnatbirth, gm_m, gm_v, gv_m, gv_v, hhnr, m_persnr, m_quelle, maortakt, maortup, mgebj, migback, mnat
+									//                    		|| immiyear, germborn, gm_m, gm_v, gv_m, gv_v, hhnr, m_persnr, m_quelle, maortakt, maortup, mgebj, migback, mnat
 									//                              || nathv1998, nathv2000, nationkind1984, nationkind1989, v_persnr, vaortakt, vaortup, vgebj, vnat
 									//                              || biimgrp1984 - biimgrp2010,
 									//                              || biresper1984 - biresper2010,
@@ -309,6 +309,7 @@ use ${AVZ}miggen_helpers.dta, clear
  	7 "3,25.Generation: drei Grosseltern zugewandert" ///
  	8 "3,5.Generation: zwei Grosseltern zugewandert" ///
  	9 "3,75.Generation: ein Grosselternteil zugewandert"
+       10 "nicht definierbar"
 	lab val mig_gen_c generationenstatus
 
 	tab mig_gen_c, m
@@ -399,7 +400,7 @@ use ${AVZ}miggen_mig_gen_c.dta, clear
 	replace mig_gen_cn=0 if mig_gen_c_hv==-1 & r_nation_zp>=2 & r_nation_zp != . & (biimgrp==1 | biimgrp==3)
 	
 * 2 | ... und eine AUSLAENDISCHE Nationalitaet vorliegt und Einreisestatus !=1 und !=3 sowie zugewandert nach dem 6. LJ oder Missing--> 1. Generation
-	replace mig_gen_cn=1 if mig_gen_c_hv==-1 & r_nation_zp>=2 & r_nation_zp != . 
+	replace mig_gen_cn=1 if mig_gen_c_hv==-1 & r_nation_zp>=2 & r_nation_zp != . ///
 	& (biimgrp==2 | (biimgrp>=4 & biimgrp<=7)) & migage >=7 
 
 * 0 | ... und eine AUSLAENDISCHE Nationalitaet vorliegt und Einreisestatus !=1 und !=3 sowie zugewandert vor dem 7. LJ oder Missing--> 1,5. Generation
@@ -560,13 +561,13 @@ use ${AVZ}miggen_mig_gen_c.dta, clear
 	replace soep_info=3 if 	mig_gen_cn==. & migback==1
 	replace soep_info=3 if 	mig_gen_cn==. & migback==2
 	replace soep_info=3 if 	mig_gen_cn==. & migback==3
-* Hier ggf. noch Fälle ergänzen, die bei uns keinen Hintergrund haben, aber bei migback indirekten
+* Hier ggf. noch Faelle ergänzen, die bei uns keinen Hintergrund haben, aber bei migback indirekten
 
 	lab var soep_info "CN Herangezogene Informationen"
 	tab soep_info
 	lab def soep_info 1 "Geburtsland" ///
 	2 "Staatsbuergerschaft" ///
-	3 "Nur Proxy Migback" ///
+	3 "Nur Proxy Migback"
 	lab val soep_info soep_info
 
 ***************************************************************************************************
@@ -588,25 +589,28 @@ use ${AVZ}miggen_mig_gen_c.dta, clear
 * Wenn Sysmis bei mig_gen_cn und migback=3 (indirekter Migrationshintergrund/mindestens ein Elternteil im Ausland geboren), 
 * dann mig_gen_cn - jetzt erst einmal - 2,5. Generation (Ausland-deutsch)
 	replace mig_gen_cn=5 if mig_gen_cn==. & migback==3
-
-
-
+	
 	lab var mig_gen_cn "Generationenstatus CN"
+	
+save ${temp}fertig, replace
+use  ${temp}fertig, clear	
+	
 	tab mig_gen_cn
-
-
 	tab mig_gen_cn, m
+	tab mig_gen_c  migback, m
 	tab mig_gen_cn migback, m
 
 
 *XXX FEHLEND: Plausibilaetschecks XXX
 
+* Checks
+drop hhnr*
+list persnr migback mig_gen_cn if migback == 3 & mig_gen_cn == 0 in 1/1000
+keep if mig_gen_cn == 0 & migback == 3
+tab nation, m					// many with other nationality		
 
-
-
-
-
-
+keep if nation == 1
+tab deu_seit					// viele sind eingebuergert, kriegen wir raus, woher die kommen?
 
 
 

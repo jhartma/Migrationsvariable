@@ -71,16 +71,16 @@ drop biimgrp*
 rename abiimgrp biimgrp
 
 ***** germnatbirth ********************************************************************************************************	// Warum? haben doch deu_seit? -> germnatbirth aus page17, deu_seit aus p -> anpassen in 1 Variable
-preserve
-mvdecode germnatbirth*, mv(-3 -2 -1)
-egen germnatbirth_min = rowmin(germnatbirth*)
-egen germnatbirth_max = rowmax(germnatbirth*)
-list persnr germnatbirth* if germnatbirth_min != germnatbirth_max 	// viele Unterschiede zwischen den Jahren
-restore
+*preserve
+*mvdecode germnatbirth*, mv(-3 -2 -1)
+*egen germnatbirth_min = rowmin(germnatbirth*)
+*egen germnatbirth_max = rowmax(germnatbirth*)
+*list persnr germnatbirth* if germnatbirth_min != germnatbirth_max 	// viele Unterschiede zwischen den Jahren
+*restore
 
-egen agermnatbirth = rowmax(germnatbirth*)				// nehme die groesste Zahl, um maximale Migrantenzahlen zu bekommen
-drop germnatbirth2*
-rename agermnatbirth germnatbirth
+*egen agermnatbirth = rowmax(germnatbirth*)				// nehme die groesste Zahl, um maximale Migrantenzahlen zu bekommen
+*drop germnatbirth2*
+*rename agermnatbirth germnatbirth
 
 ***** nation **************************************************************************************************************	// ToDo: auf nation2 aufpassen!
 preserve
