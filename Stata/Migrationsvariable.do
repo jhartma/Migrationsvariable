@@ -604,13 +604,41 @@ use  ${temp}fertig, clear
 *XXX FEHLEND: Plausibilaetschecks XXX
 
 * Checks
+preserve
 drop hhnr*
+order persnr migback corigin nation deu_seit germborn immiyear mnat vnat
+
 list persnr migback mig_gen_cn if migback == 3 & mig_gen_cn == 0 in 1/1000
-keep if mig_gen_cn == 0 & migback == 3
+keep if mig_gen_cn == 0 & migback == 3		// behalte nur problematische Faelle, also migback - indirekt, mig_gen_cn - deutsch
 tab nation, m					// many with other nationality		
 
 keep if nation == 1
 tab deu_seit					// viele sind eingebuergert, kriegen wir raus, woher die kommen?
+restore
+
+preserve
+keep if mig_gen_cn == 0 & migback == 2		// behalte nur problematische Faelle, also migback - direkt, mig_gen_cn - deutsch
+order persnr migback corigin nation deu_seit germborn immiyear mnat vnat
+
+
+restore
+
+/* 
+1.Fehlende Faelle - migback indirekt, mig_gen_c kein migrationshintergrund
+1.1. corigin - deutsch, nation - deutsch, aber ein Elternteil auslaendische Nationalitaet	| 8604
+1.2. corigin - deutsch, nation - nicht deutsch, deu_seit - eingebuergert			| 8602
+1.3. migback - indirekt, aber sonst alles deutsch						| 112506
+1.4. migback - indirekt, nation - deutsch, deut_seit - eingebuergert, mnat==., vnat==.		| 121202
+1.5. migback - indirekt, nation - deutsch, deut_seit - von Geburt, mnat==1, vnat==1		| 112508
+1.6. migback - indirekt, corigin==1, nation==1, Rest missing					| 252403
+
+2. Fehlende Faelle - migback direkt, mig_gen_c kein migrationshintergrund
+2.1. migback==2, mig_gen_cn==0, corigin> 1, deu_seit==0, nation==1, germborn==2			| 82403
+2.2. migback==2, mig_gen_cn==0, corigin> 1, deu_seit==1, nation> 1, germborn==2			| 271493
+2.3. migback==2, mig_gen_cn==0, corigin==., deu_seit==0, nation==1, germborn==2			| 387203
+2.4. migback==2, mig_gen_cn==0, corigin==., deu_seit==., nation==1, germborn==2			| 399004
+2.5. migback==2, mig_gen_cn==0, corigin> 1, deu_seit==., nation==1, germborn==2			| 666105
+*/
 
 
 
