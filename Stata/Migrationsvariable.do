@@ -619,8 +619,16 @@ restore
 preserve
 keep if mig_gen_cn == 0 & migback == 2		// behalte nur problematische Faelle, also migback - direkt, mig_gen_cn - deutsch
 order persnr migback corigin nation deu_seit germborn immiyear mnat vnat
+restore
 
+preserve
+keep if mig_gen_cn == 0 & migback == 4		// behalte nur problematische Faelle
+order persnr migback corigin nation deu_seit germborn immiyear mnat vnat
+restore
 
+preserve
+keep if mig_gen_cn == . & migback == 4		// behalte nur problematische Faelle
+order persnr migback corigin nation deu_seit germborn immiyear mnat vnat corigin*
 restore
 
 /* 
@@ -632,12 +640,26 @@ restore
 1.5. migback - indirekt, nation - deutsch, deut_seit - von Geburt, mnat==1, vnat==1		| 112508
 1.6. migback - indirekt, corigin==1, nation==1, Rest missing					| 252403
 
-2. Fehlende Faelle - migback direkt, mig_gen_c kein migrationshintergrund
+2. Fehlende Faelle - migback==2, mig_gen_cn==0
 2.1. migback==2, mig_gen_cn==0, corigin> 1, deu_seit==0, nation==1, germborn==2			| 82403
 2.2. migback==2, mig_gen_cn==0, corigin> 1, deu_seit==1, nation> 1, germborn==2			| 271493
 2.3. migback==2, mig_gen_cn==0, corigin==., deu_seit==0, nation==1, germborn==2			| 387203
 2.4. migback==2, mig_gen_cn==0, corigin==., deu_seit==., nation==1, germborn==2			| 399004
 2.5. migback==2, mig_gen_cn==0, corigin> 1, deu_seit==., nation==1, germborn==2			| 666105
+2.6. migback==2, mig_gen_cn==0, corigin==., deu_seit==., nation==., germborn==2			| 1129004
+2.7. migback==2, mig_gen_cn==0, corigin==., deu_seit==., nation==1, germborn==2			| 2159004
+2.8. migback==2, mig_gen_cn==0, corigin >1, deu_seit==1, nation==1, germborn==2			| 2787003
+
+3. Fehlende Faelle - migback==4, mig_gen_cn==0
+3.1. migback==4, mig_gen_cn==0, corigin==., deu_seit==., nation==1, germborn==., mnat==1, vnat==2	| 142003 
+3.2. migback==4, mig_gen_cn==0, corigin==., deu_seit==., nation >1, germborn==., mnat==2, vnat==1	| 237803
+3.3. migback==4, mig_gen_cn==0, corigin==., deu_seit==., nation >1, germborn==., mnat==2, vnat==2	| 385383
+3.4. migback==4, mig_gen_cn==0, corigin==., deu_seit==., nation==., germborn==., mnat==., vnat==.	| 707303
+
+4. Fehlende Faelle - migback== 4, mig_gen_cn==.
+ 
+
+
 */
 
 
