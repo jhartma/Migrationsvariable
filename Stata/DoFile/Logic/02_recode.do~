@@ -1,0 +1,951 @@
+// 1.1.1.1.3 - 1.1.01.01     GerGerGebBirthMiss  &  parentsNatMissinMissin  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerGerGebBirthMiss' & `parentsNatMissinMissin' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.1.1.1.3 - 1.1.02.02    GerGerGebBirthMiss  &  parentsNatMissinMissin  &  parentsCorMissinMissin  &  grandsNatMissMissMissGerm  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `GerGerGebBirthMiss' & `parentsNatMissinMissin' & `parentsCorMissinMissin' & `grandsNatMissMissMissGerm' & `grandsCorMissMissMissGerm'
+
+// 1.1.1.1.3 - 2.1.01.01     GerGerGebBirthMiss  &  parentsNatGermanGerman  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerGerGebBirthMiss' & `parentsNatGermanGerman' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.1.1.1.3 - 2.1.02.02    GerGerGebBirthMiss  &  parentsNatGermanGerman  &  parentsCorMissinMissin  &  grandsNatMissMissMissGerm  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `GerGerGebBirthMiss' & `parentsNatGermanGerman' & `parentsCorMissinMissin' & `grandsNatMissMissMissGerm' & `grandsCorMissMissMissGerm'
+
+// 1.1.1.1.3 - 2.2.01.01     GerGerGebBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerGerGebBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.1.1.1.3 - 2.2.02.01     GerGerGebBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissMissGerm  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if `GerGerGebBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissMissGerm' & `grandsCorMissMissMissMiss'
+
+// 1.1.1.1.3 - 2.2.02.02    GerGerGebBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissMissGerm  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `GerGerGebBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissMissGerm' & `grandsCorMissMissMissGerm'
+
+// 1.1.1.1.3 - 2.2.03.03    GerGerGebBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissGermGerm  &  grandsCorMissMissGermGerm
+replace mig_gen_cn = -1 if `GerGerGebBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissGermGerm' & `grandsCorMissMissGermGerm'
+
+// 1.1.1.1.3 - 2.2.03.04    GerGerGebBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissGermGerm  &  grandsCorMissGermGermGerm
+replace mig_gen_cn = -1 if `GerGerGebBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissGermGerm' & `grandsCorMissGermGermGerm'
+
+// 1.1.1.1.3 - 2.2.03.15    GerGerGebBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissGermGerm  &  grandsCorForeMissMissGerm
+replace mig_gen_cn = -1 if `GerGerGebBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissGermGerm' & `grandsCorForeMissMissGerm'
+
+// 1.1.1.1.3 - 2.2.04.03    GerGerGebBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissGermGermGerm  &  grandsCorMissMissGermGerm
+replace mig_gen_cn = -1 if `GerGerGebBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissGermGermGerm' & `grandsCorMissMissGermGerm'
+
+// 1.1.1.1.3 - 2.2.04.04    GerGerGebBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissGermGermGerm  &  grandsCorMissGermGermGerm
+replace mig_gen_cn = -1 if `GerGerGebBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissGermGermGerm' & `grandsCorMissGermGermGerm'
+
+// 1.1.1.1.3 - 2.2.05.05    GerGerGebBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatGermGermGermGerm  &  grandsCorGermGermGermGerm
+replace mig_gen_cn = -1 if `GerGerGebBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatGermGermGermGerm' & `grandsCorGermGermGermGerm'
+
+// 1.1.1.1.3 - 2.2.15.15    GerGerGebBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatForeMissMissGerm  &  grandsCorForeMissMissGerm
+replace mig_gen_cn = -1 if `GerGerGebBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatForeMissMissGerm' & `grandsCorForeMissMissGerm'
+
+// 1.1.1.1.3 - 2.3.01.01     GerGerGebBirthMiss  &  parentsNatGermanGerman  &  parentsCorMissinGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerGerGebBirthMiss' & `parentsNatGermanGerman' & `parentsCorMissinGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.1.1.1.3 - 2.3.02.02    GerGerGebBirthMiss  &  parentsNatGermanGerman  &  parentsCorMissinGerman  &  grandsNatMissMissMissGerm  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `GerGerGebBirthMiss' & `parentsNatGermanGerman' & `parentsCorMissinGerman' & `grandsNatMissMissMissGerm' & `grandsCorMissMissMissGerm'
+
+// 1.1.1.1.3 - 2.3.03.02    GerGerGebBirthMiss  &  parentsNatGermanGerman  &  parentsCorMissinGerman  &  grandsNatMissMissGermGerm  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `GerGerGebBirthMiss' & `parentsNatGermanGerman' & `parentsCorMissinGerman' & `grandsNatMissMissGermGerm' & `grandsCorMissMissMissGerm'
+
+// 1.1.1.1.3 - 2.4.01.01     GerGerGebBirthMiss  &  parentsNatGermanGerman  &  parentsCorMissinForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerGerGebBirthMiss' & `parentsNatGermanGerman' & `parentsCorMissinForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.1.1.1.3 - 2.5.01.01     GerGerGebBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerGerGebBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.1.1.1.3 - 2.5.02.02    GerGerGebBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanForeig  &  grandsNatMissMissMissGerm  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `GerGerGebBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanForeig' & `grandsNatMissMissMissGerm' & `grandsCorMissMissMissGerm'
+
+// 1.1.1.1.3 - 3.1.01.01     GerGerGebBirthMiss  &  parentsNatMissinGerman  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerGerGebBirthMiss' & `parentsNatMissinGerman' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.1.1.1.3 - 3.2.01.01     GerGerGebBirthMiss  &  parentsNatMissinGerman  &  parentsCorGermanGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerGerGebBirthMiss' & `parentsNatMissinGerman' & `parentsCorGermanGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.1.1.1.3 - 3.2.02.02    GerGerGebBirthMiss  &  parentsNatMissinGerman  &  parentsCorGermanGerman  &  grandsNatMissMissMissGerm  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `GerGerGebBirthMiss' & `parentsNatMissinGerman' & `parentsCorGermanGerman' & `grandsNatMissMissMissGerm' & `grandsCorMissMissMissGerm'
+
+// 1.1.1.1.3 - 3.2.03.03    GerGerGebBirthMiss  &  parentsNatMissinGerman  &  parentsCorGermanGerman  &  grandsNatMissMissGermGerm  &  grandsCorMissMissGermGerm
+replace mig_gen_cn = -1 if `GerGerGebBirthMiss' & `parentsNatMissinGerman' & `parentsCorGermanGerman' & `grandsNatMissMissGermGerm' & `grandsCorMissMissGermGerm'
+
+// 1.1.1.1.3 - 3.3.01.01     GerGerGebBirthMiss  &  parentsNatMissinGerman  &  parentsCorMissinGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerGerGebBirthMiss' & `parentsNatMissinGerman' & `parentsCorMissinGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.1.1.1.3 - 3.3.02.02    GerGerGebBirthMiss  &  parentsNatMissinGerman  &  parentsCorMissinGerman  &  grandsNatMissMissMissGerm  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `GerGerGebBirthMiss' & `parentsNatMissinGerman' & `parentsCorMissinGerman' & `grandsNatMissMissMissGerm' & `grandsCorMissMissMissGerm'
+
+// 1.1.1.1.3 - 3.3.03.15    GerGerGebBirthMiss  &  parentsNatMissinGerman  &  parentsCorMissinGerman  &  grandsNatMissMissGermGerm  &  grandsCorForeMissMissGerm
+replace mig_gen_cn = -1 if `GerGerGebBirthMiss' & `parentsNatMissinGerman' & `parentsCorMissinGerman' & `grandsNatMissMissGermGerm' & `grandsCorForeMissMissGerm'
+
+// 1.1.1.1.3 - 3.4.01.01     GerGerGebBirthMiss  &  parentsNatMissinGerman  &  parentsCorMissinForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerGerGebBirthMiss' & `parentsNatMissinGerman' & `parentsCorMissinForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.1.1.1.3 - 3.5.01.01     GerGerGebBirthMiss  &  parentsNatMissinGerman  &  parentsCorGermanForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerGerGebBirthMiss' & `parentsNatMissinGerman' & `parentsCorGermanForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.1.1.1.3 - 5.5.01.01     GerGerGebBirthMiss  &  parentsNatGermanForeig  &  parentsCorGermanForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerGerGebBirthMiss' & `parentsNatGermanForeig' & `parentsCorGermanForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.1.1.1.3 - 5.5.02.02    GerGerGebBirthMiss  &  parentsNatGermanForeig  &  parentsCorGermanForeig  &  grandsNatMissMissMissGerm  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `GerGerGebBirthMiss' & `parentsNatGermanForeig' & `parentsCorGermanForeig' & `grandsNatMissMissMissGerm' & `grandsCorMissMissMissGerm'
+
+// 1.1.1.1.3 - 6.6.01.01     GerGerGebBirthMiss  &  parentsNatForeigForeig  &  parentsCorForeigForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerGerGebBirthMiss' & `parentsNatForeigForeig' & `parentsCorForeigForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.1.2.1.3 - 1.1.01.01    GerGerEinBirthMiss  &  parentsNatMissinMissin  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if `GerGerEinBirthMiss' & `parentsNatMissinMissin' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.1.2.1.3 - 2.1.01.01     GerGerEinBirthMiss  &  parentsNatGermanGerman  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerGerEinBirthMiss' & `parentsNatGermanGerman' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.1.2.1.3 - 2.2.01.01     GerGerEinBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerGerEinBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.1.2.1.3 - 2.2.02.02    GerGerEinBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissMissGerm  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `GerGerEinBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissMissGerm' & `grandsCorMissMissMissGerm'
+
+// 1.1.2.1.3 - 2.2.03.03    GerGerEinBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissGermGerm  &  grandsCorMissMissGermGerm
+replace mig_gen_cn = -1 if `GerGerEinBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissGermGerm' & `grandsCorMissMissGermGerm'
+
+// 1.1.2.1.3 - 2.3.01.01     GerGerEinBirthMiss  &  parentsNatGermanGerman  &  parentsCorMissinGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerGerEinBirthMiss' & `parentsNatGermanGerman' & `parentsCorMissinGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.1.2.1.3 - 3.2.03.03    GerGerEinBirthMiss  &  parentsNatMissinGerman  &  parentsCorGermanGerman  &  grandsNatMissMissGermGerm  &  grandsCorMissMissGermGerm
+replace mig_gen_cn = -1 if `GerGerEinBirthMiss' & `parentsNatMissinGerman' & `parentsCorGermanGerman' & `grandsNatMissMissGermGerm' & `grandsCorMissMissGermGerm'
+
+// 1.1.2.1.3 - 3.3.01.01     GerGerEinBirthMiss  &  parentsNatMissinGerman  &  parentsCorMissinGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerGerEinBirthMiss' & `parentsNatMissinGerman' & `parentsCorMissinGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.1.3.1.3 - 1.1.01.01    GerGerMisBirthMiss  &  parentsNatMissinMissin  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if `GerGerMisBirthMiss' & `parentsNatMissinMissin' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.1.3.1.3 - 1.1.02.02    GerGerMisBirthMiss  &  parentsNatMissinMissin  &  parentsCorMissinMissin  &  grandsNatMissMissMissGerm  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `GerGerMisBirthMiss' & `parentsNatMissinMissin' & `parentsCorMissinMissin' & `grandsNatMissMissMissGerm' & `grandsCorMissMissMissGerm'
+
+// 1.1.3.1.3 - 2.1.01.01     GerGerMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerGerMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.1.3.1.3 - 2.2.01.01     GerGerMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerGerMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.1.3.1.3 - 2.2.02.01     GerGerMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissMissGerm  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if `GerGerMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissMissGerm' & `grandsCorMissMissMissMiss'
+
+// 1.1.3.1.3 - 2.2.02.02    GerGerMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissMissGerm  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `GerGerMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissMissGerm' & `grandsCorMissMissMissGerm'
+
+// 1.1.3.1.3 - 2.2.03.03    GerGerMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissGermGerm  &  grandsCorMissMissGermGerm
+replace mig_gen_cn = -1 if `GerGerMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissGermGerm' & `grandsCorMissMissGermGerm'
+
+// 1.1.3.1.3 - 2.2.03.15    GerGerMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissGermGerm  &  grandsCorForeMissMissGerm
+replace mig_gen_cn = -1 if `GerGerMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissGermGerm' & `grandsCorForeMissMissGerm'
+
+// 1.1.3.1.3 - 2.2.05.05    GerGerMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatGermGermGermGerm  &  grandsCorGermGermGermGerm
+replace mig_gen_cn = -1 if `GerGerMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatGermGermGermGerm' & `grandsCorGermGermGermGerm'
+
+// 1.1.3.1.3 - 2.2.12.01    GerGerMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatForeMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if `GerGerMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatForeMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.1.3.1.3 - 2.3.01.01     GerGerMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorMissinGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerGerMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorMissinGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.1.3.1.3 - 2.5.01.01     GerGerMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerGerMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.1.3.1.3 - 3.1.01.01     GerGerMisBirthMiss  &  parentsNatMissinGerman  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerGerMisBirthMiss' & `parentsNatMissinGerman' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.1.3.1.3 - 3.2.01.01     GerGerMisBirthMiss  &  parentsNatMissinGerman  &  parentsCorGermanGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerGerMisBirthMiss' & `parentsNatMissinGerman' & `parentsCorGermanGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.1.3.1.3 - 3.2.02.02    GerGerMisBirthMiss  &  parentsNatMissinGerman  &  parentsCorGermanGerman  &  grandsNatMissMissMissGerm  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `GerGerMisBirthMiss' & `parentsNatMissinGerman' & `parentsCorGermanGerman' & `grandsNatMissMissMissGerm' & `grandsCorMissMissMissGerm'
+
+// 1.1.3.1.3 - 3.2.03.03    GerGerMisBirthMiss  &  parentsNatMissinGerman  &  parentsCorGermanGerman  &  grandsNatMissMissGermGerm  &  grandsCorMissMissGermGerm
+replace mig_gen_cn = -1 if `GerGerMisBirthMiss' & `parentsNatMissinGerman' & `parentsCorGermanGerman' & `grandsNatMissMissGermGerm' & `grandsCorMissMissGermGerm'
+
+// 1.1.3.1.3 - 3.3.01.01     GerGerMisBirthMiss  &  parentsNatMissinGerman  &  parentsCorMissinGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerGerMisBirthMiss' & `parentsNatMissinGerman' & `parentsCorMissinGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.1.3.1.3 - 3.3.02.02    GerGerMisBirthMiss  &  parentsNatMissinGerman  &  parentsCorMissinGerman  &  grandsNatMissMissMissGerm  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `GerGerMisBirthMiss' & `parentsNatMissinGerman' & `parentsCorMissinGerman' & `grandsNatMissMissMissGerm' & `grandsCorMissMissMissGerm'
+
+// 1.1.3.1.3 - 3.4.01.01     GerGerMisBirthMiss  &  parentsNatMissinGerman  &  parentsCorMissinForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerGerMisBirthMiss' & `parentsNatMissinGerman' & `parentsCorMissinForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.1.3.1.3 - 5.3.01.01     GerGerMisBirthMiss  &  parentsNatGermanForeig  &  parentsCorMissinGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerGerMisBirthMiss' & `parentsNatGermanForeig' & `parentsCorMissinGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.1.3.1.3 - 5.5.01.01     GerGerMisBirthMiss  &  parentsNatGermanForeig  &  parentsCorGermanForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerGerMisBirthMiss' & `parentsNatGermanForeig' & `parentsCorGermanForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.1.3.1.3 - 5.5.11.11    GerGerMisBirthMiss  &  parentsNatGermanForeig  &  parentsCorGermanForeig  &  grandsNatForeForeMissMiss  &  grandsCorForeForeMissMiss
+replace mig_gen_cn = -1 if `GerGerMisBirthMiss' & `parentsNatGermanForeig' & `parentsCorGermanForeig' & `grandsNatForeForeMissMiss' & `grandsCorForeForeMissMiss'
+
+// 1.1.3.1.3 - 5.6.01.01     GerGerMisBirthMiss  &  parentsNatGermanForeig  &  parentsCorForeigForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerGerMisBirthMiss' & `parentsNatGermanForeig' & `parentsCorForeigForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.1.3.1.3 - 6.6.01.01     GerGerMisBirthMiss  &  parentsNatForeigForeig  &  parentsCorForeigForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerGerMisBirthMiss' & `parentsNatForeigForeig' & `parentsCorForeigForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.2.3.1.3 - 1.1.01.01    GerMisMisBirthMiss  &  parentsNatMissinMissin  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if `GerMisMisBirthMiss' & `parentsNatMissinMissin' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.2.3.1.3 - 1.1.02.02    GerMisMisBirthMiss  &  parentsNatMissinMissin  &  parentsCorMissinMissin  &  grandsNatMissMissMissGerm  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `GerMisMisBirthMiss' & `parentsNatMissinMissin' & `parentsCorMissinMissin' & `grandsNatMissMissMissGerm' & `grandsCorMissMissMissGerm'
+
+// 1.2.3.1.3 - 2.1.01.01     GerMisMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerMisMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.2.3.1.3 - 2.2.01.01     GerMisMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerMisMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.2.3.1.3 - 2.2.02.02    GerMisMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissMissGerm  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `GerMisMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissMissGerm' & `grandsCorMissMissMissGerm'
+
+// 1.2.3.1.3 - 2.2.02.12    GerMisMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissMissGerm  &  grandsCorForeMissMissMiss
+replace mig_gen_cn = -1 if `GerMisMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissMissGerm' & `grandsCorForeMissMissMiss'
+
+// 1.2.3.1.3 - 2.2.03.01    GerMisMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissGermGerm  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if `GerMisMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissGermGerm' & `grandsCorMissMissMissMiss'
+
+// 1.2.3.1.3 - 2.2.03.02    GerMisMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissGermGerm  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `GerMisMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissGermGerm' & `grandsCorMissMissMissGerm'
+
+// 1.2.3.1.3 - 2.2.03.03    GerMisMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissGermGerm  &  grandsCorMissMissGermGerm
+replace mig_gen_cn = -1 if `GerMisMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissGermGerm' & `grandsCorMissMissGermGerm'
+
+// 1.2.3.1.3 - 2.2.03.04    GerMisMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissGermGerm  &  grandsCorMissGermGermGerm
+replace mig_gen_cn = -1 if `GerMisMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissGermGerm' & `grandsCorMissGermGermGerm'
+
+// 1.2.3.1.3 - 2.2.03.11    GerMisMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissGermGerm  &  grandsCorForeForeMissMiss
+replace mig_gen_cn = -1 if `GerMisMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissGermGerm' & `grandsCorForeForeMissMiss'
+
+// 1.2.3.1.3 - 2.2.03.15    GerMisMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissGermGerm  &  grandsCorForeMissMissGerm
+replace mig_gen_cn = -1 if `GerMisMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissGermGerm' & `grandsCorForeMissMissGerm'
+
+// 1.2.3.1.3 - 2.2.04.04    GerMisMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissGermGermGerm  &  grandsCorMissGermGermGerm
+replace mig_gen_cn = -1 if `GerMisMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissGermGermGerm' & `grandsCorMissGermGermGerm'
+
+// 1.2.3.1.3 - 2.2.05.05    GerMisMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatGermGermGermGerm  &  grandsCorGermGermGermGerm
+replace mig_gen_cn = -1 if `GerMisMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatGermGermGermGerm' & `grandsCorGermGermGermGerm'
+
+// 1.2.3.1.3 - 2.2.12.02    GerMisMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatForeMissMissMiss  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `GerMisMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatForeMissMissMiss' & `grandsCorMissMissMissGerm'
+
+// 1.2.3.1.3 - 2.2.15.02    GerMisMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatForeMissMissGerm  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `GerMisMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatForeMissMissGerm' & `grandsCorMissMissMissGerm'
+
+// 1.2.3.1.3 - 2.2.15.03    GerMisMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatForeMissMissGerm  &  grandsCorMissMissGermGerm
+replace mig_gen_cn = -1 if `GerMisMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatForeMissMissGerm' & `grandsCorMissMissGermGerm'
+
+// 1.2.3.1.3 - 2.2.15.15    GerMisMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatForeMissMissGerm  &  grandsCorForeMissMissGerm
+replace mig_gen_cn = -1 if `GerMisMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatForeMissMissGerm' & `grandsCorForeMissMissGerm'
+
+// 1.2.3.1.3 - 2.3.01.01     GerMisMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorMissinGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerMisMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorMissinGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.2.3.1.3 - 2.3.03.15    GerMisMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorMissinGerman  &  grandsNatMissMissGermGerm  &  grandsCorForeMissMissGerm
+replace mig_gen_cn = -1 if `GerMisMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorMissinGerman' & `grandsNatMissMissGermGerm' & `grandsCorForeMissMissGerm'
+
+// 1.2.3.1.3 - 2.3.15.15    GerMisMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorMissinGerman  &  grandsNatForeMissMissGerm  &  grandsCorForeMissMissGerm
+replace mig_gen_cn = -1 if `GerMisMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorMissinGerman' & `grandsNatForeMissMissGerm' & `grandsCorForeMissMissGerm'
+
+// 1.2.3.1.3 - 2.5.01.01     GerMisMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerMisMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.2.3.1.3 - 2.5.02.02    GerMisMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanForeig  &  grandsNatMissMissMissGerm  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `GerMisMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanForeig' & `grandsNatMissMissMissGerm' & `grandsCorMissMissMissGerm'
+
+// 1.2.3.1.3 - 2.5.03.11    GerMisMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanForeig  &  grandsNatMissMissGermGerm  &  grandsCorForeForeMissMiss
+replace mig_gen_cn = -1 if `GerMisMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanForeig' & `grandsNatMissMissGermGerm' & `grandsCorForeForeMissMiss'
+
+// 1.2.3.1.3 - 3.3.01.01     GerMisMisBirthMiss  &  parentsNatMissinGerman  &  parentsCorMissinGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerMisMisBirthMiss' & `parentsNatMissinGerman' & `parentsCorMissinGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.2.3.1.3 - 3.3.02.02    GerMisMisBirthMiss  &  parentsNatMissinGerman  &  parentsCorMissinGerman  &  grandsNatMissMissMissGerm  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `GerMisMisBirthMiss' & `parentsNatMissinGerman' & `parentsCorMissinGerman' & `grandsNatMissMissMissGerm' & `grandsCorMissMissMissGerm'
+
+// 1.2.3.1.3 - 3.3.03.02    GerMisMisBirthMiss  &  parentsNatMissinGerman  &  parentsCorMissinGerman  &  grandsNatMissMissGermGerm  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `GerMisMisBirthMiss' & `parentsNatMissinGerman' & `parentsCorMissinGerman' & `grandsNatMissMissGermGerm' & `grandsCorMissMissMissGerm'
+
+// 1.2.3.1.3 - 3.3.03.03    GerMisMisBirthMiss  &  parentsNatMissinGerman  &  parentsCorMissinGerman  &  grandsNatMissMissGermGerm  &  grandsCorMissMissGermGerm
+replace mig_gen_cn = -1 if `GerMisMisBirthMiss' & `parentsNatMissinGerman' & `parentsCorMissinGerman' & `grandsNatMissMissGermGerm' & `grandsCorMissMissGermGerm'
+
+// 1.2.3.1.3 - 3.3.03.11    GerMisMisBirthMiss  &  parentsNatMissinGerman  &  parentsCorMissinGerman  &  grandsNatMissMissGermGerm  &  grandsCorForeForeMissMiss
+replace mig_gen_cn = -1 if `GerMisMisBirthMiss' & `parentsNatMissinGerman' & `parentsCorMissinGerman' & `grandsNatMissMissGermGerm' & `grandsCorForeForeMissMiss'
+
+// 1.2.3.1.3 - 3.3.03.15    GerMisMisBirthMiss  &  parentsNatMissinGerman  &  parentsCorMissinGerman  &  grandsNatMissMissGermGerm  &  grandsCorForeMissMissGerm
+replace mig_gen_cn = -1 if `GerMisMisBirthMiss' & `parentsNatMissinGerman' & `parentsCorMissinGerman' & `grandsNatMissMissGermGerm' & `grandsCorForeMissMissGerm'
+
+// 1.2.3.1.3 - 3.3.15.15    GerMisMisBirthMiss  &  parentsNatMissinGerman  &  parentsCorMissinGerman  &  grandsNatForeMissMissGerm  &  grandsCorForeMissMissGerm
+replace mig_gen_cn = -1 if `GerMisMisBirthMiss' & `parentsNatMissinGerman' & `parentsCorMissinGerman' & `grandsNatForeMissMissGerm' & `grandsCorForeMissMissGerm'
+
+// 1.2.3.1.3 - 5.2.01.01     GerMisMisBirthMiss  &  parentsNatGermanForeig  &  parentsCorGermanGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerMisMisBirthMiss' & `parentsNatGermanForeig' & `parentsCorGermanGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.2.3.1.3 - 5.2.11.11    GerMisMisBirthMiss  &  parentsNatGermanForeig  &  parentsCorGermanGerman  &  grandsNatForeForeMissMiss  &  grandsCorForeForeMissMiss
+replace mig_gen_cn = -1 if `GerMisMisBirthMiss' & `parentsNatGermanForeig' & `parentsCorGermanGerman' & `grandsNatForeForeMissMiss' & `grandsCorForeForeMissMiss'
+
+// 1.2.3.1.3 - 5.2.11.15    GerMisMisBirthMiss  &  parentsNatGermanForeig  &  parentsCorGermanGerman  &  grandsNatForeForeMissMiss  &  grandsCorForeMissMissGerm
+replace mig_gen_cn = -1 if `GerMisMisBirthMiss' & `parentsNatGermanForeig' & `parentsCorGermanGerman' & `grandsNatForeForeMissMiss' & `grandsCorForeMissMissGerm'
+
+// 1.2.3.1.3 - 5.2.15.15    GerMisMisBirthMiss  &  parentsNatGermanForeig  &  parentsCorGermanGerman  &  grandsNatForeMissMissGerm  &  grandsCorForeMissMissGerm
+replace mig_gen_cn = -1 if `GerMisMisBirthMiss' & `parentsNatGermanForeig' & `parentsCorGermanGerman' & `grandsNatForeMissMissGerm' & `grandsCorForeMissMissGerm'
+
+// 1.2.3.1.3 - 5.3.01.01     GerMisMisBirthMiss  &  parentsNatGermanForeig  &  parentsCorMissinGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerMisMisBirthMiss' & `parentsNatGermanForeig' & `parentsCorMissinGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.2.3.1.3 - 5.5.01.01     GerMisMisBirthMiss  &  parentsNatGermanForeig  &  parentsCorGermanForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerMisMisBirthMiss' & `parentsNatGermanForeig' & `parentsCorGermanForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.2.3.1.3 - 5.5.02.02    GerMisMisBirthMiss  &  parentsNatGermanForeig  &  parentsCorGermanForeig  &  grandsNatMissMissMissGerm  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `GerMisMisBirthMiss' & `parentsNatGermanForeig' & `parentsCorGermanForeig' & `grandsNatMissMissMissGerm' & `grandsCorMissMissMissGerm'
+
+// 1.2.3.1.3 - 5.5.11.11    GerMisMisBirthMiss  &  parentsNatGermanForeig  &  parentsCorGermanForeig  &  grandsNatForeForeMissMiss  &  grandsCorForeForeMissMiss
+replace mig_gen_cn = -1 if `GerMisMisBirthMiss' & `parentsNatGermanForeig' & `parentsCorGermanForeig' & `grandsNatForeForeMissMiss' & `grandsCorForeForeMissMiss'
+
+// 1.2.3.1.3 - 5.5.15.15    GerMisMisBirthMiss  &  parentsNatGermanForeig  &  parentsCorGermanForeig  &  grandsNatForeMissMissGerm  &  grandsCorForeMissMissGerm
+replace mig_gen_cn = -1 if `GerMisMisBirthMiss' & `parentsNatGermanForeig' & `parentsCorGermanForeig' & `grandsNatForeMissMissGerm' & `grandsCorForeMissMissGerm'
+
+// 1.3.1.1.3 - 2.2.01.01     GerForGebBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerForGebBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.3.1.1.3 - 3.2.01.01     GerForGebBirthMiss  &  parentsNatMissinGerman  &  parentsCorGermanGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerForGebBirthMiss' & `parentsNatMissinGerman' & `parentsCorGermanGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.3.3.1.3 - 1.1.01.01    GerForMisBirthMiss  &  parentsNatMissinMissin  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if `GerForMisBirthMiss' & `parentsNatMissinMissin' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.3.3.1.3 - 1.1.02.02    GerForMisBirthMiss  &  parentsNatMissinMissin  &  parentsCorMissinMissin  &  grandsNatMissMissMissGerm  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `GerForMisBirthMiss' & `parentsNatMissinMissin' & `parentsCorMissinMissin' & `grandsNatMissMissMissGerm' & `grandsCorMissMissMissGerm'
+
+// 1.3.3.1.3 - 2.1.01.01     GerForMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerForMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.3.3.1.3 - 2.2.01.01     GerForMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerForMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.3.3.1.3 - 2.2.02.02    GerForMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissMissGerm  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `GerForMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissMissGerm' & `grandsCorMissMissMissGerm'
+
+// 1.3.3.1.3 - 2.2.02.12    GerForMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissMissGerm  &  grandsCorForeMissMissMiss
+replace mig_gen_cn = -1 if `GerForMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissMissGerm' & `grandsCorForeMissMissMiss'
+
+// 1.3.3.1.3 - 2.2.03.01    GerForMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissGermGerm  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if `GerForMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissGermGerm' & `grandsCorMissMissMissMiss'
+
+// 1.3.3.1.3 - 2.2.03.02    GerForMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissGermGerm  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `GerForMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissGermGerm' & `grandsCorMissMissMissGerm'
+
+// 1.3.3.1.3 - 2.2.03.03    GerForMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissGermGerm  &  grandsCorMissMissGermGerm
+replace mig_gen_cn = -1 if `GerForMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissGermGerm' & `grandsCorMissMissGermGerm'
+
+// 1.3.3.1.3 - 2.2.03.04    GerForMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissGermGerm  &  grandsCorMissGermGermGerm
+replace mig_gen_cn = -1 if `GerForMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissGermGerm' & `grandsCorMissGermGermGerm'
+
+// 1.3.3.1.3 - 2.2.03.11    GerForMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissGermGerm  &  grandsCorForeForeMissMiss
+replace mig_gen_cn = -1 if `GerForMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissGermGerm' & `grandsCorForeForeMissMiss'
+
+// 1.3.3.1.3 - 2.2.03.15    GerForMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissGermGerm  &  grandsCorForeMissMissGerm
+replace mig_gen_cn = -1 if `GerForMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissGermGerm' & `grandsCorForeMissMissGerm'
+
+// 1.3.3.1.3 - 2.2.04.04    GerForMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissGermGermGerm  &  grandsCorMissGermGermGerm
+replace mig_gen_cn = -1 if `GerForMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissGermGermGerm' & `grandsCorMissGermGermGerm'
+
+// 1.3.3.1.3 - 2.2.05.05    GerForMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatGermGermGermGerm  &  grandsCorGermGermGermGerm
+replace mig_gen_cn = -1 if `GerForMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatGermGermGermGerm' & `grandsCorGermGermGermGerm'
+
+// 1.3.3.1.3 - 2.2.12.02    GerForMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatForeMissMissMiss  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `GerForMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatForeMissMissMiss' & `grandsCorMissMissMissGerm'
+
+// 1.3.3.1.3 - 2.2.15.02    GerForMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatForeMissMissGerm  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `GerForMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatForeMissMissGerm' & `grandsCorMissMissMissGerm'
+
+// 1.3.3.1.3 - 2.2.15.03    GerForMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatForeMissMissGerm  &  grandsCorMissMissGermGerm
+replace mig_gen_cn = -1 if `GerForMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatForeMissMissGerm' & `grandsCorMissMissGermGerm'
+
+// 1.3.3.1.3 - 2.2.15.15    GerForMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatForeMissMissGerm  &  grandsCorForeMissMissGerm
+replace mig_gen_cn = -1 if `GerForMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatForeMissMissGerm' & `grandsCorForeMissMissGerm'
+
+// 1.3.3.1.3 - 2.3.01.01     GerForMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorMissinGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerForMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorMissinGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.3.3.1.3 - 2.3.03.15    GerForMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorMissinGerman  &  grandsNatMissMissGermGerm  &  grandsCorForeMissMissGerm
+replace mig_gen_cn = -1 if `GerForMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorMissinGerman' & `grandsNatMissMissGermGerm' & `grandsCorForeMissMissGerm'
+
+// 1.3.3.1.3 - 2.3.15.15    GerForMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorMissinGerman  &  grandsNatForeMissMissGerm  &  grandsCorForeMissMissGerm
+replace mig_gen_cn = -1 if `GerForMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorMissinGerman' & `grandsNatForeMissMissGerm' & `grandsCorForeMissMissGerm'
+
+// 1.3.3.1.3 - 2.5.01.01     GerForMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerForMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.3.3.1.3 - 2.5.02.02    GerForMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanForeig  &  grandsNatMissMissMissGerm  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `GerForMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanForeig' & `grandsNatMissMissMissGerm' & `grandsCorMissMissMissGerm'
+
+// 1.3.3.1.3 - 2.5.03.11    GerForMisBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanForeig  &  grandsNatMissMissGermGerm  &  grandsCorForeForeMissMiss
+replace mig_gen_cn = -1 if `GerForMisBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanForeig' & `grandsNatMissMissGermGerm' & `grandsCorForeForeMissMiss'
+
+// 1.3.3.1.3 - 3.3.01.01     GerForMisBirthMiss  &  parentsNatMissinGerman  &  parentsCorMissinGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerForMisBirthMiss' & `parentsNatMissinGerman' & `parentsCorMissinGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.3.3.1.3 - 3.3.02.02    GerForMisBirthMiss  &  parentsNatMissinGerman  &  parentsCorMissinGerman  &  grandsNatMissMissMissGerm  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `GerForMisBirthMiss' & `parentsNatMissinGerman' & `parentsCorMissinGerman' & `grandsNatMissMissMissGerm' & `grandsCorMissMissMissGerm'
+
+// 1.3.3.1.3 - 3.3.03.02    GerForMisBirthMiss  &  parentsNatMissinGerman  &  parentsCorMissinGerman  &  grandsNatMissMissGermGerm  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `GerForMisBirthMiss' & `parentsNatMissinGerman' & `parentsCorMissinGerman' & `grandsNatMissMissGermGerm' & `grandsCorMissMissMissGerm'
+
+// 1.3.3.1.3 - 3.3.03.03    GerForMisBirthMiss  &  parentsNatMissinGerman  &  parentsCorMissinGerman  &  grandsNatMissMissGermGerm  &  grandsCorMissMissGermGerm
+replace mig_gen_cn = -1 if `GerForMisBirthMiss' & `parentsNatMissinGerman' & `parentsCorMissinGerman' & `grandsNatMissMissGermGerm' & `grandsCorMissMissGermGerm'
+
+// 1.3.3.1.3 - 3.3.03.11    GerForMisBirthMiss  &  parentsNatMissinGerman  &  parentsCorMissinGerman  &  grandsNatMissMissGermGerm  &  grandsCorForeForeMissMiss
+replace mig_gen_cn = -1 if `GerForMisBirthMiss' & `parentsNatMissinGerman' & `parentsCorMissinGerman' & `grandsNatMissMissGermGerm' & `grandsCorForeForeMissMiss'
+
+// 1.3.3.1.3 - 3.3.03.15    GerForMisBirthMiss  &  parentsNatMissinGerman  &  parentsCorMissinGerman  &  grandsNatMissMissGermGerm  &  grandsCorForeMissMissGerm
+replace mig_gen_cn = -1 if `GerForMisBirthMiss' & `parentsNatMissinGerman' & `parentsCorMissinGerman' & `grandsNatMissMissGermGerm' & `grandsCorForeMissMissGerm'
+
+// 1.3.3.1.3 - 3.3.15.15    GerForMisBirthMiss  &  parentsNatMissinGerman  &  parentsCorMissinGerman  &  grandsNatForeMissMissGerm  &  grandsCorForeMissMissGerm
+replace mig_gen_cn = -1 if `GerForMisBirthMiss' & `parentsNatMissinGerman' & `parentsCorMissinGerman' & `grandsNatForeMissMissGerm' & `grandsCorForeMissMissGerm'
+
+// 1.3.3.1.3 - 5.2.01.01     GerForMisBirthMiss  &  parentsNatGermanForeig  &  parentsCorGermanGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerForMisBirthMiss' & `parentsNatGermanForeig' & `parentsCorGermanGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.3.3.1.3 - 5.2.11.11    GerForMisBirthMiss  &  parentsNatGermanForeig  &  parentsCorGermanGerman  &  grandsNatForeForeMissMiss  &  grandsCorForeForeMissMiss
+replace mig_gen_cn = -1 if `GerForMisBirthMiss' & `parentsNatGermanForeig' & `parentsCorGermanGerman' & `grandsNatForeForeMissMiss' & `grandsCorForeForeMissMiss'
+
+// 1.3.3.1.3 - 5.2.11.15    GerForMisBirthMiss  &  parentsNatGermanForeig  &  parentsCorGermanGerman  &  grandsNatForeForeMissMiss  &  grandsCorForeMissMissGerm
+replace mig_gen_cn = -1 if `GerForMisBirthMiss' & `parentsNatGermanForeig' & `parentsCorGermanGerman' & `grandsNatForeForeMissMiss' & `grandsCorForeMissMissGerm'
+
+// 1.3.3.1.3 - 5.2.15.15    GerForMisBirthMiss  &  parentsNatGermanForeig  &  parentsCorGermanGerman  &  grandsNatForeMissMissGerm  &  grandsCorForeMissMissGerm
+replace mig_gen_cn = -1 if `GerForMisBirthMiss' & `parentsNatGermanForeig' & `parentsCorGermanGerman' & `grandsNatForeMissMissGerm' & `grandsCorForeMissMissGerm'
+
+// 1.3.3.1.3 - 5.3.01.01     GerForMisBirthMiss  &  parentsNatGermanForeig  &  parentsCorMissinGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerForMisBirthMiss' & `parentsNatGermanForeig' & `parentsCorMissinGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.3.3.1.3 - 5.5.01.01     GerForMisBirthMiss  &  parentsNatGermanForeig  &  parentsCorGermanForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `GerForMisBirthMiss' & `parentsNatGermanForeig' & `parentsCorGermanForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 1.3.3.1.3 - 5.5.02.02    GerForMisBirthMiss  &  parentsNatGermanForeig  &  parentsCorGermanForeig  &  grandsNatMissMissMissGerm  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `GerForMisBirthMiss' & `parentsNatGermanForeig' & `parentsCorGermanForeig' & `grandsNatMissMissMissGerm' & `grandsCorMissMissMissGerm'
+
+// 1.3.3.1.3 - 5.5.11.11    GerForMisBirthMiss  &  parentsNatGermanForeig  &  parentsCorGermanForeig  &  grandsNatForeForeMissMiss  &  grandsCorForeForeMissMiss
+replace mig_gen_cn = -1 if `GerForMisBirthMiss' & `parentsNatGermanForeig' & `parentsCorGermanForeig' & `grandsNatForeForeMissMiss' & `grandsCorForeForeMissMiss'
+
+// 1.3.3.1.3 - 5.5.15.15    GerForMisBirthMiss  &  parentsNatGermanForeig  &  parentsCorGermanForeig  &  grandsNatForeMissMissGerm  &  grandsCorForeMissMissGerm
+replace mig_gen_cn = -1 if `GerForMisBirthMiss' & `parentsNatGermanForeig' & `parentsCorGermanForeig' & `grandsNatForeMissMissGerm' & `grandsCorForeMissMissGerm'
+
+// 2.2.3.1.3 - 3.3.01.01     MisMisMisBirthMiss  &  parentsNatMissinGerman  &  parentsCorMissinGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `MisMisMisBirthMiss' & `parentsNatMissinGerman' & `parentsCorMissinGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.1.3 - 1.1.01.01    ForGerGebBirthMiss  &  parentsNatMissinMissin  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if `ForGerGebBirthMiss' & `parentsNatMissinMissin' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.1.3 - 2.1.01.01     ForGerGebBirthMiss  &  parentsNatGermanGerman  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebBirthMiss' & `parentsNatGermanGerman' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.1.3 - 2.1.02.12    ForGerGebBirthMiss  &  parentsNatGermanGerman  &  parentsCorMissinMissin  &  grandsNatMissMissMissGerm  &  grandsCorForeMissMissMiss
+replace mig_gen_cn = -1 if `ForGerGebBirthMiss' & `parentsNatGermanGerman' & `parentsCorMissinMissin' & `grandsNatMissMissMissGerm' & `grandsCorForeMissMissMiss'
+
+// 3.1.1.1.3 - 2.2.01.01     ForGerGebBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.1.3 - 2.2.02.02    ForGerGebBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissMissGerm  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `ForGerGebBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissMissGerm' & `grandsCorMissMissMissGerm'
+
+// 3.1.1.1.3 - 2.2.12.12    ForGerGebBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatForeMissMissMiss  &  grandsCorForeMissMissMiss
+replace mig_gen_cn = -1 if `ForGerGebBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatForeMissMissMiss' & `grandsCorForeMissMissMiss'
+
+// 3.1.1.1.3 - 2.3.01.01     ForGerGebBirthMiss  &  parentsNatGermanGerman  &  parentsCorMissinGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebBirthMiss' & `parentsNatGermanGerman' & `parentsCorMissinGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.1.3 - 2.4.01.01     ForGerGebBirthMiss  &  parentsNatGermanGerman  &  parentsCorMissinForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebBirthMiss' & `parentsNatGermanGerman' & `parentsCorMissinForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.1.3 - 2.4.02.12    ForGerGebBirthMiss  &  parentsNatGermanGerman  &  parentsCorMissinForeig  &  grandsNatMissMissMissGerm  &  grandsCorForeMissMissMiss
+replace mig_gen_cn = -1 if `ForGerGebBirthMiss' & `parentsNatGermanGerman' & `parentsCorMissinForeig' & `grandsNatMissMissMissGerm' & `grandsCorForeMissMissMiss'
+
+// 3.1.1.1.3 - 2.4.03.11    ForGerGebBirthMiss  &  parentsNatGermanGerman  &  parentsCorMissinForeig  &  grandsNatMissMissGermGerm  &  grandsCorForeForeMissMiss
+replace mig_gen_cn = -1 if `ForGerGebBirthMiss' & `parentsNatGermanGerman' & `parentsCorMissinForeig' & `grandsNatMissMissGermGerm' & `grandsCorForeForeMissMiss'
+
+// 3.1.1.1.3 - 2.5.01.01     ForGerGebBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.1.3 - 2.5.02.01     ForGerGebBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanForeig  &  grandsNatMissMissMissGerm  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if `ForGerGebBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanForeig' & `grandsNatMissMissMissGerm' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.1.3 - 2.5.02.02    ForGerGebBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanForeig  &  grandsNatMissMissMissGerm  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `ForGerGebBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanForeig' & `grandsNatMissMissMissGerm' & `grandsCorMissMissMissGerm'
+
+// 3.1.1.1.3 - 2.5.02.12    ForGerGebBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanForeig  &  grandsNatMissMissMissGerm  &  grandsCorForeMissMissMiss
+replace mig_gen_cn = -1 if `ForGerGebBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanForeig' & `grandsNatMissMissMissGerm' & `grandsCorForeMissMissMiss'
+
+// 3.1.1.1.3 - 2.5.03.03    ForGerGebBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanForeig  &  grandsNatMissMissGermGerm  &  grandsCorMissMissGermGerm
+replace mig_gen_cn = -1 if `ForGerGebBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanForeig' & `grandsNatMissMissGermGerm' & `grandsCorMissMissGermGerm'
+
+// 3.1.1.1.3 - 2.5.11.11    ForGerGebBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanForeig  &  grandsNatForeForeMissMiss  &  grandsCorForeForeMissMiss
+replace mig_gen_cn = -1 if `ForGerGebBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanForeig' & `grandsNatForeForeMissMiss' & `grandsCorForeForeMissMiss'
+
+// 3.1.1.1.3 - 2.5.12.12    ForGerGebBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanForeig  &  grandsNatForeMissMissMiss  &  grandsCorForeMissMissMiss
+replace mig_gen_cn = -1 if `ForGerGebBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanForeig' & `grandsNatForeMissMissMiss' & `grandsCorForeMissMissMiss'
+
+// 3.1.1.1.3 - 2.5.15.15    ForGerGebBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanForeig  &  grandsNatForeMissMissGerm  &  grandsCorForeMissMissGerm
+replace mig_gen_cn = -1 if `ForGerGebBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanForeig' & `grandsNatForeMissMissGerm' & `grandsCorForeMissMissGerm'
+
+// 3.1.1.1.3 - 2.6.01.01     ForGerGebBirthMiss  &  parentsNatGermanGerman  &  parentsCorForeigForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebBirthMiss' & `parentsNatGermanGerman' & `parentsCorForeigForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.1.3 - 2.6.02.12    ForGerGebBirthMiss  &  parentsNatGermanGerman  &  parentsCorForeigForeig  &  grandsNatMissMissMissGerm  &  grandsCorForeMissMissMiss
+replace mig_gen_cn = -1 if `ForGerGebBirthMiss' & `parentsNatGermanGerman' & `parentsCorForeigForeig' & `grandsNatMissMissMissGerm' & `grandsCorForeMissMissMiss'
+
+// 3.1.1.1.3 - 3.1.01.01     ForGerGebBirthMiss  &  parentsNatMissinGerman  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebBirthMiss' & `parentsNatMissinGerman' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.1.3 - 3.1.02.12    ForGerGebBirthMiss  &  parentsNatMissinGerman  &  parentsCorMissinMissin  &  grandsNatMissMissMissGerm  &  grandsCorForeMissMissMiss
+replace mig_gen_cn = -1 if `ForGerGebBirthMiss' & `parentsNatMissinGerman' & `parentsCorMissinMissin' & `grandsNatMissMissMissGerm' & `grandsCorForeMissMissMiss'
+
+// 3.1.1.1.3 - 3.3.01.01     ForGerGebBirthMiss  &  parentsNatMissinGerman  &  parentsCorMissinGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebBirthMiss' & `parentsNatMissinGerman' & `parentsCorMissinGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.1.3 - 3.3.02.02    ForGerGebBirthMiss  &  parentsNatMissinGerman  &  parentsCorMissinGerman  &  grandsNatMissMissMissGerm  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `ForGerGebBirthMiss' & `parentsNatMissinGerman' & `parentsCorMissinGerman' & `grandsNatMissMissMissGerm' & `grandsCorMissMissMissGerm'
+
+// 3.1.1.1.3 - 3.4.01.01     ForGerGebBirthMiss  &  parentsNatMissinGerman  &  parentsCorMissinForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebBirthMiss' & `parentsNatMissinGerman' & `parentsCorMissinForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.1.3 - 3.4.03.11    ForGerGebBirthMiss  &  parentsNatMissinGerman  &  parentsCorMissinForeig  &  grandsNatMissMissGermGerm  &  grandsCorForeForeMissMiss
+replace mig_gen_cn = -1 if `ForGerGebBirthMiss' & `parentsNatMissinGerman' & `parentsCorMissinForeig' & `grandsNatMissMissGermGerm' & `grandsCorForeForeMissMiss'
+
+// 3.1.1.1.3 - 3.5.01.01     ForGerGebBirthMiss  &  parentsNatMissinGerman  &  parentsCorGermanForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebBirthMiss' & `parentsNatMissinGerman' & `parentsCorGermanForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.1.3 - 4.1.01.01     ForGerGebBirthMiss  &  parentsNatMissinForeig  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebBirthMiss' & `parentsNatMissinForeig' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.1.3 - 4.2.01.01     ForGerGebBirthMiss  &  parentsNatMissinForeig  &  parentsCorGermanGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebBirthMiss' & `parentsNatMissinForeig' & `parentsCorGermanGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.1.3 - 4.3.01.01     ForGerGebBirthMiss  &  parentsNatMissinForeig  &  parentsCorMissinGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebBirthMiss' & `parentsNatMissinForeig' & `parentsCorMissinGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.1.3 - 4.4.01.01     ForGerGebBirthMiss  &  parentsNatMissinForeig  &  parentsCorMissinForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebBirthMiss' & `parentsNatMissinForeig' & `parentsCorMissinForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.1.3 - 4.5.01.01     ForGerGebBirthMiss  &  parentsNatMissinForeig  &  parentsCorGermanForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebBirthMiss' & `parentsNatMissinForeig' & `parentsCorGermanForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.1.3 - 4.5.12.02    ForGerGebBirthMiss  &  parentsNatMissinForeig  &  parentsCorGermanForeig  &  grandsNatForeMissMissMiss  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `ForGerGebBirthMiss' & `parentsNatMissinForeig' & `parentsCorGermanForeig' & `grandsNatForeMissMissMiss' & `grandsCorMissMissMissGerm'
+
+// 3.1.1.1.3 - 5.1.01.01     ForGerGebBirthMiss  &  parentsNatGermanForeig  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebBirthMiss' & `parentsNatGermanForeig' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.1.3 - 5.2.01.01     ForGerGebBirthMiss  &  parentsNatGermanForeig  &  parentsCorGermanGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebBirthMiss' & `parentsNatGermanForeig' & `parentsCorGermanGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.1.3 - 5.2.03.03    ForGerGebBirthMiss  &  parentsNatGermanForeig  &  parentsCorGermanGerman  &  grandsNatMissMissGermGerm  &  grandsCorMissMissGermGerm
+replace mig_gen_cn = -1 if `ForGerGebBirthMiss' & `parentsNatGermanForeig' & `parentsCorGermanGerman' & `grandsNatMissMissGermGerm' & `grandsCorMissMissGermGerm'
+
+// 3.1.1.1.3 - 5.2.11.11    ForGerGebBirthMiss  &  parentsNatGermanForeig  &  parentsCorGermanGerman  &  grandsNatForeForeMissMiss  &  grandsCorForeForeMissMiss
+replace mig_gen_cn = -1 if `ForGerGebBirthMiss' & `parentsNatGermanForeig' & `parentsCorGermanGerman' & `grandsNatForeForeMissMiss' & `grandsCorForeForeMissMiss'
+
+// 3.1.1.1.3 - 5.3.01.01     ForGerGebBirthMiss  &  parentsNatGermanForeig  &  parentsCorMissinGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebBirthMiss' & `parentsNatGermanForeig' & `parentsCorMissinGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.1.3 - 5.4.01.01     ForGerGebBirthMiss  &  parentsNatGermanForeig  &  parentsCorMissinForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebBirthMiss' & `parentsNatGermanForeig' & `parentsCorMissinForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.1.3 - 5.5.01.01     ForGerGebBirthMiss  &  parentsNatGermanForeig  &  parentsCorGermanForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebBirthMiss' & `parentsNatGermanForeig' & `parentsCorGermanForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.1.3 - 5.5.02.01     ForGerGebBirthMiss  &  parentsNatGermanForeig  &  parentsCorGermanForeig  &  grandsNatMissMissMissGerm  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if `ForGerGebBirthMiss' & `parentsNatGermanForeig' & `parentsCorGermanForeig' & `grandsNatMissMissMissGerm' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.1.3 - 5.5.02.02    ForGerGebBirthMiss  &  parentsNatGermanForeig  &  parentsCorGermanForeig  &  grandsNatMissMissMissGerm  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `ForGerGebBirthMiss' & `parentsNatGermanForeig' & `parentsCorGermanForeig' & `grandsNatMissMissMissGerm' & `grandsCorMissMissMissGerm'
+
+// 3.1.1.1.3 - 5.5.11.11    ForGerGebBirthMiss  &  parentsNatGermanForeig  &  parentsCorGermanForeig  &  grandsNatForeForeMissMiss  &  grandsCorForeForeMissMiss
+replace mig_gen_cn = -1 if `ForGerGebBirthMiss' & `parentsNatGermanForeig' & `parentsCorGermanForeig' & `grandsNatForeForeMissMiss' & `grandsCorForeForeMissMiss'
+
+// 3.1.1.1.3 - 5.5.12.02    ForGerGebBirthMiss  &  parentsNatGermanForeig  &  parentsCorGermanForeig  &  grandsNatForeMissMissMiss  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `ForGerGebBirthMiss' & `parentsNatGermanForeig' & `parentsCorGermanForeig' & `grandsNatForeMissMissMiss' & `grandsCorMissMissMissGerm'
+
+// 3.1.1.1.3 - 5.5.12.12    ForGerGebBirthMiss  &  parentsNatGermanForeig  &  parentsCorGermanForeig  &  grandsNatForeMissMissMiss  &  grandsCorForeMissMissMiss
+replace mig_gen_cn = -1 if `ForGerGebBirthMiss' & `parentsNatGermanForeig' & `parentsCorGermanForeig' & `grandsNatForeMissMissMiss' & `grandsCorForeMissMissMiss'
+
+// 3.1.1.1.3 - 5.6.01.01     ForGerGebBirthMiss  &  parentsNatGermanForeig  &  parentsCorForeigForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebBirthMiss' & `parentsNatGermanForeig' & `parentsCorForeigForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.1.3 - 5.6.02.12    ForGerGebBirthMiss  &  parentsNatGermanForeig  &  parentsCorForeigForeig  &  grandsNatMissMissMissGerm  &  grandsCorForeMissMissMiss
+replace mig_gen_cn = -1 if `ForGerGebBirthMiss' & `parentsNatGermanForeig' & `parentsCorForeigForeig' & `grandsNatMissMissMissGerm' & `grandsCorForeMissMissMiss'
+
+// 3.1.1.1.3 - 6.1.01.01     ForGerGebBirthMiss  &  parentsNatForeigForeig  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebBirthMiss' & `parentsNatForeigForeig' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.1.3 - 6.2.03.03    ForGerGebBirthMiss  &  parentsNatForeigForeig  &  parentsCorGermanGerman  &  grandsNatMissMissGermGerm  &  grandsCorMissMissGermGerm
+replace mig_gen_cn = -1 if `ForGerGebBirthMiss' & `parentsNatForeigForeig' & `parentsCorGermanGerman' & `grandsNatMissMissGermGerm' & `grandsCorMissMissGermGerm'
+
+// 3.1.1.1.3 - 6.2.11.11    ForGerGebBirthMiss  &  parentsNatForeigForeig  &  parentsCorGermanGerman  &  grandsNatForeForeMissMiss  &  grandsCorForeForeMissMiss
+replace mig_gen_cn = -1 if `ForGerGebBirthMiss' & `parentsNatForeigForeig' & `parentsCorGermanGerman' & `grandsNatForeForeMissMiss' & `grandsCorForeForeMissMiss'
+
+// 3.1.1.1.3 - 6.3.01.01     ForGerGebBirthMiss  &  parentsNatForeigForeig  &  parentsCorMissinGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebBirthMiss' & `parentsNatForeigForeig' & `parentsCorMissinGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.1.3 - 6.4.01.01     ForGerGebBirthMiss  &  parentsNatForeigForeig  &  parentsCorMissinForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebBirthMiss' & `parentsNatForeigForeig' & `parentsCorMissinForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.1.3 - 6.5.01.01     ForGerGebBirthMiss  &  parentsNatForeigForeig  &  parentsCorGermanForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebBirthMiss' & `parentsNatForeigForeig' & `parentsCorGermanForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.1.3 - 6.5.11.11    ForGerGebBirthMiss  &  parentsNatForeigForeig  &  parentsCorGermanForeig  &  grandsNatForeForeMissMiss  &  grandsCorForeForeMissMiss
+replace mig_gen_cn = -1 if `ForGerGebBirthMiss' & `parentsNatForeigForeig' & `parentsCorGermanForeig' & `grandsNatForeForeMissMiss' & `grandsCorForeForeMissMiss'
+
+// 3.1.1.1.3 - 6.6.01.01     ForGerGebBirthMiss  &  parentsNatForeigForeig  &  parentsCorForeigForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebBirthMiss' & `parentsNatForeigForeig' & `parentsCorForeigForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.1.3 - 6.6.11.11    ForGerGebBirthMiss  &  parentsNatForeigForeig  &  parentsCorForeigForeig  &  grandsNatForeForeMissMiss  &  grandsCorForeForeMissMiss
+replace mig_gen_cn = -1 if `ForGerGebBirthMiss' & `parentsNatForeigForeig' & `parentsCorForeigForeig' & `grandsNatForeForeMissMiss' & `grandsCorForeForeMissMiss'
+
+// 3.1.1.2.1 - 1.1.01.01    ForGerGebMigraEarly  &  parentsNatMissinMissin  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if `ForGerGebMigraEarly' & `parentsNatMissinMissin' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.2.1 - 2.1.01.01     ForGerGebMigraEarly  &  parentsNatGermanGerman  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebMigraEarly' & `parentsNatGermanGerman' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.2.1 - 2.2.01.01     ForGerGebMigraEarly  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebMigraEarly' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.2.1 - 2.3.01.01     ForGerGebMigraEarly  &  parentsNatGermanGerman  &  parentsCorMissinGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebMigraEarly' & `parentsNatGermanGerman' & `parentsCorMissinGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.2.1 - 2.4.01.01     ForGerGebMigraEarly  &  parentsNatGermanGerman  &  parentsCorMissinForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebMigraEarly' & `parentsNatGermanGerman' & `parentsCorMissinForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.2.1 - 2.5.01.01     ForGerGebMigraEarly  &  parentsNatGermanGerman  &  parentsCorGermanForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebMigraEarly' & `parentsNatGermanGerman' & `parentsCorGermanForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.2.1 - 2.6.01.01     ForGerGebMigraEarly  &  parentsNatGermanGerman  &  parentsCorForeigForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebMigraEarly' & `parentsNatGermanGerman' & `parentsCorForeigForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.2.1 - 2.6.02.12    ForGerGebMigraEarly  &  parentsNatGermanGerman  &  parentsCorForeigForeig  &  grandsNatMissMissMissGerm  &  grandsCorForeMissMissMiss
+replace mig_gen_cn = -1 if `ForGerGebMigraEarly' & `parentsNatGermanGerman' & `parentsCorForeigForeig' & `grandsNatMissMissMissGerm' & `grandsCorForeMissMissMiss'
+
+// 3.1.1.2.1 - 3.1.01.01     ForGerGebMigraEarly  &  parentsNatMissinGerman  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebMigraEarly' & `parentsNatMissinGerman' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.2.1 - 3.3.01.01     ForGerGebMigraEarly  &  parentsNatMissinGerman  &  parentsCorMissinGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebMigraEarly' & `parentsNatMissinGerman' & `parentsCorMissinGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.2.1 - 3.4.01.01     ForGerGebMigraEarly  &  parentsNatMissinGerman  &  parentsCorMissinForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebMigraEarly' & `parentsNatMissinGerman' & `parentsCorMissinForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.2.1 - 3.4.02.02    ForGerGebMigraEarly  &  parentsNatMissinGerman  &  parentsCorMissinForeig  &  grandsNatMissMissMissGerm  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `ForGerGebMigraEarly' & `parentsNatMissinGerman' & `parentsCorMissinForeig' & `grandsNatMissMissMissGerm' & `grandsCorMissMissMissGerm'
+
+// 3.1.1.2.1 - 5.5.01.01     ForGerGebMigraEarly  &  parentsNatGermanForeig  &  parentsCorGermanForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebMigraEarly' & `parentsNatGermanForeig' & `parentsCorGermanForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.2.1 - 5.6.01.01     ForGerGebMigraEarly  &  parentsNatGermanForeig  &  parentsCorForeigForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebMigraEarly' & `parentsNatGermanForeig' & `parentsCorForeigForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.2.1 - 6.1.01.01     ForGerGebMigraEarly  &  parentsNatForeigForeig  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebMigraEarly' & `parentsNatForeigForeig' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.2.2 - 1.1.01.01    ForGerGebMigraLate  &  parentsNatMissinMissin  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if `ForGerGebMigraLate' & `parentsNatMissinMissin' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.2.2 - 2.1.01.01     ForGerGebMigraLate  &  parentsNatGermanGerman  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebMigraLate' & `parentsNatGermanGerman' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.2.2 - 2.2.01.01     ForGerGebMigraLate  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebMigraLate' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.2.2 - 2.3.01.01     ForGerGebMigraLate  &  parentsNatGermanGerman  &  parentsCorMissinGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebMigraLate' & `parentsNatGermanGerman' & `parentsCorMissinGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.2.2 - 2.4.01.01     ForGerGebMigraLate  &  parentsNatGermanGerman  &  parentsCorMissinForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebMigraLate' & `parentsNatGermanGerman' & `parentsCorMissinForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.2.2 - 2.6.01.01     ForGerGebMigraLate  &  parentsNatGermanGerman  &  parentsCorForeigForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebMigraLate' & `parentsNatGermanGerman' & `parentsCorForeigForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.2.2 - 2.6.02.02    ForGerGebMigraLate  &  parentsNatGermanGerman  &  parentsCorForeigForeig  &  grandsNatMissMissMissGerm  &  grandsCorMissMissMissGerm
+replace mig_gen_cn = -1 if `ForGerGebMigraLate' & `parentsNatGermanGerman' & `parentsCorForeigForeig' & `grandsNatMissMissMissGerm' & `grandsCorMissMissMissGerm'
+
+// 3.1.1.2.2 - 3.1.01.01     ForGerGebMigraLate  &  parentsNatMissinGerman  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebMigraLate' & `parentsNatMissinGerman' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.2.2 - 3.3.01.01     ForGerGebMigraLate  &  parentsNatMissinGerman  &  parentsCorMissinGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebMigraLate' & `parentsNatMissinGerman' & `parentsCorMissinGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.2.2 - 3.4.01.01     ForGerGebMigraLate  &  parentsNatMissinGerman  &  parentsCorMissinForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebMigraLate' & `parentsNatMissinGerman' & `parentsCorMissinForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.2.2 - 3.6.01.01     ForGerGebMigraLate  &  parentsNatMissinGerman  &  parentsCorForeigForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebMigraLate' & `parentsNatMissinGerman' & `parentsCorForeigForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.2.2 - 4.1.01.01     ForGerGebMigraLate  &  parentsNatMissinForeig  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebMigraLate' & `parentsNatMissinForeig' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.2.2 - 4.4.01.01     ForGerGebMigraLate  &  parentsNatMissinForeig  &  parentsCorMissinForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebMigraLate' & `parentsNatMissinForeig' & `parentsCorMissinForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.2.2 - 5.1.01.01     ForGerGebMigraLate  &  parentsNatGermanForeig  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebMigraLate' & `parentsNatGermanForeig' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.2.2 - 5.6.01.01     ForGerGebMigraLate  &  parentsNatGermanForeig  &  parentsCorForeigForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebMigraLate' & `parentsNatGermanForeig' & `parentsCorForeigForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.2.2 - 6.1.01.01     ForGerGebMigraLate  &  parentsNatForeigForeig  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebMigraLate' & `parentsNatForeigForeig' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.2.3 - 1.1.01.01    ForGerGebMigraMiss  &  parentsNatMissinMissin  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if `ForGerGebMigraMiss' & `parentsNatMissinMissin' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.2.3 - 2.1.01.01     ForGerGebMigraMiss  &  parentsNatGermanGerman  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebMigraMiss' & `parentsNatGermanGerman' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.2.3 - 2.2.01.01     ForGerGebMigraMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebMigraMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.2.3 - 3.2.01.01     ForGerGebMigraMiss  &  parentsNatMissinGerman  &  parentsCorGermanGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebMigraMiss' & `parentsNatMissinGerman' & `parentsCorGermanGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.2.3 - 3.3.01.01     ForGerGebMigraMiss  &  parentsNatMissinGerman  &  parentsCorMissinGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebMigraMiss' & `parentsNatMissinGerman' & `parentsCorMissinGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.2.3 - 5.5.01.01     ForGerGebMigraMiss  &  parentsNatGermanForeig  &  parentsCorGermanForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebMigraMiss' & `parentsNatGermanForeig' & `parentsCorGermanForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.1.2.3 - 6.1.01.01     ForGerGebMigraMiss  &  parentsNatForeigForeig  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerGebMigraMiss' & `parentsNatForeigForeig' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.1.3 - 1.1.01.01    ForGerEinBirthMiss  &  parentsNatMissinMissin  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if `ForGerEinBirthMiss' & `parentsNatMissinMissin' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.1.3 - 2.1.01.01     ForGerEinBirthMiss  &  parentsNatGermanGerman  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerEinBirthMiss' & `parentsNatGermanGerman' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.1.3 - 2.2.01.01     ForGerEinBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerEinBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.1.3 - 2.3.01.01     ForGerEinBirthMiss  &  parentsNatGermanGerman  &  parentsCorMissinGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerEinBirthMiss' & `parentsNatGermanGerman' & `parentsCorMissinGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.1.3 - 2.4.01.01     ForGerEinBirthMiss  &  parentsNatGermanGerman  &  parentsCorMissinForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerEinBirthMiss' & `parentsNatGermanGerman' & `parentsCorMissinForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.1.3 - 2.5.01.01     ForGerEinBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerEinBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.1.3 - 2.5.12.12    ForGerEinBirthMiss  &  parentsNatGermanGerman  &  parentsCorGermanForeig  &  grandsNatForeMissMissMiss  &  grandsCorForeMissMissMiss
+replace mig_gen_cn = -1 if `ForGerEinBirthMiss' & `parentsNatGermanGerman' & `parentsCorGermanForeig' & `grandsNatForeMissMissMiss' & `grandsCorForeMissMissMiss'
+
+// 3.1.2.1.3 - 2.6.01.01     ForGerEinBirthMiss  &  parentsNatGermanGerman  &  parentsCorForeigForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerEinBirthMiss' & `parentsNatGermanGerman' & `parentsCorForeigForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.1.3 - 2.6.09.09    ForGerEinBirthMiss  &  parentsNatGermanGerman  &  parentsCorForeigForeig  &  grandsNatForeForeForeFore  &  grandsCorForeForeForeFore
+replace mig_gen_cn = -1 if `ForGerEinBirthMiss' & `parentsNatGermanGerman' & `parentsCorForeigForeig' & `grandsNatForeForeForeFore' & `grandsCorForeForeForeFore'
+
+// 3.1.2.1.3 - 2.6.11.11    ForGerEinBirthMiss  &  parentsNatGermanGerman  &  parentsCorForeigForeig  &  grandsNatForeForeMissMiss  &  grandsCorForeForeMissMiss
+replace mig_gen_cn = -1 if `ForGerEinBirthMiss' & `parentsNatGermanGerman' & `parentsCorForeigForeig' & `grandsNatForeForeMissMiss' & `grandsCorForeForeMissMiss'
+
+// 3.1.2.1.3 - 3.1.01.01     ForGerEinBirthMiss  &  parentsNatMissinGerman  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerEinBirthMiss' & `parentsNatMissinGerman' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.1.3 - 3.3.01.01     ForGerEinBirthMiss  &  parentsNatMissinGerman  &  parentsCorMissinGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerEinBirthMiss' & `parentsNatMissinGerman' & `parentsCorMissinGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.1.3 - 3.4.01.01     ForGerEinBirthMiss  &  parentsNatMissinGerman  &  parentsCorMissinForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerEinBirthMiss' & `parentsNatMissinGerman' & `parentsCorMissinForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.1.3 - 3.6.01.01     ForGerEinBirthMiss  &  parentsNatMissinGerman  &  parentsCorForeigForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerEinBirthMiss' & `parentsNatMissinGerman' & `parentsCorForeigForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.1.3 - 3.6.11.11    ForGerEinBirthMiss  &  parentsNatMissinGerman  &  parentsCorForeigForeig  &  grandsNatForeForeMissMiss  &  grandsCorForeForeMissMiss
+replace mig_gen_cn = -1 if `ForGerEinBirthMiss' & `parentsNatMissinGerman' & `parentsCorForeigForeig' & `grandsNatForeForeMissMiss' & `grandsCorForeForeMissMiss'
+
+// 3.1.2.1.3 - 4.4.01.01     ForGerEinBirthMiss  &  parentsNatMissinForeig  &  parentsCorMissinForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerEinBirthMiss' & `parentsNatMissinForeig' & `parentsCorMissinForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.1.3 - 5.2.01.01     ForGerEinBirthMiss  &  parentsNatGermanForeig  &  parentsCorGermanGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerEinBirthMiss' & `parentsNatGermanForeig' & `parentsCorGermanGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.1.3 - 5.4.01.01     ForGerEinBirthMiss  &  parentsNatGermanForeig  &  parentsCorMissinForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerEinBirthMiss' & `parentsNatGermanForeig' & `parentsCorMissinForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.1.3 - 5.5.01.01     ForGerEinBirthMiss  &  parentsNatGermanForeig  &  parentsCorGermanForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerEinBirthMiss' & `parentsNatGermanForeig' & `parentsCorGermanForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.1.3 - 5.6.01.01     ForGerEinBirthMiss  &  parentsNatGermanForeig  &  parentsCorForeigForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerEinBirthMiss' & `parentsNatGermanForeig' & `parentsCorForeigForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.1.3 - 6.1.01.01     ForGerEinBirthMiss  &  parentsNatForeigForeig  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerEinBirthMiss' & `parentsNatForeigForeig' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.1.3 - 6.4.01.01     ForGerEinBirthMiss  &  parentsNatForeigForeig  &  parentsCorMissinForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerEinBirthMiss' & `parentsNatForeigForeig' & `parentsCorMissinForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.1.3 - 6.5.11.11    ForGerEinBirthMiss  &  parentsNatForeigForeig  &  parentsCorGermanForeig  &  grandsNatForeForeMissMiss  &  grandsCorForeForeMissMiss
+replace mig_gen_cn = -1 if `ForGerEinBirthMiss' & `parentsNatForeigForeig' & `parentsCorGermanForeig' & `grandsNatForeForeMissMiss' & `grandsCorForeForeMissMiss'
+
+// 3.1.2.1.3 - 6.5.12.12    ForGerEinBirthMiss  &  parentsNatForeigForeig  &  parentsCorGermanForeig  &  grandsNatForeMissMissMiss  &  grandsCorForeMissMissMiss
+replace mig_gen_cn = -1 if `ForGerEinBirthMiss' & `parentsNatForeigForeig' & `parentsCorGermanForeig' & `grandsNatForeMissMissMiss' & `grandsCorForeMissMissMiss'
+
+// 3.1.2.1.3 - 6.6.01.01     ForGerEinBirthMiss  &  parentsNatForeigForeig  &  parentsCorForeigForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss
+replace mig_gen_cn = -1 if  `ForGerEinBirthMiss' & `parentsNatForeigForeig' & `parentsCorForeigForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.1.3 - 6.6.09.09    ForGerEinBirthMiss  &  parentsNatForeigForeig  &  parentsCorForeigForeig  &  grandsNatForeForeForeFore  &  grandsCorForeForeForeFore
+replace mig_gen_cn = -1 if `ForGerEinBirthMiss' & `parentsNatForeigForeig' & `parentsCorForeigForeig' & `grandsNatForeForeForeFore' & `grandsCorForeForeForeFore'
+
+// 3.1.2.1.3 - 6.6.11.11    ForGerEinBirthMiss  &  parentsNatForeigForeig  &  parentsCorForeigForeig  &  grandsNatForeForeMissMiss  &  grandsCorForeForeMissMiss
+replace mig_gen_cn = -1 if `ForGerEinBirthMiss' & `parentsNatForeigForeig' & `parentsCorForeigForeig' & `grandsNatForeForeMissMiss' & `grandsCorForeForeMissMiss'
+
+// 3.1.2.1.3 - 6.6.12.12    ForGerEinBirthMiss  &  parentsNatForeigForeig  &  parentsCorForeigForeig  &  grandsNatForeMissMissMiss  &  grandsCorForeMissMissMiss
+replace mig_gen_cn = -1 if `ForGerEinBirthMiss' & `parentsNatForeigForeig' & `parentsCorForeigForeig' & `grandsNatForeMissMissMiss' & `grandsCorForeMissMissMiss'
+
+// 3.1.2.2.1 - 1.1.01.01    ForGerEinMigraEarly  &  parentsNatMissinMissin  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss, // 3.1.2.2.1 - 1.1.01.01    ForGerEinMigraEarly  &  parentsNatMissinMissin  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss, 11 (changes) 
+replace mig_gen_cn = -1 if `ForGerEinMigraEarly' & `parentsNatMissinMissin' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.2.1 - 2.1.01.01     ForGerEinMigraEarly  &  parentsNatGermanGerman  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss, 22 (changes) 
+replace mig_gen_cn = -1 if  `ForGerEinMigraEarly' & `parentsNatGermanGerman' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.2.1 - 2.2.01.01     ForGerEinMigraEarly  &  parentsNatGermanGerman  &  parentsCorGermanGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss, 3 (changes) 
+replace mig_gen_cn = -1 if  `ForGerEinMigraEarly' & `parentsNatGermanGerman' & `parentsCorGermanGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.2.1 - 2.4.01.01     ForGerEinMigraEarly  &  parentsNatGermanGerman  &  parentsCorMissinForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss, 3 (changes) 
+replace mig_gen_cn = -1 if  `ForGerEinMigraEarly' & `parentsNatGermanGerman' & `parentsCorMissinForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.2.1 - 2.4.02.12    ForGerEinMigraEarly  &  parentsNatGermanGerman  &  parentsCorMissinForeig  &  grandsNatMissMissMissGerm  &  grandsCorForeMissMissMiss, 2 (changes) 
+replace mig_gen_cn = -1 if `ForGerEinMigraEarly' & `parentsNatGermanGerman' & `parentsCorMissinForeig' & `grandsNatMissMissMissGerm' & `grandsCorForeMissMissMiss'
+
+// 3.1.2.2.1 - 2.5.01.01     ForGerEinMigraEarly  &  parentsNatGermanGerman  &  parentsCorGermanForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss, 5 (changes) 
+replace mig_gen_cn = -1 if  `ForGerEinMigraEarly' & `parentsNatGermanGerman' & `parentsCorGermanForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.2.1 - 2.6.01.01     ForGerEinMigraEarly  &  parentsNatGermanGerman  &  parentsCorForeigForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss, 67 (changes) 
+replace mig_gen_cn = -1 if  `ForGerEinMigraEarly' & `parentsNatGermanGerman' & `parentsCorForeigForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.2.1 - 2.6.02.02    ForGerEinMigraEarly  &  parentsNatGermanGerman  &  parentsCorForeigForeig  &  grandsNatMissMissMissGerm  &  grandsCorMissMissMissGerm, 1 (changes) 
+replace mig_gen_cn = -1 if `ForGerEinMigraEarly' & `parentsNatGermanGerman' & `parentsCorForeigForeig' & `grandsNatMissMissMissGerm' & `grandsCorMissMissMissGerm'
+
+// 3.1.2.2.1 - 2.6.11.11    ForGerEinMigraEarly  &  parentsNatGermanGerman  &  parentsCorForeigForeig  &  grandsNatForeForeMissMiss  &  grandsCorForeForeMissMiss, 1 (changes) 
+replace mig_gen_cn = -1 if `ForGerEinMigraEarly' & `parentsNatGermanGerman' & `parentsCorForeigForeig' & `grandsNatForeForeMissMiss' & `grandsCorForeForeMissMiss'
+
+// 3.1.2.2.1 - 3.4.01.01     ForGerEinMigraEarly  &  parentsNatMissinGerman  &  parentsCorMissinForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss, 3 (changes) 
+replace mig_gen_cn = -1 if  `ForGerEinMigraEarly' & `parentsNatMissinGerman' & `parentsCorMissinForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.2.1 - 3.4.02.12    ForGerEinMigraEarly  &  parentsNatMissinGerman  &  parentsCorMissinForeig  &  grandsNatMissMissMissGerm  &  grandsCorForeMissMissMiss, 2 (changes) 
+replace mig_gen_cn = -1 if `ForGerEinMigraEarly' & `parentsNatMissinGerman' & `parentsCorMissinForeig' & `grandsNatMissMissMissGerm' & `grandsCorForeMissMissMiss'
+
+// 3.1.2.2.1 - 3.6.01.01     ForGerEinMigraEarly  &  parentsNatMissinGerman  &  parentsCorForeigForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss, 2 (changes) 
+replace mig_gen_cn = -1 if  `ForGerEinMigraEarly' & `parentsNatMissinGerman' & `parentsCorForeigForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.2.1 - 4.1.01.01     ForGerEinMigraEarly  &  parentsNatMissinForeig  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss, 3 (changes) 
+replace mig_gen_cn = -1 if  `ForGerEinMigraEarly' & `parentsNatMissinForeig' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.2.1 - 4.4.01.01     ForGerEinMigraEarly  &  parentsNatMissinForeig  &  parentsCorMissinForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss, 2 (changes) 
+replace mig_gen_cn = -1 if  `ForGerEinMigraEarly' & `parentsNatMissinForeig' & `parentsCorMissinForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.2.1 - 5.1.01.01     ForGerEinMigraEarly  &  parentsNatGermanForeig  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss, 3 (changes) 
+replace mig_gen_cn = -1 if  `ForGerEinMigraEarly' & `parentsNatGermanForeig' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.2.1 - 5.4.01.01     ForGerEinMigraEarly  &  parentsNatGermanForeig  &  parentsCorMissinForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss, 1 (changes) 
+replace mig_gen_cn = -1 if  `ForGerEinMigraEarly' & `parentsNatGermanForeig' & `parentsCorMissinForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.2.1 - 5.5.01.01     ForGerEinMigraEarly  &  parentsNatGermanForeig  &  parentsCorGermanForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss, 4 (changes) 
+replace mig_gen_cn = -1 if  `ForGerEinMigraEarly' & `parentsNatGermanForeig' & `parentsCorGermanForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.2.1 - 5.6.01.01     ForGerEinMigraEarly  &  parentsNatGermanForeig  &  parentsCorForeigForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss, 6 (changes) 
+replace mig_gen_cn = -1 if  `ForGerEinMigraEarly' & `parentsNatGermanForeig' & `parentsCorForeigForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.2.1 - 5.6.02.12    ForGerEinMigraEarly  &  parentsNatGermanForeig  &  parentsCorForeigForeig  &  grandsNatMissMissMissGerm  &  grandsCorForeMissMissMiss, 1 (changes) 
+replace mig_gen_cn = -1 if `ForGerEinMigraEarly' & `parentsNatGermanForeig' & `parentsCorForeigForeig' & `grandsNatMissMissMissGerm' & `grandsCorForeMissMissMiss'
+
+// 3.1.2.2.1 - 6.1.01.01     ForGerEinMigraEarly  &  parentsNatForeigForeig  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss, 15 (changes) 
+replace mig_gen_cn = -1 if  `ForGerEinMigraEarly' & `parentsNatForeigForeig' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.2.1 - 6.6.01.01     ForGerEinMigraEarly  &  parentsNatForeigForeig  &  parentsCorForeigForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss, 6 (changes) 
+replace mig_gen_cn = -1 if  `ForGerEinMigraEarly' & `parentsNatForeigForeig' & `parentsCorForeigForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.2.1 - 6.6.11.11    ForGerEinMigraEarly  &  parentsNatForeigForeig  &  parentsCorForeigForeig  &  grandsNatForeForeMissMiss  &  grandsCorForeForeMissMiss, 1 (changes) 
+replace mig_gen_cn = -1 if `ForGerEinMigraEarly' & `parentsNatForeigForeig' & `parentsCorForeigForeig' & `grandsNatForeForeMissMiss' & `grandsCorForeForeMissMiss'
+
+// 3.1.2.2.2 - 1.1.01.01    ForGerEinMigraLate  &  parentsNatMissinMissin  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss, (311 changes) 
+replace mig_gen_cn = -1 if `ForGerEinMigraLate' & `parentsNatMissinMissin' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.2.2 - 2.1.01.01     ForGerEinMigraLate  &  parentsNatGermanGerman  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss, (210 changes) 
+replace mig_gen_cn = -1 if  `ForGerEinMigraLate' & `parentsNatGermanGerman' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.2.2 - 2.3.01.01     ForGerEinMigraLate  &  parentsNatGermanGerman  &  parentsCorMissinGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss, (1 changes) 
+replace mig_gen_cn = -1 if  `ForGerEinMigraLate' & `parentsNatGermanGerman' & `parentsCorMissinGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.2.2 - 2.4.01.01     ForGerEinMigraLate  &  parentsNatGermanGerman  &  parentsCorMissinForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss, (12 changes) 
+replace mig_gen_cn = -1 if  `ForGerEinMigraLate' & `parentsNatGermanGerman' & `parentsCorMissinForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.2.2 - 2.4.02.12    ForGerEinMigraLate  &  parentsNatGermanGerman  &  parentsCorMissinForeig  &  grandsNatMissMissMissGerm  &  grandsCorForeMissMissMiss, (2 changes) 
+replace mig_gen_cn = -1 if `ForGerEinMigraLate' & `parentsNatGermanGerman' & `parentsCorMissinForeig' & `grandsNatMissMissMissGerm' & `grandsCorForeMissMissMiss'
+
+// 3.1.2.2.2 - 2.5.01.01     ForGerEinMigraLate  &  parentsNatGermanGerman  &  parentsCorGermanForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss, (1 changes) 
+replace mig_gen_cn = -1 if  `ForGerEinMigraLate' & `parentsNatGermanGerman' & `parentsCorGermanForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.2.2 - 2.6.01.01     ForGerEinMigraLate  &  parentsNatGermanGerman  &  parentsCorForeigForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss, (114 changes) 
+replace mig_gen_cn = -1 if  `ForGerEinMigraLate' & `parentsNatGermanGerman' & `parentsCorForeigForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.2.2 - 2.6.02.12    ForGerEinMigraLate  &  parentsNatGermanGerman  &  parentsCorForeigForeig  &  grandsNatMissMissMissGerm  &  grandsCorForeMissMissMiss, (4 changes) 
+replace mig_gen_cn = -1 if `ForGerEinMigraLate' & `parentsNatGermanGerman' & `parentsCorForeigForeig' & `grandsNatMissMissMissGerm' & `grandsCorForeMissMissMiss'
+
+// 3.1.2.2.2 - 2.6.03.11    ForGerEinMigraLate  &  parentsNatGermanGerman  &  parentsCorForeigForeig  &  grandsNatMissMissGermGerm  &  grandsCorForeForeMissMiss, (3 changes) 
+replace mig_gen_cn = -1 if `ForGerEinMigraLate' & `parentsNatGermanGerman' & `parentsCorForeigForeig' & `grandsNatMissMissGermGerm' & `grandsCorForeForeMissMiss'
+
+// 3.1.2.2.2 - 3.1.01.01     ForGerEinMigraLate  &  parentsNatMissinGerman  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss, (2 changes) 
+replace mig_gen_cn = -1 if  `ForGerEinMigraLate' & `parentsNatMissinGerman' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.2.2 - 3.3.01.01     ForGerEinMigraLate  &  parentsNatMissinGerman  &  parentsCorMissinGerman  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss, (2 changes) 
+replace mig_gen_cn = -1 if  `ForGerEinMigraLate' & `parentsNatMissinGerman' & `parentsCorMissinGerman' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.2.2 - 3.4.01.01     ForGerEinMigraLate  &  parentsNatMissinGerman  &  parentsCorMissinForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss, (34 changes) 
+replace mig_gen_cn = -1 if  `ForGerEinMigraLate' & `parentsNatMissinGerman' & `parentsCorMissinForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.2.2 - 3.4.02.12    ForGerEinMigraLate  &  parentsNatMissinGerman  &  parentsCorMissinForeig  &  grandsNatMissMissMissGerm  &  grandsCorForeMissMissMiss, (4 changes) 
+replace mig_gen_cn = -1 if `ForGerEinMigraLate' & `parentsNatMissinGerman' & `parentsCorMissinForeig' & `grandsNatMissMissMissGerm' & `grandsCorForeMissMissMiss'
+
+// 3.1.2.2.2 - 3.5.01.01     ForGerEinMigraLate  &  parentsNatMissinGerman  &  parentsCorGermanForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss, (1 changes) 
+replace mig_gen_cn = -1 if  `ForGerEinMigraLate' & `parentsNatMissinGerman' & `parentsCorGermanForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.2.2 - 3.6.01.01     ForGerEinMigraLate  &  parentsNatMissinGerman  &  parentsCorForeigForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss, (6 changes) 
+replace mig_gen_cn = -1 if  `ForGerEinMigraLate' & `parentsNatMissinGerman' & `parentsCorForeigForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.2.2 - 3.6.03.11    ForGerEinMigraLate  &  parentsNatMissinGerman  &  parentsCorForeigForeig  &  grandsNatMissMissGermGerm  &  grandsCorForeForeMissMiss, (2 changes) 
+replace mig_gen_cn = -1 if `ForGerEinMigraLate' & `parentsNatMissinGerman' & `parentsCorForeigForeig' & `grandsNatMissMissGermGerm' & `grandsCorForeForeMissMiss'
+
+// 3.1.2.2.2 - 4.4.01.01     ForGerEinMigraLate  &  parentsNatMissinForeig  &  parentsCorMissinForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss, (6 changes) 
+replace mig_gen_cn = -1 if  `ForGerEinMigraLate' & `parentsNatMissinForeig' & `parentsCorMissinForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.2.2 - 5.1.01.01     ForGerEinMigraLate  &  parentsNatGermanForeig  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss, (2 changes) 
+replace mig_gen_cn = -1 if  `ForGerEinMigraLate' & `parentsNatGermanForeig' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.2.2 - 5.4.01.01     ForGerEinMigraLate  &  parentsNatGermanForeig  &  parentsCorMissinForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss, (5 changes) 
+replace mig_gen_cn = -1 if  `ForGerEinMigraLate' & `parentsNatGermanForeig' & `parentsCorMissinForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.2.2 - 5.5.01.01     ForGerEinMigraLate  &  parentsNatGermanForeig  &  parentsCorGermanForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss, (3 changes) 
+replace mig_gen_cn = -1 if  `ForGerEinMigraLate' & `parentsNatGermanForeig' & `parentsCorGermanForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.2.2 - 5.6.01.01     ForGerEinMigraLate  &  parentsNatGermanForeig  &  parentsCorForeigForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss, (3 changes) 
+replace mig_gen_cn = -1 if  `ForGerEinMigraLate' & `parentsNatGermanForeig' & `parentsCorForeigForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.2.2 - 5.6.02.12    ForGerEinMigraLate  &  parentsNatGermanForeig  &  parentsCorForeigForeig  &  grandsNatMissMissMissGerm  &  grandsCorForeMissMissMiss, (2 changes) 
+replace mig_gen_cn = -1 if `ForGerEinMigraLate' & `parentsNatGermanForeig' & `parentsCorForeigForeig' & `grandsNatMissMissMissGerm' & `grandsCorForeMissMissMiss'
+
+// 3.1.2.2.2 - 6.1.01.01     ForGerEinMigraLate  &  parentsNatForeigForeig  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss, (216 changes) 
+replace mig_gen_cn = -1 if  `ForGerEinMigraLate' & `parentsNatForeigForeig' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.2.2 - 6.4.01.01     ForGerEinMigraLate  &  parentsNatForeigForeig  &  parentsCorMissinForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss, (1 changes) 
+replace mig_gen_cn = -1 if  `ForGerEinMigraLate' & `parentsNatForeigForeig' & `parentsCorMissinForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.2.2 - 6.6.01.01     ForGerEinMigraLate  &  parentsNatForeigForeig  &  parentsCorForeigForeig  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss, (2 changes) 
+replace mig_gen_cn = -1 if  `ForGerEinMigraLate' & `parentsNatForeigForeig' & `parentsCorForeigForeig' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+
+// 3.1.2.2.3 - 1.1.01.01    ForGerEinMigraMiss  &  parentsNatMissinMissin  &  parentsCorMissinMissin  &  grandsNatMissMissMissMiss  &  grandsCorMissMissMissMiss, (20 changes) 
+replace mig_gen_cn = -1 if `ForGerEinMigraMiss' & `parentsNatMissinMissin' & `parentsCorMissinMissin' & `grandsNatMissMissMissMiss' & `grandsCorMissMissMissMiss'
+

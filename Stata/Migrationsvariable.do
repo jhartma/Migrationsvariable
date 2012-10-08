@@ -308,7 +308,7 @@ use ${AVZ}miggen_helpers.dta, clear
  	6 "3.Generation: vier Grosseltern zugewandert" ///
  	7 "3,25.Generation: drei Grosseltern zugewandert" ///
  	8 "3,5.Generation: zwei Grosseltern zugewandert" ///
- 	9 "3,75.Generation: ein Grosselternteil zugewandert"
+ 	9 "3,75.Generation: ein Grosselternteil zugewandert" ///
        10 "nicht definierbar"
 	lab val mig_gen_c generationenstatus
 
@@ -623,46 +623,145 @@ restore
 
 preserve
 keep if mig_gen_cn == 0 & migback == 4		// behalte nur problematische Faelle
-order persnr migback corigin nation deu_seit germborn immiyear mnat vnat
-restore
-
-preserve
-keep if mig_gen_cn == . & migback == 4		// behalte nur problematische Faelle
 order persnr migback corigin nation deu_seit germborn immiyear mnat vnat corigin*
 restore
 
-/* 
-1.Fehlende Faelle - migback indirekt, mig_gen_c kein migrationshintergrund
-1.1. corigin - deutsch, nation - deutsch, aber ein Elternteil auslaendische Nationalitaet	| 8604
-1.2. corigin - deutsch, nation - nicht deutsch, deu_seit - eingebuergert			| 8602
-1.3. migback - indirekt, aber sonst alles deutsch						| 112506
-1.4. migback - indirekt, nation - deutsch, deut_seit - eingebuergert, mnat==., vnat==.		| 121202
-1.5. migback - indirekt, nation - deutsch, deut_seit - von Geburt, mnat==1, vnat==1		| 112508
-1.6. migback - indirekt, corigin==1, nation==1, Rest missing					| 252403
+local personGerman          corigin == 1 & nation == 1 & deu_seit== 1 
+local personNationForeign   nation > 1 & nation != .
+local personNationGerman    nation == 1
+local personNationMissing   nation == .
+local personEingeb	    deu_seit == 0
+local personEingebMissing   deu_seit == .
+local personEingebNot	    deu_seit == 1
+local personCoriginGerman   corigin == 1
+local personCoriginForeign  corigin > 1 & corigin != .
+local personCoriginMissing  corigin == .
+local personMigAgeEarly	    migage <= 6 & migage != .
+local personMigAgeLate      migage >  6 & migage != .
+local personMigAgeMissing   migage == .
+local personGermbornImmi    germborn == 2
+local personGermbornMissing germborn == .
 
-2. Fehlende Faelle - migback==2, mig_gen_cn==0
-2.1. migback==2, mig_gen_cn==0, corigin> 1, deu_seit==0, nation==1, germborn==2			| 82403
-2.2. migback==2, mig_gen_cn==0, corigin> 1, deu_seit==1, nation> 1, germborn==2			| 271493
-2.3. migback==2, mig_gen_cn==0, corigin==., deu_seit==0, nation==1, germborn==2			| 387203
-2.4. migback==2, mig_gen_cn==0, corigin==., deu_seit==., nation==1, germborn==2			| 399004
-2.5. migback==2, mig_gen_cn==0, corigin> 1, deu_seit==., nation==1, germborn==2			| 666105
-2.6. migback==2, mig_gen_cn==0, corigin==., deu_seit==., nation==., germborn==2			| 1129004
-2.7. migback==2, mig_gen_cn==0, corigin==., deu_seit==., nation==1, germborn==2			| 2159004
-2.8. migback==2, mig_gen_cn==0, corigin >1, deu_seit==1, nation==1, germborn==2			| 2787003
+local parentsCoriginNoForeign  (corigin_m == 1 | corigin_m == . ) & (corigin_f == 1 | corigin_m == .)
+local parentsCoriginMissing corigin_m == . & corigin_f == .
+local parentsNationGerman   ((vnat!=1 & vnat!=.) & (mnat!=1 & mnat!=.))
+local parentsNationMissing  vnat == . & mnat == .
+local parentsNatNoForeign   (nation_m == 1 | nation_m == . ) & (nation_f == 1 | nation_f == .)
+local parentsNatMissing     nation_m == . & nation_f == .
 
-3. Fehlende Faelle - migback==4, mig_gen_cn==0
-3.1. migback==4, mig_gen_cn==0, corigin==., deu_seit==., nation==1, germborn==., mnat==1, vnat==2	| 142003 
-3.2. migback==4, mig_gen_cn==0, corigin==., deu_seit==., nation >1, germborn==., mnat==2, vnat==1	| 237803
-3.3. migback==4, mig_gen_cn==0, corigin==., deu_seit==., nation >1, germborn==., mnat==2, vnat==2	| 385383
-3.4. migback==4, mig_gen_cn==0, corigin==., deu_seit==., nation==., germborn==., mnat==., vnat==.	| 707303
+local motherNationForeign   (mnat > 1 & mnat != .)
+local motherNationMissing   mnat == .
+local motherNationGerman    mnat == 1
+local motherEingeb	    deu_seit_m == 0
+local motherCoriginForeign  (corigin_m > 1 & corigin_m != .)
+local motherCoriginGerman   corigin_m == 1
+local motherCoriginMissing  corigin_m == .
+local motherNatForeign	    nation_m > 1 & nation_m != .
+local motherNatGerman       nation_m == 1
+local motherNatMissing      nation_m == .
 
-4. Fehlende Faelle - migback== 4, mig_gen_cn==.
+local fatherNationForeign   (vnat > 1 & vnat != .)
+local fatherNationMissing   vnat == .
+local fatherNationGerman    vnat == 1
+local fatherEingeb	    deu_seit_f == 0
+local fatherCoriginForeign  (corigin_f > 1 & corigin_f != .)
+local fatherCoriginGerman   corigin_f == 1
+local fatherCoriginMissing  corigin_f == .
+local fatherNatForeign      nation_f > 1 & nation_f != .
+local fatherNatGerman       nation_f == 1
+local fatherNatMissing      nation_f == .
+
+local grandsCoriginMissing   corigin_m_m == . & corigin_m_f == .  & corigin_f_m == .  & corigin_f_f == .
+local grandsCoriginNoForeign (corigin_m_m == 1 | corigin_m_m == .) & (corigin_m_f == 1 | corigin_m_f == . ) & (corigin_f_m == 1 | corigin_f_m == .) & (corigin_f_f == 1 | corigin_f_f == . )
+local grandsNatMissing    nation_m_m == . & nation_m_f == . & nation_f_m == . & nation_f_f == .
+local grandsNatNoForeign  (nation_m_m == . | nation_m_m == 1) & (nation_m_f == . | nation_m_f == 1) & (nation_f_m == . | nation_f_m == 1) & (nation_f_f == . | nation_f_f == 1)
+
+* 1.Fehlende Faelle - migback indirekt, mig_gen_c kein migrationshintergrund
+local problem mig_gen_cn == 0 & migback == 3
+order persnr migback corigin nation deu_seit germborn immiyear mnat vnat corigin*
+
+replace mig_gen_cn = 3 if `problem' & `personGerman' 								///
+	& `motherNationForeign'     & `fatherNationMissing'  & `parentsCoriginNoForeign'				///	
+	& `grandsNatMissing'        & `grandsCoriginMissing' 							// 8604
+replace mig_gen_cn = 3 if `problem' & `personNationForeign'  & `personCoriginGerman' 				///
+	& `parentsNationMissing'    & `parentsCoriginMissing' 							///
+	& `grandsNatMissing'        & `grandsCoriginMissing' 							// 8602
+replace mig_gen_cn = 5 if `problem' & `personGerman'       							///
+	& `parentsNationGerman'     & `parentsCoriginNoForeign' & `motherEingeb'					///
+	& `grandsCoriginNoForeign'				   						// 112506
+replace mig_gen_cn = 5 if `problem' & `personCoriginGerman'  & `personNationGerman'  & `personEingeb' 		///
+	& `parentsNationMissing'    & `parentsCoriginMissing'							///
+	& `grandsCoriginMissing'    & `grandsNatMissing'							// 121202  
+replace mig_gen_cn = 5 if `problem' & `personCoriginGerman'  & `personNationGerman'  & `personEingebMissing' 	///
+	& `motherNationGerman'      & `fatherNationForeign'  & `motherCoriginGerman' & `fatherCoriginMissing'	/// 
+	& `grandsCoriginMissing'    & `grandsNatMissing'  							// 252403
+
+replace mig_gen_cn = 3 if `problem' & `personCoriginGerman'  & `personNationForeign'  & `personEingebNot' 	///
+	& `parentsNationGerman'     & `parentsCoriginMissing' & `parentsNatNoForeign'				///
+	& `grandsCoriginMissing'    & `grandsNatMissing'
+
+
+* 2. Fehlende Faelle - migback==2, mig_gen_cn==0
+local problem mig_gen_cn == 0 & migback == 2
+replace mig_gen_cn = 2  if `problem' & `personCoriginForeign' & `personEingeb'        & `personNationGerman' & `personMigAgeEarly'	// 82403
+replace mig_gen_cn = 1  if `problem' & `personCoriginForeign' & `personEingeb'        & `personNationGerman' & `personMigAgeLate'	
+replace mig_gen_cn = 1  if `problem' & `personCoriginForeign' & `personEingeb'        & `personNationGerman' & `personMigAgeMissing'	
+replace mig_gen_cn = 2  if `problem' & `personCoriginForeign' & `personEingebNot'     & `personNationForeign'& `personMigAgeEarly' 	// 271493
+replace mig_gen_cn = 1  if `problem' & `personCoriginForeign' & `personEingebNot'     & `personNationForeign'& `personMigAgeLate' 	
+replace mig_gen_cn = 1  if `problem' & `personCoriginForeign' & `personEingeb'        & `personNationGerman' & `personMigAgeMissing'	
+replace mig_gen_cn = 2  if `problem' & `personCoriginForeign' & `personEingebNot'     & `personNationGerman' & `personMigAgeEarly'	// 2787003
+replace mig_gen_cn = 1  if `problem' & `personCoriginForeign' & `personEingebNot'     & `personNationGerman' & `personMigAgeLate'	
+replace mig_gen_cn = 1  if `problem' & `personCoriginForeign' & `personEingebNot'     & `personNationGerman' & `personMigAgeMissing'	
+replace mig_gen_cn = 2  if `problem' & `personCoriginForeign' & `personEingebMissing' & `personNationGerman' & `personMigAgeEarly'	// 666105
+replace mig_gen_cn = 1  if `problem' & `personCoriginForeign' & `personEingebMissing' & `personNationGerman' & `personMigAgeLate' 	
+replace mig_gen_cn = 1  if `problem' & `personCoriginForeign' & `personEingeb'        & `personNationGerman' & `personMigAgeMissing'	
+replace mig_gen_cn = 1  if `problem' & `personCoriginMissing' & `personEingebNot'     & `personNationGerman' & `personGermbornImmi' & `personMigAgeMissing' // 387203
+replace mig_gen_cn = 2  if `problem' & `personCoriginMissing' & `personEingebMissing' & `personNationGerman' & `personGermbornImmi' & `personMigAgeEarly'   // 399004
+replace mig_gen_cn = 1  if `problem' & `personCoriginMissing' & `personEingebMissing' & `personNationMissing'& `personGermbornImmi' & `personMigAgeMissing' // 1129004
+replace mig_gen_cn = 1  if `problem' & `personCoriginMissing' & `personEingebMissing' & `personNationGerman' & `personGermbornImmi' & `personMigAgeMissing' // 2159004
+replace mig_gen_cn = 2  if `problem' & `personCoriginForeign' & `personEingeb'        & `personNationForeign'& `personGermbornImmi' & `personMigAgeEarly' 
+replace mig_gen_cn = 1  if `problem' & `personCoriginForeign' & `personEingeb'        & `personNationForeign'& `personGermbornImmi' & `personMigAgeLate' 
+replace mig_gen_cn = 1  if `problem' & `personCoriginForeign' & `personEingeb'        & `personNationForeign'& `personGermbornImmi' & `personMigAgeMissing'
+
+* 3. Fehlende Faelle - migback==4, mig_gen_cn==0
+local problem mig_gen_cn == 0 & migback == 4
+
+replace mig_gen_cn = 1  if `problem' & `personCoriginMissing' & `personEingebMissing' & `personNationGerman' & `personGermbornMissing' 	///
+	& `motherNationGerman' & `fatherNationForeign' 											// 142003 
+replace mig_gen_cn = 1  if `problem' & `personCoriginMissing' & `personEingebMissing' & `personNationForeign'& `personGermbornMissing' 	///
+	& `motherNationForeign' & `fatherNationGerman' 											// 237803
+replace mig_gen_cn = 1  if `problem' & `personCoriginMissing' & `personEingebMissing' & `personNationForeign'& `personGermbornMissing' 	///
+	& `motherNationForeign' & `fatherNationForeign' 										// 385383
+replace mig_gen_cn = 1  if `problem' & `personCoriginMissing' & `personEingebMissing' & `personNationMissing'& `personGermbornMissing' 	///
+	& `parentsNationMissing' & `motherCoriginGerman' & `fatherCoriginGerman' & `motherNatGerman' & `fatherNatGerman'		///
+	& `grandsNatNoForeign'& `grandsCoriginNoForeign'
+replace mig_gen_cn = 1  if `problem' & `personCoriginMissing' & `personEingebMissing' & `personNationMissing'& `personGermbornMissing' 	///
+	& `motherCoriginMissing' & `fatherCoriginGerman' & `motherNatMissing' & `fatherNatGerman'					///
+	& `grandsCoriginNoForeign' & `grandsNatNoForeign'
+replace mig_gen_cn = 1  if `problem' & `personCoriginMissing' & `personEingebMissing' & `personNationMissing'& `personGermbornMissing' 	///
+	& `parentsNationMissing' & `motherCoriginGerman' & `fatherCoriginGerman' & `fatherNatGerman' & `motherNatForeign'		///
+	& `grandsCoriginMissing' & `grandsNatMissing'
+replace mig_gen_cn = 1  if `problem' & `personCoriginMissing' & `personEingebMissing' & `personNationMissing'& `personGermbornMissing' 	///
+	& `parentsNationMissing' & `motherCoriginMissing' & `fatherCoriginGerman' & `fatherNatForeign' & `motherNatMissing'		///
+	& `grandsCoriginMissing' & `grandsNatMissing'
+replace mig_gen_cn = 1  if `problem' & `personCoriginMissing' & `personEingebMissing' & `personNationMissing'& `personGermbornMissing' 	///
+	& `parentsNationMissing' & `motherCoriginGerman' & `fatherCoriginMissing' & `fatherNatMissing' & `motherNatGerman'		///
+	& `grandsCoriginMissing' & `grandsNatMissing'	
+replace mig_gen_cn = 1  if `problem' & `personCoriginMissing' & `personEingebMissing' & `personNationMissing'& `personGermbornMissing' 	///
+	& `parentsNationMissing' & `motherCoriginGerman' & `fatherCoriginMissing' & `fatherNatGerman' & `motherNatGerman'		///
+	& `grandsCoriginMissing' & `grandsNatMissing'	
+replace mig_gen_cn = 1  if `problem' & `personCoriginMissing' & `personEingebMissing' & `personNationMissing'& `personGermbornMissing' 	///
+	& `parentsCoriginNoForeign' & `parentsNationMissing' & `parentsNatNoForeign'							/// 
+	& `grandsCoriginMissing' & `grandsNatNoForeign'
+replace mig_gen_cn = 1  if `problem' & `personCoriginMissing' & `personEingebMissing' & `personNationMissing'& `personGermbornMissing' 	///
+	& `motherCoriginGerman' & `fatherCoriginMissing' & `parentsNationMissing' & `parentsNatNoForeign'							/// 
+	& `grandsCoriginMissing' & `grandsNatNoForeign'
+	
+* 4. Fehlende Faelle - migback== 4, mig_gen_cn==.
  
 
 
-*/
-
-
+tab mig_gen_cn migback, m
 
 *******************************************************************************************************************
 *** 3.2. Origin-Variablen *****************************************************************************************
@@ -676,7 +775,6 @@ restore
 * Eltern aus demselben Land?: "eltern_geb_hv"  ****************************************************
 * HINWEIS: Nur fuer Personen der 2. Generation! ****************************************************
 
-	
 	gen eltern_geb_hv=.
 
 * 1: Beide Elternteile aus demselben Land (nicht Missing und nicht Deutschland)
@@ -831,7 +929,7 @@ gen grosseltern_geb_hv=.
 * Fuer die 2,5. Generation: Wenn Vater oder Mutter im Ausland geboren, dann Geburtsland des jeweiligen Elternteils nehmen
 * Fuer die 3.; 3,25., 3,5. und 3,75. Generation: Das Geburtsland des jeweils im Ausland geborenen Grosselternteils wird fuer origin_zp genutzt. Vorgehen analog wie bei der 2. Generation
 * Grundsaetzlich: Wenn Geburtsland-Info nicht fuer alle bekannt, dann werden die Informationen genutzt, die vorhanden sind (und Vermerk in der Hilfsvariable)
-* Grundsaetzlich 2: Wenn verschiedene Geburtslaender, dann zu �sonstigen�
+* Grundsaetzlich 2: Wenn verschiedene Geburtslaender, dann zu 'sonstigen'
 
 
 
